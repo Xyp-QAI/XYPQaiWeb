@@ -12,42 +12,42 @@ import domainQuantum from "@/assets/domain-quantum.jpg";
 
 const domains = [
   {
-    label: "AI & ML",
+    label: "AI & Machine Learning",
     headline: "Deep learning systems for real-world decision making.",
     description:
       "Our AI and machine learning platforms power autonomous decision-making across education, infrastructure, and industry — trained on real-world data and deployed at scale.",
     image: domainAiMl,
   },
   {
-    label: "Computer Vision",
+    label: "Computer Vision & Perception AI",
     headline: "Visual intelligence for autonomous understanding.",
     description:
       "Advanced perception AI that processes visual data in real-time, enabling object detection, facial recognition, and sensor fusion for institutional and industrial applications.",
     image: domainCv,
   },
   {
-    label: "IoT & Devices",
+    label: "IoT & Smart Devices",
     headline: "Connected intelligence across physical environments.",
     description:
       "End-to-end IoT ecosystems connecting sensors, devices, and edge processors to deliver real-time monitoring, automation, and intelligent control.",
     image: domainIot,
   },
   {
-    label: "Smart Cities",
+    label: "Smart Cities & Automation",
     headline: "Urban intelligence and infrastructure systems.",
     description:
       "Scalable AI-driven platforms that transform urban environments through intelligent traffic management, energy optimization, and public safety systems.",
     image: domainSmartcity,
   },
   {
-    label: "Industrial AI",
+    label: "Industrial Intelligence",
     headline: "Manufacturing optimization through AI.",
     description:
       "Intelligent manufacturing systems that reduce downtime, optimize throughput, and enable predictive maintenance across complex industrial operations.",
     image: domainIndustrial,
   },
   {
-    label: "Quantum Research",
+    label: "Quantum Computing Research",
     headline: "Next-generation computational paradigms.",
     description:
       "Pioneering quantum computing research that pushes the boundaries of computational possibility — from algorithm design to hybrid quantum-classical systems.",
@@ -59,65 +59,68 @@ const DomainSlider = () => {
   const [active, setActive] = useState(0);
 
   return (
-    <section className="relative bg-[hsl(var(--tech-dark))] overflow-hidden">
-      {/* Subtle circuit pattern overlay */}
-      <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_25%_25%,hsl(var(--primary))_1px,transparent_1px),radial-gradient(circle_at_75%_75%,hsl(var(--primary))_1px,transparent_1px)] bg-[length:40px_40px]" />
+    <section className="bg-background py-20 lg:py-24">
+      <div className="container mx-auto px-4 lg:px-8 max-w-[1440px]">
+        <div className="rounded-xl overflow-hidden bg-[hsl(var(--tech-dark))] relative">
+          {/* Subtle pattern overlay */}
+          <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(circle_at_25%_25%,hsl(var(--primary))_1px,transparent_1px),radial-gradient(circle_at_75%_75%,hsl(var(--primary))_1px,transparent_1px)] bg-[length:40px_40px] pointer-events-none" />
 
-      <div className="relative">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={active}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="grid grid-cols-1 lg:grid-cols-2 min-h-[520px]"
-          >
-            {/* Image side */}
-            <div className="relative overflow-hidden h-64 lg:h-auto">
-              <img
-                src={domains[active].image}
-                alt={domains[active].label}
-                className="absolute inset-0 w-full h-full object-cover"
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.45, ease: "easeInOut" }}
+              className="relative grid grid-cols-1 lg:grid-cols-2 min-h-[480px]"
+            >
+              {/* Text side (left) */}
+              <div className="flex flex-col justify-center px-8 py-12 lg:px-14 lg:py-16 order-2 lg:order-1 relative z-10">
+                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-tech-cyan mb-5">
+                  {domains[active].label}
+                </span>
+                <h2 className="text-3xl lg:text-[2.75rem] xl:text-[3.25rem] font-bold leading-[1.1] text-primary-foreground mb-6">
+                  {domains[active].headline}
+                </h2>
+                <p className="text-base leading-relaxed text-primary-foreground/60 mb-8 max-w-md">
+                  {domains[active].description}
+                </p>
+                <Link
+                  to="/technology"
+                  className="inline-flex items-center gap-2 text-primary-foreground font-semibold text-sm hover:gap-3 transition-all duration-300"
+                >
+                  Learn more <ChevronRight size={16} />
+                </Link>
+              </div>
+
+              {/* Image side (right) */}
+              <div className="relative h-64 lg:h-auto order-1 lg:order-2">
+                <img
+                  src={domains[active].image}
+                  alt={domains[active].label}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-[hsl(var(--tech-dark))] opacity-80 hidden lg:block" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--tech-dark))] to-transparent opacity-60 lg:hidden" />
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Dash indicators */}
+          <div className="relative z-10 flex items-center justify-center gap-2.5 pb-8 -mt-4 lg:mt-0">
+            {domains.map((d, i) => (
+              <button
+                key={i}
+                onClick={() => setActive(i)}
+                aria-label={`View ${d.label}`}
+                className={`h-[5px] rounded-full transition-all duration-500 ease-out ${
+                  i === active
+                    ? "w-12 bg-primary-foreground"
+                    : "w-6 bg-primary-foreground/20 hover:bg-primary-foreground/40"
+                }`}
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[hsl(var(--tech-dark))] opacity-60 hidden lg:block" />
-            </div>
-
-            {/* Text side */}
-            <div className="flex flex-col justify-center px-8 py-12 lg:px-16 lg:py-20">
-              <span className="text-sm font-semibold uppercase tracking-widest text-tech-cyan mb-4">
-                {domains[active].label}
-              </span>
-              <h2 className="text-3xl lg:text-[2.75rem] font-bold leading-tight text-primary-foreground mb-6">
-                {domains[active].headline}
-              </h2>
-              <p className="text-base lg:text-lg leading-relaxed text-primary-foreground/70 mb-8 max-w-lg">
-                {domains[active].description}
-              </p>
-              <Link
-                to="/technology"
-                className="inline-flex items-center gap-2 text-tech-cyan font-semibold hover:gap-3 transition-all duration-300"
-              >
-                Learn More <ChevronRight size={18} />
-              </Link>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Dash indicators */}
-        <div className="flex items-center justify-center gap-3 pb-10 pt-4">
-          {domains.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setActive(i)}
-              aria-label={`View ${domains[i].label}`}
-              className={`h-1.5 rounded-full transition-all duration-500 ease-out ${
-                i === active
-                  ? "w-14 bg-primary"
-                  : "w-7 bg-primary-foreground/25 hover:bg-primary-foreground/40"
-              }`}
-            />
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
