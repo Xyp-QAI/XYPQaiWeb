@@ -13,44 +13,44 @@ import domainQuantum from "@/assets/domain-quantum.jpg";
 const domains = [
   {
     label: "AI & Machine Learning",
-    headline: "Deep learning systems for real-world decision making.",
+    headline: "Artificial Intelligence & Machine Learning",
     description:
-      "Our AI and machine learning platforms power autonomous decision-making across education, infrastructure, and industry — trained on real-world data and deployed at scale.",
+      "Deep learning systems for real-world decision making. Our platforms power autonomous decision-making across education, infrastructure, and industry — trained on real-world data and deployed at scale.",
     image: domainAiMl,
   },
   {
-    label: "Computer Vision & Perception AI",
-    headline: "Visual intelligence for autonomous understanding.",
+    label: "Computer Vision",
+    headline: "Computer Vision & Perception AI",
     description:
-      "Advanced perception AI that processes visual data in real-time, enabling object detection, facial recognition, and sensor fusion for institutional and industrial applications.",
+      "Visual intelligence for autonomous understanding. Advanced perception AI processing visual data in real-time — object detection, facial recognition, and sensor fusion for institutional and industrial applications.",
     image: domainCv,
   },
   {
-    label: "IoT & Smart Devices",
-    headline: "Connected intelligence across physical environments.",
+    label: "IoT & Devices",
+    headline: "IoT & Smart Devices",
     description:
-      "End-to-end IoT ecosystems connecting sensors, devices, and edge processors to deliver real-time monitoring, automation, and intelligent control.",
+      "Connected intelligence across physical environments. End-to-end IoT ecosystems connecting sensors, devices, and edge processors for real-time monitoring, automation, and intelligent control.",
     image: domainIot,
   },
   {
-    label: "Smart Cities & Automation",
-    headline: "Urban intelligence and infrastructure systems.",
+    label: "Smart Cities",
+    headline: "Smart Cities & Automation",
     description:
-      "Scalable AI-driven platforms that transform urban environments through intelligent traffic management, energy optimization, and public safety systems.",
+      "Urban intelligence and infrastructure systems. Scalable AI-driven platforms transforming urban environments through intelligent traffic management, energy optimization, and public safety.",
     image: domainSmartcity,
   },
   {
-    label: "Industrial Intelligence",
-    headline: "Manufacturing optimization through AI.",
+    label: "Industrial AI",
+    headline: "Industrial Intelligence",
     description:
-      "Intelligent manufacturing systems that reduce downtime, optimize throughput, and enable predictive maintenance across complex industrial operations.",
+      "Manufacturing optimization through AI. Intelligent systems that reduce downtime, optimize throughput, and enable predictive maintenance across complex industrial operations.",
     image: domainIndustrial,
   },
   {
-    label: "Quantum Computing Research",
-    headline: "Next-generation computational paradigms.",
+    label: "Quantum Research",
+    headline: "Quantum Computing Research",
     description:
-      "Pioneering quantum computing research that pushes the boundaries of computational possibility — from algorithm design to hybrid quantum-classical systems.",
+      "Next-generation computational paradigms. Pioneering research pushing the boundaries of computational possibility — from algorithm design to hybrid quantum-classical systems.",
     image: domainQuantum,
   },
 ];
@@ -61,59 +61,72 @@ const DomainSlider = () => {
   return (
     <section className="bg-background py-20 lg:py-24">
       <div className="container mx-auto px-4 lg:px-8 max-w-[1440px]">
-        {/* Section heading */}
         <h2 className="text-section-sm lg:text-section text-foreground text-center mb-10">
           Intelligent Systems Across Multiple Domains
         </h2>
 
-        {/* Card container — fixed height, no layout shift */}
-        <div className="rounded-xl overflow-hidden bg-[hsl(var(--tech-dark))] relative h-[500px] lg:h-[600px]">
-          {/* Pattern overlay */}
-          <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(circle_at_25%_25%,hsl(var(--primary))_1px,transparent_1px),radial-gradient(circle_at_75%_75%,hsl(var(--primary))_1px,transparent_1px)] bg-[length:40px_40px] pointer-events-none" />
+        {/* Unified card with gradient background */}
+        <div
+          className="relative rounded-xl overflow-hidden h-[420px] sm:h-[480px] lg:h-[600px]"
+          style={{
+            background:
+              "linear-gradient(135deg, hsl(216 100% 25%) 0%, hsl(0 0% 10%) 100%)",
+          }}
+        >
+          {/* Subtle dot pattern */}
+          <div className="absolute inset-0 opacity-[0.06] bg-[radial-gradient(circle,hsl(0_0%_100%)_0.5px,transparent_0.5px)] bg-[length:24px_24px] pointer-events-none" />
 
-          {/* Content area (absolute-fills the card so every domain is identical size) */}
           <AnimatePresence mode="wait">
             <motion.div
               key={active}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.45, ease: "easeInOut" }}
-              className="absolute inset-0 grid grid-cols-1 lg:grid-cols-2"
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="absolute inset-0"
             >
-              {/* Text — left */}
-              <div className="flex flex-col justify-center p-8 lg:p-10 xl:p-14 relative z-10">
-                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-tech-cyan mb-5">
-                  {domains[active].label}
-                </span>
-                <h3 className="text-2xl sm:text-3xl lg:text-[2.75rem] xl:text-[3.25rem] font-bold leading-[1.1] text-primary-foreground mb-6">
-                  {domains[active].headline}
-                </h3>
-                <p className="text-sm lg:text-base leading-relaxed text-primary-foreground/60 mb-8 max-w-md">
-                  {domains[active].description}
-                </p>
-                <Link
-                  to="/technology"
-                  className="inline-flex items-center gap-2 text-primary-foreground font-semibold text-sm hover:gap-3 transition-all duration-300"
-                >
-                  Learn more <ChevronRight size={16} />
-                </Link>
-              </div>
-
-              {/* Image — right */}
-              <div className="relative hidden lg:block">
+              {/* Floating image — right side, blended into gradient */}
+              <div className="absolute right-0 top-0 bottom-0 w-[55%] lg:w-[50%] hidden md:block">
                 <img
                   src={domains[active].image}
                   alt={domains[active].label}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-[hsl(var(--tech-dark))] opacity-80" />
+                {/* Radial + linear fade to blend into background */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(to right, hsl(216 100% 25%) 0%, transparent 50%), radial-gradient(ellipse at 80% 50%, transparent 30%, hsl(216 100% 25% / 0.7) 70%, hsl(0 0% 10%) 100%)",
+                  }}
+                />
+              </div>
+
+              {/* Text — left side, contained width */}
+              <div className="absolute inset-0 flex flex-col justify-center px-8 lg:px-14 xl:px-16 z-10">
+                <div className="max-w-md lg:max-w-lg">
+                  <span className="text-xs font-semibold uppercase tracking-[0.2em] text-tech-cyan mb-4 block">
+                    {domains[active].label}
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl lg:text-[2.5rem] xl:text-[3rem] font-bold leading-[1.1] text-primary-foreground mb-5">
+                    {domains[active].headline}
+                  </h3>
+                  <p className="text-sm lg:text-base leading-relaxed text-primary-foreground/55 mb-8">
+                    {domains[active].description}
+                  </p>
+                  <Link
+                    to="/technology"
+                    className="inline-flex items-center gap-2 text-primary-foreground font-semibold text-sm hover:gap-3 transition-all duration-300"
+                  >
+                    Learn more <ChevronRight size={16} />
+                  </Link>
+                </div>
               </div>
             </motion.div>
           </AnimatePresence>
 
-          {/* Dash indicators — pinned to bottom */}
-          <div className="absolute bottom-0 left-0 right-0 z-20 flex items-center justify-center gap-2.5 pb-8">
+          {/* Dash indicators */}
+          <div className="absolute bottom-0 left-0 right-0 z-20 flex items-center justify-center gap-2.5 pb-7">
             {domains.map((d, i) => (
               <button
                 key={i}
