@@ -125,13 +125,16 @@ const Navbar = () => {
         "fixed top-0 w-full z-50 transition-all duration-300",
         scrolled
           ? "bg-background/95 backdrop-blur-md shadow-sm border-b border-border"
-          : "bg-background"
+          : "bg-transparent"
       )}
     >
-      <nav className="container mx-auto flex items-center justify-between h-16 px-4 lg:px-8">
+      <nav className={cn(
+        "container mx-auto flex items-center justify-between h-16 px-4 lg:px-8",
+        !scrolled && "text-white"
+      )}>
         <Link to="/" className="flex items-center gap-2 font-bold text-xl shrink-0">
-          <span className="text-primary">XYP</span>
-          <span className="text-foreground">Quantum AI</span>
+          <span className={scrolled ? "text-primary" : "text-white"}>XYP</span>
+          <span className={scrolled ? "text-foreground" : "text-white"}>Quantum AI</span>
         </Link>
 
         {/* Desktop Nav */}
