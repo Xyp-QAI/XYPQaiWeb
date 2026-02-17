@@ -61,10 +61,17 @@ const DomainSlider = () => {
   return (
     <section className="bg-background py-20 lg:py-24">
       <div className="container mx-auto px-4 lg:px-8 max-w-[1440px]">
-        <div className="rounded-xl overflow-hidden bg-[hsl(var(--tech-dark))] relative">
-          {/* Subtle pattern overlay */}
+        {/* Section heading */}
+        <h2 className="text-section-sm lg:text-section text-foreground text-center mb-10">
+          Intelligent Systems Across Multiple Domains
+        </h2>
+
+        {/* Card container — fixed height, no layout shift */}
+        <div className="rounded-xl overflow-hidden bg-[hsl(var(--tech-dark))] relative h-[500px] lg:h-[600px]">
+          {/* Pattern overlay */}
           <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(circle_at_25%_25%,hsl(var(--primary))_1px,transparent_1px),radial-gradient(circle_at_75%_75%,hsl(var(--primary))_1px,transparent_1px)] bg-[length:40px_40px] pointer-events-none" />
 
+          {/* Content area (absolute-fills the card so every domain is identical size) */}
           <AnimatePresence mode="wait">
             <motion.div
               key={active}
@@ -72,17 +79,17 @@ const DomainSlider = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.45, ease: "easeInOut" }}
-              className="relative grid grid-cols-1 lg:grid-cols-2 min-h-[480px]"
+              className="absolute inset-0 grid grid-cols-1 lg:grid-cols-2"
             >
-              {/* Text side (left) */}
-              <div className="flex flex-col justify-center px-8 py-12 lg:px-14 lg:py-16 order-2 lg:order-1 relative z-10">
+              {/* Text — left */}
+              <div className="flex flex-col justify-center p-8 lg:p-10 xl:p-14 relative z-10">
                 <span className="text-xs font-semibold uppercase tracking-[0.2em] text-tech-cyan mb-5">
                   {domains[active].label}
                 </span>
-                <h2 className="text-3xl lg:text-[2.75rem] xl:text-[3.25rem] font-bold leading-[1.1] text-primary-foreground mb-6">
+                <h3 className="text-2xl sm:text-3xl lg:text-[2.75rem] xl:text-[3.25rem] font-bold leading-[1.1] text-primary-foreground mb-6">
                   {domains[active].headline}
-                </h2>
-                <p className="text-base leading-relaxed text-primary-foreground/60 mb-8 max-w-md">
+                </h3>
+                <p className="text-sm lg:text-base leading-relaxed text-primary-foreground/60 mb-8 max-w-md">
                   {domains[active].description}
                 </p>
                 <Link
@@ -93,21 +100,20 @@ const DomainSlider = () => {
                 </Link>
               </div>
 
-              {/* Image side (right) */}
-              <div className="relative h-64 lg:h-auto order-1 lg:order-2">
+              {/* Image — right */}
+              <div className="relative hidden lg:block">
                 <img
                   src={domains[active].image}
                   alt={domains[active].label}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-[hsl(var(--tech-dark))] opacity-80 hidden lg:block" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--tech-dark))] to-transparent opacity-60 lg:hidden" />
+                <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-[hsl(var(--tech-dark))] opacity-80" />
               </div>
             </motion.div>
           </AnimatePresence>
 
-          {/* Dash indicators */}
-          <div className="relative z-10 flex items-center justify-center gap-2.5 pb-8 -mt-4 lg:mt-0">
+          {/* Dash indicators — pinned to bottom */}
+          <div className="absolute bottom-0 left-0 right-0 z-20 flex items-center justify-center gap-2.5 pb-8">
             {domains.map((d, i) => (
               <button
                 key={i}
