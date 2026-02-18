@@ -129,6 +129,9 @@ const HeroSection = () => {
                 src={logo1}
                 alt="XYP Quantum AI Logo"
                 className="relative z-10 w-[220px] h-[220px] md:w-[300px] md:h-[300px] object-contain drop-shadow-2xl rounded-3xl"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
                 style={{
                   filter: "drop-shadow(0 0 40px rgba(0, 70, 190, 0.4)) drop-shadow(0 0 80px rgba(0, 70, 190, 0.2))",
                 }}

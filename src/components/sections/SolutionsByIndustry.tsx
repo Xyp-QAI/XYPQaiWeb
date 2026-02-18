@@ -228,7 +228,15 @@ const SolutionsByIndustry = () => {
                     src={active.image}
                     alt={`${active.label} dashboard`}
                     className="w-full h-auto object-cover"
+                    loading="eager"
+                    decoding="async"
                   />
+                </div>
+                {/* Preload all industry images for instant tab switching */}
+                <div className="hidden">
+                  {industries.map((ind) => (
+                    <img key={ind.id} src={ind.image} alt="" />
+                  ))}
                 </div>
               </div>
             </motion.div>

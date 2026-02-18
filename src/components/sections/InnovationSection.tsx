@@ -19,7 +19,8 @@ const InnovationSection = () => {
               src={researchLab}
               alt="Quantum computing research laboratory"
               className="rounded-lg shadow-xl w-full"
-              loading="lazy"
+              loading="eager"
+              decoding="async"
             />
           </motion.div>
 
