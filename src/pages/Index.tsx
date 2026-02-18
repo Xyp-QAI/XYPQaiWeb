@@ -1,7 +1,7 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/sections/HeroSection";
-import DomainSlider from "@/components/sections/DomainSlider";
+
 import ValueProposition from "@/components/sections/ValueProposition";
 import SolutionsGrid from "@/components/sections/SolutionsGrid";
 import ProductShowcase from "@/components/sections/ProductShowcase";
@@ -17,7 +17,7 @@ const Index = () => {
       <Navbar />
       <main>
         <HeroSection />
-        <DomainSlider />
+        
         <ValueProposition />
         <SolutionsGrid />
         <ProductShowcase />
