@@ -1,19 +1,19 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Linkedin, Target, Eye, Heart, ArrowRight } from "lucide-react";
+import { Target, Eye, Heart, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ProfileCarousel } from "@/components/ui/profile-card-testimonial-carousel";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import heroBg from "@/assets/hero-bg.jpg";
-import researchLab from "@/assets/research-lab.jpg";
 
 const leaders = [
-  { name: "Dr. Arjun Mehta", title: "Founder & CEO", bio: "Leads XYP Quantum AI's vision for intelligent systems. PhD in Computer Science from MIT. Previously led AI research at a major tech firm." },
-  { name: "Dr. Priya Sharma", title: "CTO", bio: "Architect of ZYLOENS platform. 15+ years in distributed systems and edge computing. Former principal engineer at AWS." },
-  { name: "David Chen", title: "VP of Engineering", bio: "Oversees product engineering and development. Background in building scalable SaaS platforms serving millions of users." },
-  { name: "Dr. Sarah Williams", title: "Head of Quantum Research", bio: "Pioneer in quantum error correction. Published 30+ papers. Former research lead at IBM Quantum." },
-  { name: "Raj Patel", title: "VP of Business Development", bio: "Drives strategic partnerships and market expansion. 12+ years in enterprise technology sales across education and government sectors." },
-  { name: "Emma Rodriguez", title: "VP of Product", bio: "Shapes product strategy and user experience. Background in ed-tech product management with a focus on institutional solutions." },
+  { name: "Dr. Arjun Mehta", title: "Founder & CEO", description: "Leads XYP Quantum AI's vision for intelligent systems. PhD in Computer Science from MIT. Previously led AI research at a major tech firm.", imageUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80", linkedinUrl: "#" },
+  { name: "Dr. Priya Sharma", title: "CTO", description: "Architect of ZYLOENS platform. 15+ years in distributed systems and edge computing. Former principal engineer at AWS.", imageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80", linkedinUrl: "#" },
+  { name: "David Chen", title: "VP of Engineering", description: "Oversees product engineering and development. Background in building scalable SaaS platforms serving millions of users.", imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=600&q=80", linkedinUrl: "#" },
+  { name: "Dr. Sarah Williams", title: "Head of Quantum Research", description: "Pioneer in quantum error correction. Published 30+ papers. Former research lead at IBM Quantum.", imageUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=600&q=80", linkedinUrl: "#" },
+  { name: "Raj Patel", title: "VP of Business Development", description: "Drives strategic partnerships and market expansion. 12+ years in enterprise technology sales across education and government sectors.", imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80", linkedinUrl: "#" },
+  { name: "Emma Rodriguez", title: "VP of Product", description: "Shapes product strategy and user experience. Background in ed-tech product management with a focus on institutional solutions.", imageUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=600&q=80", linkedinUrl: "#" },
 ];
 
 const timeline = [
@@ -118,28 +118,7 @@ const About = () => {
         <section className="section-padding">
           <div className="container mx-auto px-4 lg:px-8">
             <h2 className="text-section-sm lg:text-section mb-10 text-center">Leadership Team</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {leaders.map((leader, i) => (
-                <motion.div
-                  key={leader.name}
-                  className="bg-card border border-border rounded-lg p-6 card-hover"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 }}
-                >
-                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 mb-4 flex items-center justify-center">
-                    <span className="text-2xl font-bold text-primary">{leader.name.split(" ").map(n => n[0]).join("")}</span>
-                  </div>
-                  <h3 className="text-lg font-semibold">{leader.name}</h3>
-                  <p className="text-sm text-primary mb-3">{leader.title}</p>
-                  <p className="text-sm text-muted-foreground mb-4">{leader.bio}</p>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                    <Linkedin size={18} />
-                  </a>
-                </motion.div>
-              ))}
-            </div>
+            <ProfileCarousel profiles={leaders} />
           </div>
         </section>
 
