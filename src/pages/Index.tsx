@@ -3,7 +3,7 @@ import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/sections/HeroSection";
 
 import ValueProposition from "@/components/sections/ValueProposition";
-import SolutionsGrid from "@/components/sections/SolutionsGrid";
+
 import ProductShowcase from "@/components/sections/ProductShowcase";
 import TechHighlights from "@/components/sections/TechHighlights";
 import InnovationSection from "@/components/sections/InnovationSection";
@@ -19,7 +19,7 @@ const Index = () => {
         <HeroSection />
         
         <ValueProposition />
-        <SolutionsGrid />
+        
         <ProductShowcase />
         <TechHighlights />
         <InnovationSection />
