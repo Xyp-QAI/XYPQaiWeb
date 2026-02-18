@@ -28,7 +28,9 @@ const ProductShowcase = () => {
               src={productShowcase}
               alt="ZYLOENS Platform Dashboard"
               className="rounded-lg shadow-2xl w-full"
-              loading="lazy"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
             />
           </motion.div>
 
