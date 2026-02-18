@@ -35,7 +35,7 @@ const navItems = [
     ],
   },
   {
-    label: "Solutions",
+    label: "Technology",
     href: "/technology",
     columns: [
       {
@@ -47,33 +47,11 @@ const navItems = [
         ],
       },
       {
-        title: "By Industry",
-        links: [
-          { name: "Healthcare", href: "/technology" },
-          { name: "Manufacturing", href: "/technology" },
-          { name: "Retail & Hospitality", href: "/technology" },
-        ],
-      },
-    ],
-  },
-  {
-    label: "Technology",
-    href: "/technology",
-    columns: [
-      {
         title: "Core Technology",
         links: [
           { name: "AI & Machine Learning", href: "/technology" },
-          { name: "Computer Vision", href: "/technology" },
           { name: "Edge Computing", href: "/technology" },
-        ],
-      },
-      {
-        title: "Research",
-        links: [
           { name: "Quantum Computing", href: "/technology" },
-          { name: "Research & Innovation", href: "/technology" },
-          { name: "Technology Stack", href: "/technology" },
         ],
       },
     ],
