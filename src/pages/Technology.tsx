@@ -4,34 +4,8 @@ import { GraduationCap, Landmark, Factory, Cpu, FlaskConical, Rocket } from "luc
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import SolutionsByIndustry from "@/components/sections/SolutionsByIndustry";
+import TechNotepad from "@/components/sections/TechNotepad";
 import heroBg from "@/assets/hero-bg.jpg";
-
-const techStack = [
-  {
-    title: "Machine Learning & AI",
-    items: ["Deep learning frameworks", "Neural network architectures", "Model training pipelines", "MLOps infrastructure"],
-  },
-  {
-    title: "Computer Vision",
-    items: ["Object detection systems", "Facial recognition", "Gesture recognition", "Video analytics"],
-  },
-  {
-    title: "Edge Computing",
-    items: ["On-device inference", "Sensor processing", "Low-latency systems", "Hardware optimization"],
-  },
-  {
-    title: "IoT & Connectivity",
-    items: ["Device management", "Protocol support", "Scalable architecture", "Real-time communication"],
-  },
-  {
-    title: "Cloud Infrastructure",
-    items: ["Scalable APIs", "Microservices architecture", "Data storage & processing", "Security & compliance"],
-  },
-  {
-    title: "Quantum Research",
-    items: ["Quantum algorithms", "Future computing", "Research partnerships", "Hybrid quantum systems"],
-  },
-];
 
 const partnerships = [
   { title: "Schools & Education", description: "For K-12 schools, universities, and research institutions", icon: <GraduationCap className="w-5 h-5 text-gray-700" /> },
@@ -60,34 +34,8 @@ const Technology = () => {
         {/* Solutions by Industry */}
         <SolutionsByIndustry />
 
-        {/* Technology Stack */}
-        <section className="section-alt section-padding">
-          <div className="container mx-auto px-4 lg:px-8">
-            <h2 className="text-section-sm lg:text-section mb-10 text-center">Built on Advanced Technology</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {techStack.map((tech, i) => (
-                <motion.div
-                  key={tech.title}
-                  className="bg-card border border-border rounded-lg p-6 card-hover"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 }}
-                >
-                  <h3 className="text-lg font-semibold mb-4">{tech.title}</h3>
-                  <ul className="space-y-2">
-                    {tech.items.map((item) => (
-                      <li key={item} className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* Technology Notepad */}
+        <TechNotepad />
 
         {/* Partnerships */}
         <section className="section-padding" style={{ background: 'hsl(216 100% 37%)' }}>
