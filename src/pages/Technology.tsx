@@ -34,12 +34,10 @@ const techStack = [
 ];
 
 const partnerships = [
-  { title: "Schools & Education", description: "K-12 schools, universities, research institutions", icon: <GraduationCap className="w-5 h-5 text-gray-700" /> },
-  { title: "Government Programs", description: "Smart city initiatives, public sector partnerships", icon: <Landmark className="w-5 h-5 text-gray-700" /> },
-  { title: "Industry & IoT", description: "Manufacturing, industrial automation companies", icon: <Factory className="w-5 h-5 text-gray-700" /> },
-  { title: "Hardware Teams", description: "Chip manufacturers, device makers, ODMs", icon: <Cpu className="w-5 h-5 text-gray-700" /> },
-  { title: "Research Communities", description: "University labs, research consortiums", icon: <FlaskConical className="w-5 h-5 text-gray-700" /> },
-  { title: "Startups & Products", description: "Technology startups, innovation labs", icon: <Rocket className="w-5 h-5 text-gray-700" /> },
+  { title: "Schools & Education", description: "For K-12 schools, universities, and research institutions", icon: <GraduationCap className="w-5 h-5 text-gray-700" /> },
+  { title: "Government Programs", description: "For smart city initiatives and public sector partnerships", icon: <Landmark className="w-5 h-5 text-gray-700" /> },
+  { title: "Industry & Hardware", description: "For manufacturing, industrial automation, chip makers, device teams, and ODMs", icon: <Factory className="w-5 h-5 text-gray-700" /> },
+  { title: "Research & Product Innovation", description: "For university research teams, consortiums, technology startups, and innovation labs", icon: <FlaskConical className="w-5 h-5 text-gray-700" /> },
 ];
 
 const Technology = () => {
