@@ -1,12 +1,22 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Copy, Search, Settings2, Code2, ShieldCheck, MessageSquare, Paintbrush } from "lucide-react";
+import { Copy, Search, Settings2, Code2, ShieldCheck, MessageSquare, Paintbrush, Brain, Cpu, Network, Eye, Cloud, Rocket, type LucideIcon } from "lucide-react";
+
+const iconMap: Record<string, LucideIcon> = {
+  brain: Brain,
+  eye: Eye,
+  cpu: Cpu,
+  network: Network,
+  cloud: Cloud,
+  rocket: Rocket,
+};
 
 const techStack = [
   {
     id: "ml",
     title: "Machine Learning & AI",
     filename: "ml_specs.md",
+    iconKey: "brain",
     items: [
       'title: "Machine Learning & AI"',
       'description: "Advanced deep learning',
@@ -31,6 +41,7 @@ const techStack = [
     id: "cv",
     title: "Computer Vision",
     filename: "cv_specs.md",
+    iconKey: "eye",
     items: [
       'title: "Computer Vision"',
       'description: "Real-time visual',
@@ -54,6 +65,7 @@ const techStack = [
     id: "edge",
     title: "Edge Computing",
     filename: "edge_specs.md",
+    iconKey: "cpu",
     items: [
       'title: "Edge Computing"',
       'description: "On-device AI',
@@ -77,6 +89,7 @@ const techStack = [
     id: "iot",
     title: "IoT & Connectivity",
     filename: "iot_specs.md",
+    iconKey: "network",
     items: [
       'title: "IoT & Connectivity"',
       'description: "Scalable connected',
@@ -100,6 +113,7 @@ const techStack = [
     id: "cloud",
     title: "Cloud Infrastructure",
     filename: "cloud_specs.md",
+    iconKey: "cloud",
     items: [
       'title: "Cloud Infrastructure"',
       'description: "Enterprise-grade',
@@ -123,6 +137,7 @@ const techStack = [
     id: "quantum",
     title: "Quantum Research",
     filename: "quantum_specs.md",
+    iconKey: "rocket",
     items: [
       'title: "Quantum Research"',
       'description: "Next-generation',
@@ -258,12 +273,16 @@ const TechNotepad = () => {
                     <AnimatePresence mode="wait">
                       <motion.span
                         key={activeId}
-                        className="text-xs text-white/60 font-mono"
+                        className="flex items-center gap-1.5 text-xs text-white/60 font-mono"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.15 }}
                       >
+                        {(() => {
+                          const TabIcon = iconMap[active.iconKey];
+                          return TabIcon ? <TabIcon className="w-3.5 h-3.5 text-white" /> : null;
+                        })()}
                         {active.filename}
                       </motion.span>
                     </AnimatePresence>
