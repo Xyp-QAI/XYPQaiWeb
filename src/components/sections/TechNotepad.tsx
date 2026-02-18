@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Copy, Search, Settings2, Code2, ShieldCheck, MessageSquare, Paintbrush, Brain, Cpu, Network, Eye, Cloud, Rocket, type LucideIcon } from "lucide-react";
+import { Copy, Search, Settings2, Zap, Shield, Layers, Settings, Brain, Cpu, Network, Eye, Cloud, Rocket, type LucideIcon } from "lucide-react";
 
 const iconMap: Record<string, LucideIcon> = {
   brain: Brain,
@@ -160,10 +160,10 @@ const techStack = [
 ];
 
 const features = [
-  { icon: Code2, title: "API Playground", desc: "Test and explore APIs directly in your stack" },
-  { icon: ShieldCheck, title: "Visitor Authentication", desc: "Secure access with customizable controls" },
-  { icon: MessageSquare, title: "User Feedback", desc: "Keep systems and code in perfect harmony" },
-  { icon: Paintbrush, title: "Fully Customizable", desc: "Tailor with custom components and configs" },
+  { icon: Zap, title: "Real-Time Inference", desc: "Sub-millisecond AI predictions at the edge" },
+  { icon: Shield, title: "Enterprise Security", desc: "End-to-end encryption and compliance built in" },
+  { icon: Layers, title: "Modular Architecture", desc: "Plug-and-play components across all deployments" },
+  { icon: Settings, title: "Custom Pipelines", desc: "Tailor ML workflows to your industry needs" },
 ];
 
 const TechNotepad = () => {
