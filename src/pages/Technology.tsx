@@ -117,24 +117,14 @@ const Technology = () => {
                   <p className="text-sm text-gray-500 leading-relaxed">{p.description}</p>
                 </motion.div>
               ))}
-
-              {/* CTA Card */}
-              <motion.div
-                className="bg-white/10 border border-white/20 rounded-2xl p-7 flex flex-col items-start justify-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: partnerships.length * 0.08 }}
+            </div>
+            <div className="flex justify-center mt-8">
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 bg-white text-primary font-semibold text-sm px-6 py-3 rounded-lg hover:bg-white/90 transition-colors"
               >
-                <h3 className="font-bold text-white mb-2 text-lg">Partner with us</h3>
-                <p className="text-sm text-white/70 mb-5">Join our ecosystem and build impactful solutions together.</p>
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center gap-2 bg-white text-primary font-semibold text-sm px-5 py-2.5 rounded-lg hover:bg-white/90 transition-colors"
-                >
-                  Get Started →
-                </Link>
-              </motion.div>
+                Partner with us →
+              </Link>
             </div>
           </div>
         </section>
