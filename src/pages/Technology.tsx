@@ -1,63 +1,9 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Download, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import SolutionsByIndustry from "@/components/sections/SolutionsByIndustry";
 import heroBg from "@/assets/hero-bg.jpg";
-
-const industryTabs = [
-  {
-    id: "education",
-    label: "Education",
-    title: "AI Solutions for Education",
-    description: "Transform educational institutions with intelligent systems that enhance learning and operations.",
-    solutions: ["Student portfolio platforms", "Learning analytics", "Institutional automation", "Campus security systems", "Resource optimization"],
-    caseStudies: [
-      { title: "District-Wide ZYLOENS Deployment", result: "40% improvement in engagement" },
-      { title: "AI-Powered Assessment System", result: "Reduced grading time by 60%" },
-      { title: "Smart Campus Initiative", result: "30% energy savings" },
-    ],
-  },
-  {
-    id: "cities",
-    label: "Smart Cities",
-    title: "Smart City Infrastructure",
-    description: "Build intelligent urban environments with AI-powered monitoring, automation, and citizen services.",
-    solutions: ["Traffic optimization", "Environmental monitoring", "Public safety systems", "Waste management", "Energy grid optimization"],
-    caseStudies: [
-      { title: "Urban Traffic AI System", result: "25% congestion reduction" },
-      { title: "Air Quality Monitoring", result: "City-wide coverage" },
-      { title: "Smart Street Lighting", result: "45% energy reduction" },
-    ],
-  },
-  {
-    id: "manufacturing",
-    label: "Manufacturing",
-    title: "Industrial Intelligence",
-    description: "Optimize manufacturing with AI-driven quality control, predictive maintenance, and process automation.",
-    solutions: ["Predictive maintenance", "Quality inspection", "Supply chain optimization", "Robotic process automation", "Digital twins"],
-    caseStudies: [
-      { title: "Predictive Maintenance System", result: "70% fewer breakdowns" },
-      { title: "Visual Quality Inspection", result: "99.5% accuracy" },
-      { title: "Supply Chain Optimization", result: "20% cost reduction" },
-    ],
-  },
-  {
-    id: "healthcare",
-    label: "Healthcare",
-    title: "Healthcare AI Solutions",
-    description: "Advance healthcare delivery with AI-powered diagnostics, patient management, and research tools.",
-    solutions: ["Medical imaging AI", "Patient flow optimization", "Drug discovery assistance", "Clinical decision support", "Health record analytics"],
-    caseStudies: [
-      { title: "Radiology AI Assistant", result: "35% faster diagnosis" },
-      { title: "Patient Wait Time Reduction", result: "50% improvement" },
-      { title: "Clinical Trial Matching", result: "3x faster enrollment" },
-    ],
-  },
-];
 
 const techStack = [
   {
@@ -96,9 +42,6 @@ const partnerships = [
 ];
 
 const Technology = () => {
-  const [activeIndustry, setActiveIndustry] = useState("education");
-  const industry = industryTabs.find((t) => t.id === activeIndustry)!;
-
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -116,61 +59,7 @@ const Technology = () => {
         </section>
 
         {/* Solutions by Industry */}
-        <section className="section-padding">
-          <div className="container mx-auto px-4 lg:px-8">
-            <h2 className="text-section-sm lg:text-section mb-10 text-center">Solutions by Industry</h2>
-
-            <div className="flex flex-wrap justify-center gap-2 mb-10">
-              {industryTabs.map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveIndustry(tab.id)}
-                  className={cn(
-                    "px-5 py-2.5 text-sm font-medium rounded-md transition-all",
-                    activeIndustry === tab.id
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-secondary text-secondary-foreground border border-border hover:border-primary/30"
-                  )}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-
-            <motion.div
-              key={activeIndustry}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className="grid grid-cols-1 lg:grid-cols-2 gap-12"
-            >
-              <div>
-                <h3 className="text-2xl font-bold mb-4">{industry.title}</h3>
-                <p className="text-muted-foreground mb-6">{industry.description}</p>
-                <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">Solutions</h4>
-                <ul className="space-y-2 mb-6">
-                  {industry.solutions.map((s) => (
-                    <li key={s} className="flex items-center gap-2 text-sm">
-                      <ArrowRight size={14} className="text-primary" /> {s}
-                    </li>
-                  ))}
-                </ul>
-                <Button variant="outline" size="sm"><Download size={14} /> Download Solution Brief</Button>
-              </div>
-              <div>
-                <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">Case Studies</h4>
-                <div className="space-y-4">
-                  {industry.caseStudies.map((cs) => (
-                    <div key={cs.title} className="bg-card border border-border rounded-lg p-5">
-                      <h5 className="font-semibold mb-1">{cs.title}</h5>
-                      <p className="text-sm text-primary font-medium">{cs.result}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
+        <SolutionsByIndustry />
 
         {/* Technology Stack */}
         <section className="section-alt section-padding">
