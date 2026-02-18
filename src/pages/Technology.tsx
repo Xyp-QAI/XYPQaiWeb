@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { GraduationCap, Landmark, Factory, Cpu, FlaskConical, Rocket } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import SolutionsByIndustry from "@/components/sections/SolutionsByIndustry";
@@ -33,12 +34,12 @@ const techStack = [
 ];
 
 const partnerships = [
-  { title: "Schools & Educational Institutions", description: "K-12 schools, universities, research institutions" },
-  { title: "Government & Innovation Programs", description: "Smart city initiatives, public sector partnerships" },
-  { title: "Industry & IoT Partners", description: "Manufacturing, industrial automation companies" },
-  { title: "Embedded & Hardware Teams", description: "Chip manufacturers, device makers, ODMs" },
-  { title: "Research & Academic Communities", description: "University labs, research consortiums" },
-  { title: "Startups & Product Teams", description: "Technology startups, innovation labs" },
+  { title: "Schools & Education", description: "K-12 schools, universities, research institutions", icon: <GraduationCap className="w-5 h-5 text-gray-700" /> },
+  { title: "Government Programs", description: "Smart city initiatives, public sector partnerships", icon: <Landmark className="w-5 h-5 text-gray-700" /> },
+  { title: "Industry & IoT", description: "Manufacturing, industrial automation companies", icon: <Factory className="w-5 h-5 text-gray-700" /> },
+  { title: "Hardware Teams", description: "Chip manufacturers, device makers, ODMs", icon: <Cpu className="w-5 h-5 text-gray-700" /> },
+  { title: "Research Communities", description: "University labs, research consortiums", icon: <FlaskConical className="w-5 h-5 text-gray-700" /> },
+  { title: "Startups & Products", description: "Technology startups, innovation labs", icon: <Rocket className="w-5 h-5 text-gray-700" /> },
 ];
 
 const Technology = () => {
@@ -91,27 +92,51 @@ const Technology = () => {
         </section>
 
         {/* Partnerships */}
-        <section className="section-padding">
+        <section className="section-padding" style={{ background: 'hsl(216 100% 37%)' }}>
           <div className="container mx-auto px-4 lg:px-8">
-            <h2 className="text-section-sm lg:text-section mb-4 text-center">Collaboration Across the Technology Ecosystem</h2>
-            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-              We partner across industries and institutions to deliver impactful solutions.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="flex justify-center mb-4">
+              <span className="text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full bg-white/15 text-white/90">
+                Partners
+              </span>
+            </div>
+            <h2 className="text-3xl lg:text-4xl font-bold text-white text-center mb-12">
+              Collaboration Across the Technology Ecosystem
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {partnerships.map((p, i) => (
                 <motion.div
                   key={p.title}
-                  className="bg-card border border-border rounded-lg p-6 card-hover"
+                  className="bg-white rounded-2xl p-7 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg flex flex-col"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08 }}
                 >
-                  <h3 className="font-semibold mb-2">{p.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-4">{p.description}</p>
-                  <Link to="/contact" className="text-sm text-primary font-medium">Partner with us →</Link>
+                  <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center mb-4">
+                    {p.icon}
+                  </div>
+                  <h3 className="font-bold text-gray-900 mb-1.5 text-sm">{p.title}</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">{p.description}</p>
                 </motion.div>
               ))}
+
+              {/* CTA Card */}
+              <motion.div
+                className="bg-white/10 border border-white/20 rounded-2xl p-7 flex flex-col items-start justify-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: partnerships.length * 0.08 }}
+              >
+                <h3 className="font-bold text-white mb-2 text-lg">Partner with us</h3>
+                <p className="text-sm text-white/70 mb-5">Join our ecosystem and build impactful solutions together.</p>
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-2 bg-white text-primary font-semibold text-sm px-5 py-2.5 rounded-lg hover:bg-white/90 transition-colors"
+                >
+                  Get Started →
+                </Link>
+              </motion.div>
             </div>
           </div>
         </section>
