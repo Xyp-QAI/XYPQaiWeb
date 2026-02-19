@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronRight, ChevronLeft } from "lucide-react";
+import { ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import offeringAI from "@/assets/offering-ai.jpg";
 import offeringSoftware from "@/assets/offering-software.jpg";
 import offeringHardware from "@/assets/offering-hardware.jpg";
@@ -17,24 +18,11 @@ const offerings = [
   { title: "Education Technology", image: offeringEducation, href: "/products" },
 ];
 
+// Group into pages of 3
+const pages = [offerings.slice(0, 3), offerings.slice(3, 6)];
+
 const TechHighlights = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-
-  const checkScroll = () => {
-    const el = scrollRef.current;
-    if (!el) return;
-    setCanScrollLeft(el.scrollLeft > 10);
-    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10);
-  };
-
-  const scroll = (dir: "left" | "right") => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const amount = el.clientWidth * 0.7;
-    el.scrollBy({ left: dir === "left" ? -amount : amount, behavior: "smooth" });
-  };
+  const [activePage, setActivePage] = useState(0);
 
   return (
     <section className="section-padding bg-background">
@@ -49,71 +37,56 @@ const TechHighlights = () => {
           </p>
         </div>
 
-        {/* Carousel */}
-        <div className="relative group">
-          {canScrollLeft && (
-            <button
-              onClick={() => scroll("left")}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-card border border-border shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity -ml-3"
-              aria-label="Scroll left"
+        {/* Cards */}
+        <div className="overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activePage}
+              initial={{ opacity: 0, x: 60 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -60 }}
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-5"
             >
-              <ChevronLeft size={20} className="text-foreground" />
-            </button>
-          )}
-          {canScrollRight && (
+              {pages[activePage].map((item) => (
+                <Link
+                  key={item.title}
+                  to={item.href}
+                  className="group/card"
+                >
+                  <div className="overflow-hidden rounded-lg mb-3">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-[300px] md:h-[380px] object-cover transition-transform duration-500 group-hover/card:scale-105"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-base font-semibold text-foreground">{item.title}</span>
+                    <ChevronRight size={18} className="text-foreground transition-transform group-hover/card:translate-x-1" />
+                  </div>
+                </Link>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Pill indicators */}
+        <div className="flex justify-center gap-2.5 mt-8">
+          {pages.map((_, i) => (
             <button
-              onClick={() => scroll("right")}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-card border border-border shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity -mr-3"
-              aria-label="Scroll right"
-            >
-              <ChevronRight size={20} className="text-foreground" />
-            </button>
-          )}
-
-          <div
-            ref={scrollRef}
-            onScroll={checkScroll}
-            className="flex gap-5 overflow-x-auto pb-2 snap-x snap-mandatory"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          >
-            {offerings.map((item) => (
-              <Link
-                key={item.title}
-                to={item.href}
-                className="flex-shrink-0 w-[280px] md:w-[320px] snap-start group/card"
-              >
-                <div className="overflow-hidden rounded-lg mb-3">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-[360px] md:h-[420px] object-cover transition-transform duration-500 group-hover/card:scale-105"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <span className="text-base font-semibold text-foreground">{item.title}</span>
-                  <ChevronRight size={18} className="text-foreground transition-transform group-hover/card:translate-x-1" />
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          {/* Scroll indicators */}
-          <div className="flex justify-center gap-2 mt-6">
-            {[0, 1, 2].map((i) => (
-              <button
-                key={i}
-                onClick={() => {
-                  const el = scrollRef.current;
-                  if (!el) return;
-                  el.scrollTo({ left: (el.scrollWidth / 3) * i, behavior: "smooth" });
-                }}
-                className={`h-1 rounded-full transition-all ${i === 0 ? "w-8 bg-foreground" : "w-4 bg-muted-foreground/30"}`}
-                aria-label={`Scroll to section ${i + 1}`}
-              />
-            ))}
-          </div>
+              key={i}
+              onClick={() => setActivePage(i)}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                activePage === i
+                  ? "w-10 bg-foreground"
+                  : "w-6 bg-muted-foreground/25 hover:bg-muted-foreground/40"
+              }`}
+              aria-label={`Page ${i + 1}`}
+            />
+          ))}
         </div>
       </div>
     </section>
