@@ -6,6 +6,12 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import heroBg from "@/assets/hero-bg.jpg";
 import productShowcase from "@/assets/product-showcase.jpg";
+import featureStudentPortfolios from "@/assets/feature-student-portfolios.jpg";
+import featureTeacherTools from "@/assets/feature-teacher-tools.jpg";
+import featureAdminControl from "@/assets/feature-admin-control.jpg";
+import featurePrivacySecurity from "@/assets/feature-privacy-security.jpg";
+import featureGrowthAnalytics from "@/assets/feature-growth-analytics.jpg";
+import featureVerifiedOnboarding from "@/assets/feature-verified-onboarding.jpg";
 
 const features = [
   {
@@ -13,36 +19,42 @@ const features = [
     subtitle: "Digital Portfolios & Lifelong Achievement Tracking",
     description: "Students build comprehensive portfolios showcasing their work, achievements, and growth over time.",
     bullets: ["Project showcases", "Achievement badges", "Skill tracking", "Multimedia support", "Export capabilities"],
+    image: featureStudentPortfolios,
   },
   {
     title: "Teacher Tools",
     subtitle: "Teacher-Managed Learning Workflows",
     description: "Empower educators with intuitive tools for class management, assignments, and student engagement.",
     bullets: ["Class management", "Assignment creation", "Grade tracking", "Parent communication", "Analytics dashboard"],
+    image: featureTeacherTools,
   },
   {
     title: "Admin Control",
     subtitle: "Principal & Administrative Oversight",
     description: "Comprehensive dashboards for institutional leadership with real-time insights and control.",
     bullets: ["Institution-wide analytics", "User management", "Compliance tools", "Reporting systems", "Security controls"],
+    image: featureAdminControl,
   },
   {
     title: "Privacy & Security",
     subtitle: "Privacy-First Architecture",
     description: "Complete institutional ownership with no social media risks or data exploitation.",
     bullets: ["School-owned data", "FERPA compliant", "Encrypted storage", "Role-based access", "Audit trails"],
+    image: featurePrivacySecurity,
   },
   {
     title: "Growth Analytics",
     subtitle: "Engagement and Performance Insights",
     description: "Track student engagement, measure learning outcomes, and gain actionable insights to drive continuous improvement across your institution.",
     bullets: ["Student engagement metrics", "Performance dashboards", "Progress tracking", "Trend analysis", "Custom reports"],
+    image: featureGrowthAnalytics,
   },
   {
     title: "Verified Onboarding",
     subtitle: "Institution Verification and Secure Setup",
     description: "Streamlined onboarding with built-in institution verification, ensuring only authorized schools and educators access the platform securely.",
     bullets: ["Institution verification", "Secure registration", "Role assignment", "Guided setup wizard", "Compliance checks"],
+    image: featureVerifiedOnboarding,
   },
 ];
 
@@ -127,9 +139,13 @@ const Products = () => {
                   viewport={{ once: true }}
                 >
                   <div className={i % 2 !== 0 ? "lg:order-2" : ""}>
-                    <div className="aspect-video bg-gradient-to-br from-primary/5 to-accent/5 rounded-lg border border-border flex items-center justify-center">
-                      <span className="text-4xl font-bold text-primary/20">{feature.title}</span>
-                    </div>
+                    <img
+                      src={feature.image}
+                      alt={`${feature.title} feature`}
+                      className="aspect-video w-full object-cover rounded-lg shadow-lg"
+                      loading={i < 2 ? "eager" : "lazy"}
+                      decoding="async"
+                    />
                   </div>
                   <div className={i % 2 !== 0 ? "lg:order-1" : ""}>
                     <h3 className="text-2xl font-bold mb-2">{feature.subtitle}</h3>
