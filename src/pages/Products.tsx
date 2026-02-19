@@ -32,6 +32,18 @@ const features = [
     description: "Complete institutional ownership with no social media risks or data exploitation.",
     bullets: ["School-owned data", "FERPA compliant", "Encrypted storage", "Role-based access", "Audit trails"],
   },
+  {
+    title: "Growth Analytics",
+    subtitle: "Engagement and Performance Insights",
+    description: "Track student engagement, measure learning outcomes, and gain actionable insights to drive continuous improvement across your institution.",
+    bullets: ["Student engagement metrics", "Performance dashboards", "Progress tracking", "Trend analysis", "Custom reports"],
+  },
+  {
+    title: "Verified Onboarding",
+    subtitle: "Institution Verification and Secure Setup",
+    description: "Streamlined onboarding with built-in institution verification, ensuring only authorized schools and educators access the platform securely.",
+    bullets: ["Institution verification", "Secure registration", "Role assignment", "Guided setup wizard", "Compliance checks"],
+  },
 ];
 
 const plans = [
@@ -132,47 +144,6 @@ const Products = () => {
                     </ul>
                   </div>
                 </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Pricing */}
-        <section className="section-alt section-padding">
-          <div className="container mx-auto px-4 lg:px-8">
-            <div className="text-center mb-14">
-              <h2 className="text-section-sm lg:text-section mb-4">Choose the Right Plan</h2>
-              <p className="text-muted-foreground">Select the plan that fits your institution's needs.</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              {plans.map((plan) => (
-                <div
-                  key={plan.name}
-                  className={`card-hover bg-card border rounded-lg p-8 relative ${plan.popular ? "border-primary shadow-lg ring-2 ring-primary/20" : "border-border"}`}
-                >
-                  {plan.popular && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full">
-                      Most Popular
-                    </span>
-                  )}
-                  <h3 className="text-xl font-bold mb-1">{plan.name}</h3>
-                  <p className="text-sm text-muted-foreground mb-4">{plan.description}</p>
-                  <div className="mb-6">
-                    <span className="text-4xl font-bold">{plan.price}</span>
-                    <span className="text-muted-foreground">{plan.period}</span>
-                  </div>
-                  <ul className="space-y-2.5 mb-8">
-                    {plan.features.map((f) => (
-                      <li key={f} className="flex items-center gap-2 text-sm">
-                        <Check size={14} className="text-primary shrink-0" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <Button className="w-full" variant={plan.popular ? "default" : "outline"} asChild>
-                    <Link to="/contact">{plan.price === "Custom" ? "Contact Sales" : "Get Started"}</Link>
-                  </Button>
-                </div>
               ))}
             </div>
           </div>
