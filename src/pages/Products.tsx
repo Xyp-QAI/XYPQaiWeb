@@ -4,7 +4,7 @@ import { Check, Bell, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import heroBg from "@/assets/hero-bg.jpg";
+import PageHero from "@/components/sections/PageHero";
 import productShowcase from "@/assets/product-showcase.jpg";
 import featureStudentPortfolios from "@/assets/feature-student-portfolios.jpg";
 import featureTeacherTools from "@/assets/feature-teacher-tools.jpg";
@@ -88,18 +88,10 @@ const Products = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <main>
-        {/* Hero */}
-        <section className="relative pt-16 min-h-[45vh] flex items-center">
-          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${heroBg})` }} />
-          <div className="hero-overlay absolute inset-0" />
-          <div className="relative z-10 container mx-auto px-4 lg:px-8 py-20">
-            <p className="text-xs text-primary-foreground/60 mb-2">Home &gt; Products</p>
-            <h1 className="text-hero-sm lg:text-hero text-primary-foreground mb-4">Products & Platforms</h1>
-            <p className="text-body-lg text-primary-foreground/80 max-w-xl">
-              Intelligent systems for education, infrastructure, and industry
-            </p>
-          </div>
-        </section>
+        <PageHero
+          title="Products & Platforms"
+          subtitle="Intelligent systems for education, infrastructure, and industry"
+        />
 
         {/* ZYLOENS Overview */}
         <section className="section-padding">

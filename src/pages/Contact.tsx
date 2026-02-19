@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import heroBg from "@/assets/hero-bg.jpg";
+import PageHero from "@/components/sections/PageHero";
 
 const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -22,17 +22,10 @@ const Contact = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <main>
-        {/* Hero */}
-        <section className="relative pt-16 min-h-[40vh] flex items-center">
-          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${heroBg})` }} />
-          <div className="hero-overlay absolute inset-0" />
-          <div className="relative z-10 container mx-auto px-4 lg:px-8 py-20">
-            <h1 className="text-hero-sm lg:text-hero text-primary-foreground mb-4">Get in Touch</h1>
-            <p className="text-body-lg text-primary-foreground/80 max-w-xl">
-              Let's discuss how we can work together
-            </p>
-          </div>
-        </section>
+        <PageHero
+          title="Get in Touch"
+          subtitle="Let's discuss how we can work together"
+        />
 
         {/* Contact Form + Info */}
         <section className="section-padding">

@@ -5,7 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import SolutionsByIndustry from "@/components/sections/SolutionsByIndustry";
 import TechNotepad from "@/components/sections/TechNotepad";
-import heroBg from "@/assets/hero-bg.jpg";
+import PageHero from "@/components/sections/PageHero";
 
 const partnerships = [
   { title: "Schools & Education", description: "For K-12 schools, universities, and research institutions", icon: <GraduationCap className="w-5 h-5 text-gray-700" /> },
@@ -19,17 +19,10 @@ const Technology = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <main>
-        {/* Hero */}
-        <section className="relative pt-16 min-h-[45vh] flex items-center">
-          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${heroBg})` }} />
-          <div className="hero-overlay absolute inset-0" />
-          <div className="relative z-10 container mx-auto px-4 lg:px-8 py-20">
-            <h1 className="text-hero-sm lg:text-hero text-primary-foreground mb-4">Technology & Solutions</h1>
-            <p className="text-body-lg text-primary-foreground/80 max-w-xl">
-              Advanced AI systems for real-world deployment
-            </p>
-          </div>
-        </section>
+        <PageHero
+          title="Technology & Solutions"
+          subtitle="Advanced AI systems for real-world deployment"
+        />
 
         {/* Solutions by Industry */}
         <SolutionsByIndustry />
