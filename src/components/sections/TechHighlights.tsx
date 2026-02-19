@@ -1,155 +1,120 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import { ChevronRight, ChevronLeft } from "lucide-react";
+import offeringAI from "@/assets/offering-ai.jpg";
+import offeringSoftware from "@/assets/offering-software.jpg";
+import offeringHardware from "@/assets/offering-hardware.jpg";
+import offeringIoT from "@/assets/offering-iot.jpg";
+import offeringSmartCity from "@/assets/offering-smartcity.jpg";
+import offeringEducation from "@/assets/offering-education.jpg";
 
-const tabs = [
-  {
-    id: "ai",
-    label: "AI & ML",
-    title: "Machine Learning & Deep AI",
-    description:
-      "Our AI systems leverage advanced deep learning frameworks and neural network architectures to deliver real-time intelligent decision making across institutional and industrial environments.",
-    capabilities: [
-      "Deep learning frameworks",
-      "Neural network architectures",
-      "Model training pipelines",
-      "MLOps infrastructure",
-      "Transfer learning",
-      "Natural language processing",
-    ],
-  },
-  {
-    id: "cv",
-    label: "Computer Vision",
-    title: "Real-Time Perception AI",
-    description:
-      "Our computer vision systems enable real-time visual intelligence for institutional and industrial applications with state-of-the-art accuracy.",
-    capabilities: [
-      "Object detection & recognition",
-      "Facial recognition systems",
-      "Gesture recognition",
-      "Video analytics",
-      "Sensor fusion",
-      "3D spatial mapping",
-    ],
-  },
-  {
-    id: "iot",
-    label: "IoT Systems",
-    title: "Connected Intelligence",
-    description:
-      "Scalable IoT infrastructure connecting thousands of devices with real-time data processing and intelligent automation capabilities.",
-    capabilities: [
-      "Device management",
-      "Protocol support",
-      "Scalable architecture",
-      "Real-time communication",
-      "Edge processing",
-      "Fleet management",
-    ],
-  },
-  {
-    id: "edge",
-    label: "Edge Computing",
-    title: "On-Device Intelligence",
-    description:
-      "Deploy AI directly on edge devices for real-time processing without cloud dependency, optimized for low-latency institutional environments.",
-    capabilities: [
-      "On-device inference",
-      "Sensor processing",
-      "Low-latency systems",
-      "Hardware optimization",
-      "Embedded deployments",
-      "Power-efficient ML",
-    ],
-  },
-  {
-    id: "quantum",
-    label: "Quantum Research",
-    title: "Next-Generation Computing",
-    description:
-      "Pioneering quantum computing research to unlock computational capabilities that will redefine AI, cryptography, and scientific simulation.",
-    capabilities: [
-      "Quantum algorithms",
-      "Hybrid quantum-classical systems",
-      "Error correction research",
-      "Quantum simulation",
-      "Cryptographic applications",
-      "Research partnerships",
-    ],
-  },
+const offerings = [
+  { title: "Artificial Intelligence", image: offeringAI, href: "/technology" },
+  { title: "Software Platforms", image: offeringSoftware, href: "/products" },
+  { title: "Hardware Solutions", image: offeringHardware, href: "/technology" },
+  { title: "IoT & Edge Devices", image: offeringIoT, href: "/technology" },
+  { title: "Smart Infrastructure", image: offeringSmartCity, href: "/technology" },
+  { title: "Education Technology", image: offeringEducation, href: "/products" },
 ];
 
 const TechHighlights = () => {
-  const [activeTab, setActiveTab] = useState("ai");
-  const active = tabs.find((t) => t.id === activeTab)!;
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 10);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10);
+  };
+
+  const scroll = (dir: "left" | "right") => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const amount = el.clientWidth * 0.7;
+    el.scrollBy({ left: dir === "left" ? -amount : amount, behavior: "smooth" });
+  };
 
   return (
-    <section className="section-alt section-padding">
+    <section className="section-padding bg-background">
       <div className="container mx-auto px-4 lg:px-8">
-        <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-section-sm lg:text-section mb-4">
-            Powered by Advanced Technology
-          </h2>
-          <p className="text-body-lg text-muted-foreground max-w-2xl mx-auto">
-            Explore the core technologies driving our intelligent systems.
+        {/* Header */}
+        <div className="text-center mb-10">
+          <p className="text-primary font-semibold text-lg md:text-xl mb-2">
+            Explore XYP Quantum AI
           </p>
-        </motion.div>
-
-        {/* Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={cn(
-                "px-5 py-2.5 text-sm font-medium rounded-md transition-all duration-300",
-                activeTab === tab.id
-                  ? "bg-primary text-primary-foreground shadow-md"
-                  : "bg-background text-foreground border border-border hover:border-primary/30"
-              )}
-            >
-              {tab.label}
-            </button>
-          ))}
+          <h2 className="text-section-sm lg:text-section text-foreground">
+            Discover our diverse range of<br className="hidden md:block" /> offerings and resources.
+          </h2>
         </div>
 
-        {/* Tab Content */}
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start"
-        >
-          <div>
-            <h3 className="text-2xl font-bold mb-4">{active.title}</h3>
-            <p className="text-body-lg text-muted-foreground mb-6">
-              {active.description}
-            </p>
-          </div>
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">
-              Key Capabilities
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {active.capabilities.map((cap) => (
-                <div
-                  key={cap}
-                  className="flex items-center gap-3 bg-background border border-border rounded-md px-4 py-3"
-                >
-                  <div className="w-2 h-2 rounded-full bg-primary shrink-0" />
-                  <span className="text-sm">{cap}</span>
+        {/* Carousel */}
+        <div className="relative group">
+          {canScrollLeft && (
+            <button
+              onClick={() => scroll("left")}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-card border border-border shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity -ml-3"
+              aria-label="Scroll left"
+            >
+              <ChevronLeft size={20} className="text-foreground" />
+            </button>
+          )}
+          {canScrollRight && (
+            <button
+              onClick={() => scroll("right")}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-card border border-border shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity -mr-3"
+              aria-label="Scroll right"
+            >
+              <ChevronRight size={20} className="text-foreground" />
+            </button>
+          )}
+
+          <div
+            ref={scrollRef}
+            onScroll={checkScroll}
+            className="flex gap-5 overflow-x-auto pb-2 snap-x snap-mandatory"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            {offerings.map((item) => (
+              <Link
+                key={item.title}
+                to={item.href}
+                className="flex-shrink-0 w-[280px] md:w-[320px] snap-start group/card"
+              >
+                <div className="overflow-hidden rounded-lg mb-3">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-[360px] md:h-[420px] object-cover transition-transform duration-500 group-hover/card:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
-              ))}
-            </div>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-base font-semibold text-foreground">{item.title}</span>
+                  <ChevronRight size={18} className="text-foreground transition-transform group-hover/card:translate-x-1" />
+                </div>
+              </Link>
+            ))}
           </div>
-        </motion.div>
+
+          {/* Scroll indicators */}
+          <div className="flex justify-center gap-2 mt-6">
+            {[0, 1, 2].map((i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  const el = scrollRef.current;
+                  if (!el) return;
+                  el.scrollTo({ left: (el.scrollWidth / 3) * i, behavior: "smooth" });
+                }}
+                className={`h-1 rounded-full transition-all ${i === 0 ? "w-8 bg-foreground" : "w-4 bg-muted-foreground/30"}`}
+                aria-label={`Scroll to section ${i + 1}`}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
