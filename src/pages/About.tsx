@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ProfileCarousel } from "@/components/ui/profile-card-testimonial-carousel";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import heroBg from "@/assets/hero-bg.jpg";
+import PageHero from "@/components/sections/PageHero";
 
 const leaders = [
   { name: "Dr. Arjun Mehta", title: "Founder & CEO", description: "Leads XYP Quantum AI's vision for intelligent systems. PhD in Computer Science from MIT. Previously led AI research at a major tech firm.", imageUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80", linkedinUrl: "#" },
@@ -31,15 +31,10 @@ const About = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <main>
-        {/* Hero */}
-        <section className="relative pt-16 min-h-[45vh] flex items-center">
-          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${heroBg})` }} />
-          <div className="hero-overlay absolute inset-0" />
-          <div className="relative z-10 container mx-auto px-4 lg:px-8 py-20">
-            <h1 className="text-hero-sm lg:text-hero text-primary-foreground mb-4">About XYP Quantum AI</h1>
-            <p className="text-body-lg text-primary-foreground/80 max-w-xl">Building the future of intelligent systems</p>
-          </div>
-        </section>
+        <PageHero
+          title="About XYP Quantum AI"
+          subtitle="Building the future of intelligent systems"
+        />
 
         {/* Overview */}
         <section className="section-padding">
