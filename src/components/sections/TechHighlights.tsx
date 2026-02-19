@@ -40,13 +40,13 @@ const TechHighlights = () => {
     <section className="section-padding bg-background">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-10">
-          <p className="text-primary font-semibold text-lg md:text-xl mb-2">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-[2.75rem] lg:text-[3.25rem] font-bold text-primary leading-tight mb-1">
             Explore XYP Quantum AI
-          </p>
-          <h2 className="text-section-sm lg:text-section text-foreground">
-            Discover our diverse range of<br className="hidden md:block" /> offerings and resources.
           </h2>
+          <p className="text-2xl md:text-[2.25rem] lg:text-[2.75rem] font-light text-muted-foreground leading-snug">
+            Discover our diverse range of<br className="hidden md:block" /> offerings and resources.
+          </p>
         </div>
 
         {/* Carousel */}
