@@ -6,19 +6,12 @@ import { domainContent } from "@/config/content";
 
 const DomainSlider = () => {
   const [active, setActive] = useState(0);
-  const [imagesReady, setImagesReady] = useState(false);
 
-  // Preload all images on mount
+  // Preload all images into browser cache on mount
   useEffect(() => {
-    let loaded = 0;
-    const total = domainContent.length;
     domainContent.forEach((d) => {
       const img = new Image();
       img.src = d.image;
-      img.onload = img.onerror = () => {
-        loaded++;
-        if (loaded >= total) setImagesReady(true);
-      };
     });
   }, []);
 

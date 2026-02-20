@@ -134,8 +134,9 @@ const Products = () => {
                       src={feature.image}
                       alt={`${feature.title} feature`}
                       className="w-full h-full object-cover"
-                      loading="eager"
+                      loading={i === 0 ? "eager" : "lazy"}
                       decoding="async"
+                      {...(i === 0 ? { fetchPriority: "high" as const } : {})}
                     />
                   </div>
                   <div className={i % 2 !== 0 ? "lg:order-1" : ""}>
