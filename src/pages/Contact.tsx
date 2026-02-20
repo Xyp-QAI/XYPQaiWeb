@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import SEO from "@/components/SEO";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/sections/PageHero";
@@ -30,6 +31,7 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Contact Us" description="Get in touch with XYP Quantum AI — Bengaluru, Karnataka, India. Request demos, partnerships, and support." path="/contact" />
       <Navbar />
       <main>
         <PageHero

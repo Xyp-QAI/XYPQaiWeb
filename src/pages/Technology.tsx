@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { GraduationCap, Landmark, Factory, Cpu, FlaskConical, Rocket } from "lucide-react";
+import SEO from "@/components/SEO";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import SolutionsByIndustry from "@/components/sections/SolutionsByIndustry";
@@ -17,6 +18,7 @@ const partnerships = [
 const Technology = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Technology & Solutions" description="AI, Computer Vision, Edge Computing, IoT & Quantum Research — advanced technology solutions from XYP Quantum AI." path="/technology" />
       <Navbar />
       <main>
         <PageHero

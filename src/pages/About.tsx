@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Target, Eye, Heart, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ProfileCarousel } from "@/components/ui/profile-card-testimonial-carousel";
+import SEO from "@/components/SEO";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/sections/PageHero";
@@ -29,6 +30,7 @@ const timeline = [
 const About = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="About Us" description="Deep-tech company building intelligent systems across education, infrastructure, and quantum research. Founded in Bengaluru." path="/about" />
       <Navbar />
       <main>
         <PageHero

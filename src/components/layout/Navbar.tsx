@@ -202,7 +202,7 @@ const Navbar = () => {
             {navItems.map((item) => (
               <div key={item.label}>
                 <button
-                  className="flex items-center justify-between w-full py-3 text-sm font-medium"
+                  className="flex items-center justify-between w-full min-h-[44px] py-3 text-sm font-medium"
                   onClick={() =>
                     setMobileExpanded(mobileExpanded === item.label ? null : item.label)
                   }
@@ -228,7 +228,7 @@ const Navbar = () => {
                             <li key={link.name}>
                               <Link
                                 to={link.href}
-                                className="text-sm text-foreground hover:text-primary transition-colors"
+                                className="text-sm text-foreground hover:text-primary transition-colors block min-h-[44px] flex items-center"
                               >
                                 {link.name}
                               </Link>
