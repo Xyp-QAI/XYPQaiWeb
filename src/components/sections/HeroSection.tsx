@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
-import logo1 from "@/assets/logo1.png";
+import { heroContent } from "@/config/content";
 
 const HeroSection = () => {
   return (
@@ -27,7 +27,6 @@ const HeroSection = () => {
               opacity={1 - i * 0.07}
             />
           ))}
-          {/* Radiating lines */}
           {[...Array(36)].map((_, i) => {
             const angle = (i * 10 * Math.PI) / 180;
             const x1 = 450 + Math.cos(angle) * 80;
@@ -37,19 +36,12 @@ const HeroSection = () => {
             return (
               <line
                 key={`line-${i}`}
-                x1={x1}
-                y1={y1}
-                x2={x2}
-                y2={y2}
-                stroke="#0046BE"
-                strokeWidth="0.4"
-                opacity={0.3 - (i % 5) * 0.04}
+                x1={x1} y1={y1} x2={x2} y2={y2}
+                stroke="#0046BE" strokeWidth="0.4" opacity={0.3 - (i % 5) * 0.04}
               />
             );
           })}
         </svg>
-
-        {/* Subtle dot grid */}
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
@@ -77,7 +69,7 @@ const HeroSection = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.1 }}
               >
-                Building the Future of Intelligent Systems.
+                {heroContent.headline}
               </motion.h1>
 
               <motion.p
@@ -86,8 +78,7 @@ const HeroSection = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.3 }}
               >
-                We design real-world AI systems that operate across institutions,
-                infrastructure, and next-generation research.
+                {heroContent.subheadline}
               </motion.p>
 
               <motion.div
@@ -96,10 +87,10 @@ const HeroSection = () => {
                 transition={{ duration: 0.7, delay: 0.5 }}
               >
                 <Link
-                  to="/products"
+                  to={heroContent.cta.href}
                   className="inline-flex items-center gap-2 text-white font-medium text-lg hover:gap-3 transition-all duration-300 group"
                 >
-                  Learn more
+                  {heroContent.cta.label}
                   <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
               </motion.div>
@@ -112,26 +103,21 @@ const HeroSection = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.3 }}
             >
-              {/* Glow rings behind logo */}
               <div className="absolute w-[320px] h-[320px] md:w-[420px] md:h-[420px] rounded-full opacity-20"
-                style={{
-                  background: "radial-gradient(circle, #0046BE 0%, transparent 70%)",
-                }}
+                style={{ background: "radial-gradient(circle, #0046BE 0%, transparent 70%)" }}
               />
               <div className="absolute w-[480px] h-[480px] md:w-[560px] md:h-[560px] rounded-full opacity-10"
-                style={{
-                  background: "radial-gradient(circle, #0046BE 0%, transparent 60%)",
-                }}
+                style={{ background: "radial-gradient(circle, #0046BE 0%, transparent 60%)" }}
               />
-
-              {/* Logo */}
               <img
-                src={logo1}
+                src={heroContent.logo}
                 alt="XYP Quantum AI Logo"
                 className="relative z-10 w-[220px] h-[220px] md:w-[300px] md:h-[300px] object-contain drop-shadow-2xl rounded-3xl"
+                width={300}
+                height={300}
                 loading="eager"
                 fetchPriority="high"
-                decoding="async"
+                decoding="sync"
                 style={{
                   filter: "drop-shadow(0 0 40px rgba(0, 70, 190, 0.4)) drop-shadow(0 0 80px rgba(0, 70, 190, 0.2))",
                 }}

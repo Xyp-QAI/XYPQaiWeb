@@ -2,17 +2,11 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import productShowcase from "@/assets/product-showcase.jpg";
-
-const features = [
-  "Student digital portfolios",
-  "Teacher-managed workflows",
-  "Principal & admin dashboards",
-  "Privacy-first architecture",
-  "Real-time analytics",
-];
+import { productShowcaseContent } from "@/config/content";
 
 const ProductShowcase = () => {
+  const c = productShowcaseContent;
+
   return (
     <section className="section-dark section-padding overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8">
@@ -22,16 +16,18 @@ const ProductShowcase = () => {
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
           >
-            <img
-              src={productShowcase}
-              alt="ZYLOENS Platform Dashboard"
-              className="rounded-lg shadow-2xl w-full"
-              loading="eager"
-              decoding="async"
-              fetchPriority="high"
-            />
+            <div className="aspect-video overflow-hidden rounded-lg shadow-2xl">
+              <img
+                src={c.image}
+                alt="ZYLOENS Platform Dashboard"
+                className="w-full h-full object-cover"
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
+              />
+            </div>
           </motion.div>
 
           {/* Content */}
@@ -39,25 +35,23 @@ const ProductShowcase = () => {
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
           >
             <p className="text-sm font-semibold uppercase tracking-wider text-tech-cyan mb-3">
-              Flagship Product
+              {c.tag}
             </p>
             <h2 className="text-section-sm lg:text-section text-primary-foreground mb-3">
-              ZYLOENS Platform
+              {c.title}
             </h2>
             <p className="text-subtitle text-primary-foreground/80 mb-2">
-              A Safer, Smarter School Ecosystem
+              {c.subtitle}
             </p>
             <p className="text-body-lg text-primary-foreground/70 mb-8">
-              ZYLOENS is a school-owned AI platform designed to nurture student
-              creativity, track achievements, and modernize institutional operations
-              without unsafe social media or data risks.
+              {c.description}
             </p>
 
             <ul className="space-y-3 mb-8">
-              {features.map((f) => (
+              {c.features.map((f) => (
                 <li key={f} className="flex items-center gap-3 text-primary-foreground/90">
                   <Check size={18} className="text-tech-cyan shrink-0" />
                   <span>{f}</span>
@@ -67,10 +61,10 @@ const ProductShowcase = () => {
 
             <div className="flex flex-wrap gap-4">
               <Button variant="hero" size="lg" asChild>
-                <Link to="/contact">Book a School Demo</Link>
+                <Link to={c.cta.href}>{c.cta.label}</Link>
               </Button>
               <Button variant="hero-outline" size="lg" asChild>
-                <Link to="/products">Learn More</Link>
+                <Link to={c.secondary.href}>{c.secondary.label}</Link>
               </Button>
             </div>
           </motion.div>
