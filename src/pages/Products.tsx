@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Check, Bell, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import SEO from "@/components/SEO";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/sections/PageHero";
@@ -80,6 +81,7 @@ const plans = [
 const Products = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Products & Platforms" description="ZYLOENS AI platform for education — student portfolios, teacher tools, admin dashboards. Built in Bengaluru." path="/products" />
       <Navbar />
       <main>
         <PageHero
