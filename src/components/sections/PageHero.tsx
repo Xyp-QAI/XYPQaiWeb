@@ -46,7 +46,8 @@ const PageHero = ({ title, subtitle }: PageHeroProps) => {
           alt="XYP Quantum AI"
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80px] h-[80px] md:w-[100px] md:h-[100px] object-contain rounded-2xl"
           loading="eager"
-          decoding="async"
+          decoding="sync"
+          fetchPriority="high"
           style={{
             filter: "drop-shadow(0 0 20px rgba(0, 70, 190, 0.4))",
           }}

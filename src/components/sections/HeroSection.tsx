@@ -99,9 +99,9 @@ const HeroSection = () => {
             {/* Right - Logo with halo glow */}
             <motion.div
               className="relative flex items-center justify-center lg:justify-end"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.3 }}
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
             >
               <div className="absolute w-[320px] h-[320px] md:w-[420px] md:h-[420px] rounded-full opacity-20"
                 style={{ background: "radial-gradient(circle, #0046BE 0%, transparent 70%)" }}
