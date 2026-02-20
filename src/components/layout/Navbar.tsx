@@ -107,9 +107,9 @@ const Navbar = () => {
       )}
     >
       <nav className="container mx-auto flex items-center justify-between h-16 px-4 lg:px-8">
-        <Link to="/" className="flex items-center gap-2 font-bold text-xl shrink-0">
-          <span className="text-primary">XYP</span>
-          <span className="text-foreground">Quantum AI</span>
+        <Link to="/" className="flex items-center gap-1.5 text-xl shrink-0">
+          <span className="text-primary font-black tracking-wider" style={{ fontFamily: "'Orbitron', sans-serif" }}>XYP</span>
+          <span className="text-foreground font-semibold" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Quantum AI</span>
         </Link>
 
         {/* Desktop Nav */}
