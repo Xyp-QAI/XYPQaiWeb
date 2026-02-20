@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import { offeringContent } from "@/config/content";
 
 // Group into pages of 3
@@ -9,6 +8,14 @@ const pages = [offeringContent.slice(0, 3), offeringContent.slice(3, 6)];
 
 const TechHighlights = () => {
   const [activePage, setActivePage] = useState(0);
+
+  // Preload all offering images on mount
+  useEffect(() => {
+    offeringContent.forEach((o) => {
+      const img = new Image();
+      img.src = o.image;
+    });
+  }, []);
 
   return (
     <section className="section-padding bg-background">
@@ -23,42 +30,41 @@ const TechHighlights = () => {
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="overflow-hidden">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activePage}
-              initial={{ opacity: 0, x: 60 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -60 }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-5"
+        {/* Cards — always-mounted crossfade */}
+        <div className="relative overflow-hidden">
+          {pages.map((page, pageIdx) => (
+            <div
+              key={pageIdx}
+              className="transition-opacity duration-500 ease-in-out"
+              style={{
+                opacity: pageIdx === activePage ? 1 : 0,
+                pointerEvents: pageIdx === activePage ? "auto" : "none",
+                position: pageIdx === activePage ? "relative" : "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+              }}
             >
-              {pages[activePage].map((item) => (
-                <Link key={item.title} to={item.href} className="group/card">
-                  <div className="overflow-hidden rounded-lg mb-3 aspect-[3/4]">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-base font-semibold text-foreground">{item.title}</span>
-                    <ChevronRight size={18} className="text-foreground transition-transform group-hover/card:translate-x-1" />
-                  </div>
-                </Link>
-              ))}
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* Preload all offering images */}
-        <div className="hidden" aria-hidden="true">
-          {offeringContent.map((o) => (
-            <img key={o.title} src={o.image} alt="" />
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                {page.map((item) => (
+                  <Link key={item.title} to={item.href} className="group/card">
+                    <div className="overflow-hidden rounded-lg mb-3 aspect-[3/4]">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105"
+                        loading="eager"
+                        decoding="async"
+                      />
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-base font-semibold text-foreground">{item.title}</span>
+                      <ChevronRight size={18} className="text-foreground transition-transform group-hover/card:translate-x-1" />
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
 
