@@ -8,21 +8,21 @@ import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/sections/PageHero";
 
 const leaders = [
-  { name: "Dr. Arjun Mehta", title: "Founder & CEO", description: "Leads XYP Quantum AI's vision for intelligent systems. PhD in Computer Science from MIT. Previously led AI research at a major tech firm.", imageUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80", linkedinUrl: "#" },
-  { name: "Dr. Priya Sharma", title: "CTO", description: "Architect of ZYLOENS platform. 15+ years in distributed systems and edge computing. Former principal engineer at AWS.", imageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80", linkedinUrl: "#" },
-  { name: "David Chen", title: "VP of Engineering", description: "Oversees product engineering and development. Background in building scalable SaaS platforms serving millions of users.", imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=600&q=80", linkedinUrl: "#" },
-  { name: "Dr. Sarah Williams", title: "Head of Quantum Research", description: "Pioneer in quantum error correction. Published 30+ papers. Former research lead at IBM Quantum.", imageUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=600&q=80", linkedinUrl: "#" },
-  { name: "Raj Patel", title: "VP of Business Development", description: "Drives strategic partnerships and market expansion. 12+ years in enterprise technology sales across education and government sectors.", imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80", linkedinUrl: "#" },
-  { name: "Emma Rodriguez", title: "VP of Product", description: "Shapes product strategy and user experience. Background in ed-tech product management with a focus on institutional solutions.", imageUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=600&q=80", linkedinUrl: "#" },
+  { name: "Dr. Arjun Mehta", title: "Founder & CEO", description: "Leads XYP Quantum AI's vision for intelligent systems. PhD in Computer Science from IIT Bombay. Previously led AI research at a major tech firm.", imageUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80", linkedinUrl: "#" },
+  { name: "Dr. Priya Sharma", title: "CTO", description: "Architect of ZYLOENS platform. 15+ years in distributed systems and edge computing. Former principal engineer at Infosys.", imageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80", linkedinUrl: "#" },
+  { name: "Vikram Desai", title: "VP of Engineering", description: "Oversees product engineering and development. Background in building scalable SaaS platforms serving millions of users across India.", imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=600&q=80", linkedinUrl: "#" },
+  { name: "Dr. Ananya Iyer", title: "Head of Quantum Research", description: "Pioneer in quantum error correction. Published 30+ papers. Former research lead at IISc Bengaluru.", imageUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=600&q=80", linkedinUrl: "#" },
+  { name: "Raj Patel", title: "VP of Business Development", description: "Drives strategic partnerships and market expansion. 12+ years in enterprise technology sales across education and government sectors in India.", imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80", linkedinUrl: "#" },
+  { name: "Neha Kulkarni", title: "VP of Product", description: "Shapes product strategy and user experience. Background in ed-tech product management with a focus on institutional solutions across Indian states.", imageUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=600&q=80", linkedinUrl: "#" },
 ];
 
 const timeline = [
-  { year: "2020", event: "Company founded with a mission to build AI for education" },
-  { year: "2021", event: "ZYLOENS v1.0 launched in pilot schools" },
-  { year: "2022", event: "Series A funding, expanded to 20+ institutions" },
-  { year: "2023", event: "Computer vision & IoT division established" },
-  { year: "2024", event: "Quantum computing research lab inaugurated" },
-  { year: "2025", event: "International expansion to 5 countries" },
+  { year: "2020", event: "Company founded in Bengaluru with a mission to build AI for education" },
+  { year: "2021", event: "ZYLOENS v1.0 launched in pilot schools across Karnataka" },
+  { year: "2022", event: "Seed funding secured, expanded to 20+ institutions across South India" },
+  { year: "2023", event: "Computer vision & IoT division established in Bengaluru" },
+  { year: "2024", event: "Quantum computing research lab inaugurated at IISc campus" },
+  { year: "2025", event: "Expanded operations to 8+ Indian states" },
   { year: "2026", event: "Edge Intelligence & Smart Devices in development" },
 ];
 
@@ -48,7 +48,7 @@ const About = () => {
               We are a deep-tech company building intelligent systems across education, infrastructure, perception AI, and future quantum research.
             </motion.h2>
             <p className="text-body-lg text-muted-foreground mb-12">
-              Founded in 2020, XYP Quantum AI is dedicated to creating responsible, scalable AI solutions
+              Founded in 2020 in Bengaluru, XYP Quantum AI is dedicated to creating responsible, scalable AI solutions
               that transform institutions and advance cutting-edge research. Our multidisciplinary team
               combines expertise in machine learning, computer vision, IoT, and quantum computing.
             </p>

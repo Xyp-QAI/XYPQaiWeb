@@ -86,7 +86,7 @@ const Footer = () => {
               <span className="text-primary-foreground font-semibold" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Quantum AI</span>
             </Link>
             <span className="text-xs text-primary-foreground/50">
-              © 2026 XYP Quantum AI Systems. All rights reserved.
+              © 2026 XYP Quantum AI Systems, Bengaluru, India. All rights reserved.
             </span>
           </div>
 

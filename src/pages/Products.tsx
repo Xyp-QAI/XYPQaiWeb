@@ -62,14 +62,14 @@ const plans = [
   {
     name: "Starter",
     description: "Small schools",
-    price: "$299",
+    price: "₹24,999",
     period: "/month",
     features: ["Up to 500 students", "5 admin accounts", "Basic analytics", "Email support", "Core features"],
   },
   {
     name: "Professional",
     description: "Medium institutions",
-    price: "$799",
+    price: "₹64,999",
     period: "/month",
     features: ["Up to 2,000 students", "25 admin accounts", "Advanced analytics", "Priority support", "All features", "API access"],
     popular: true,
