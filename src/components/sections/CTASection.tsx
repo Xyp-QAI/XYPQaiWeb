@@ -1,14 +1,16 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import heroBg from "@/assets/hero-bg.jpg";
+import { ctaContent } from "@/config/content";
 
 const CTASection = () => {
+  const c = ctaContent;
+
   return (
     <section className="relative py-24 lg:py-32 overflow-hidden">
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroBg})` }}
+        style={{ backgroundImage: `url(${c.background})` }}
       />
       <div className="hero-overlay absolute inset-0" />
 
@@ -19,7 +21,7 @@ const CTASection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          Ready to Transform Your Institution?
+          {c.title}
         </motion.h2>
         <motion.p
           className="text-body-lg text-primary-foreground/80 max-w-xl mx-auto mb-10"
@@ -28,7 +30,7 @@ const CTASection = () => {
           viewport={{ once: true }}
           transition={{ delay: 0.15 }}
         >
-          Partner with XYP Quantum AI to deploy intelligent systems that drive real-world impact.
+          {c.description}
         </motion.p>
         <motion.div
           className="flex items-center justify-center gap-4 flex-wrap"
@@ -38,10 +40,10 @@ const CTASection = () => {
           transition={{ delay: 0.3 }}
         >
           <Button variant="hero" size="lg" asChild>
-            <Link to="/contact">Get Started</Link>
+            <Link to={c.primaryCta.href}>{c.primaryCta.label}</Link>
           </Button>
           <Button variant="hero-outline" size="lg" asChild>
-            <Link to="/contact">Contact Sales</Link>
+            <Link to={c.secondaryCta.href}>{c.secondaryCta.label}</Link>
           </Button>
         </motion.div>
       </div>

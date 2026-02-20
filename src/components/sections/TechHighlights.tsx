@@ -2,24 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import offeringAI from "@/assets/offering-ai.jpg";
-import offeringSoftware from "@/assets/offering-software.jpg";
-import offeringHardware from "@/assets/offering-hardware.jpg";
-import offeringIoT from "@/assets/offering-iot.jpg";
-import offeringSmartCity from "@/assets/offering-smartcity.jpg";
-import offeringEducation from "@/assets/offering-education.jpg";
-
-const offerings = [
-  { title: "Artificial Intelligence", image: offeringAI, href: "/technology" },
-  { title: "Software Platforms", image: offeringSoftware, href: "/products" },
-  { title: "Hardware Solutions", image: offeringHardware, href: "/technology" },
-  { title: "IoT & Edge Devices", image: offeringIoT, href: "/technology" },
-  { title: "Smart Infrastructure", image: offeringSmartCity, href: "/technology" },
-  { title: "Education Technology", image: offeringEducation, href: "/products" },
-];
+import { offeringContent } from "@/config/content";
 
 // Group into pages of 3
-const pages = [offerings.slice(0, 3), offerings.slice(3, 6)];
+const pages = [offeringContent.slice(0, 3), offeringContent.slice(3, 6)];
 
 const TechHighlights = () => {
   const [activePage, setActivePage] = useState(0);
@@ -45,20 +31,16 @@ const TechHighlights = () => {
               initial={{ opacity: 0, x: 60 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -60 }}
-              transition={{ duration: 0.35, ease: "easeInOut" }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
               className="grid grid-cols-1 md:grid-cols-3 gap-5"
             >
               {pages[activePage].map((item) => (
-                <Link
-                  key={item.title}
-                  to={item.href}
-                  className="group/card"
-                >
-                  <div className="overflow-hidden rounded-lg mb-3">
+                <Link key={item.title} to={item.href} className="group/card">
+                  <div className="overflow-hidden rounded-lg mb-3 aspect-[3/4]">
                     <img
                       src={item.image}
                       alt={item.title}
-                      className="w-full h-[300px] md:h-[380px] object-cover transition-transform duration-500 group-hover/card:scale-105"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105"
                       loading="lazy"
                       decoding="async"
                     />
@@ -71,6 +53,13 @@ const TechHighlights = () => {
               ))}
             </motion.div>
           </AnimatePresence>
+        </div>
+
+        {/* Preload all offering images */}
+        <div className="hidden" aria-hidden="true">
+          {offeringContent.map((o) => (
+            <img key={o.title} src={o.image} alt="" />
+          ))}
         </div>
 
         {/* Pill indicators */}

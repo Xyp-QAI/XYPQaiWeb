@@ -5,13 +5,7 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/sections/PageHero";
-import productShowcase from "@/assets/product-showcase.jpg";
-import featureStudentPortfolios from "@/assets/feature-student-portfolios.jpg";
-import featureTeacherTools from "@/assets/feature-teacher-tools.jpg";
-import featureAdminControl from "@/assets/feature-admin-control.jpg";
-import featurePrivacySecurity from "@/assets/feature-privacy-security.jpg";
-import featureGrowthAnalytics from "@/assets/feature-growth-analytics.jpg";
-import featureVerifiedOnboarding from "@/assets/feature-verified-onboarding.jpg";
+import { productShowcaseContent, productFeatureImages } from "@/config/content";
 
 const features = [
   {
@@ -19,42 +13,42 @@ const features = [
     subtitle: "Digital Portfolios & Lifelong Achievement Tracking",
     description: "Students build comprehensive portfolios showcasing their work, achievements, and growth over time.",
     bullets: ["Project showcases", "Achievement badges", "Skill tracking", "Multimedia support", "Export capabilities"],
-    image: featureStudentPortfolios,
+    image: productFeatureImages.studentPortfolios,
   },
   {
     title: "Teacher Tools",
     subtitle: "Teacher-Managed Learning Workflows",
     description: "Empower educators with intuitive tools for class management, assignments, and student engagement.",
     bullets: ["Class management", "Assignment creation", "Grade tracking", "Parent communication", "Analytics dashboard"],
-    image: featureTeacherTools,
+    image: productFeatureImages.teacherTools,
   },
   {
     title: "Admin Control",
     subtitle: "Principal & Administrative Oversight",
     description: "Comprehensive dashboards for institutional leadership with real-time insights and control.",
     bullets: ["Institution-wide analytics", "User management", "Compliance tools", "Reporting systems", "Security controls"],
-    image: featureAdminControl,
+    image: productFeatureImages.adminControl,
   },
   {
     title: "Privacy & Security",
     subtitle: "Privacy-First Architecture",
     description: "Complete institutional ownership with no social media risks or data exploitation.",
     bullets: ["School-owned data", "FERPA compliant", "Encrypted storage", "Role-based access", "Audit trails"],
-    image: featurePrivacySecurity,
+    image: productFeatureImages.privacySecurity,
   },
   {
     title: "Growth Analytics",
     subtitle: "Engagement and Performance Insights",
     description: "Track student engagement, measure learning outcomes, and gain actionable insights to drive continuous improvement across your institution.",
     bullets: ["Student engagement metrics", "Performance dashboards", "Progress tracking", "Trend analysis", "Custom reports"],
-    image: featureGrowthAnalytics,
+    image: productFeatureImages.growthAnalytics,
   },
   {
     title: "Verified Onboarding",
     subtitle: "Institution Verification and Secure Setup",
     description: "Streamlined onboarding with built-in institution verification, ensuring only authorized schools and educators access the platform securely.",
     bullets: ["Institution verification", "Secure registration", "Role assignment", "Guided setup wizard", "Compliance checks"],
-    image: featureVerifiedOnboarding,
+    image: productFeatureImages.verifiedOnboarding,
   },
 ];
 
@@ -97,15 +91,20 @@ const Products = () => {
         <section className="section-padding">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
-              <motion.img
-                src={productShowcase}
-                alt="ZYLOENS Platform"
-                className="rounded-lg shadow-xl w-full"
+              <motion.div className="aspect-video overflow-hidden rounded-lg shadow-xl"
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                loading="lazy"
-              />
+              >
+                <img
+                  src={productShowcaseContent.image}
+                  alt="ZYLOENS Platform"
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                  decoding="async"
+                  fetchPriority="high"
+                />
+              </motion.div>
               <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
                 <p className="text-sm font-semibold uppercase tracking-wider text-primary mb-2">Flagship Product</p>
                 <h2 className="text-section-sm lg:text-section mb-4">ZYLOENS Platform</h2>

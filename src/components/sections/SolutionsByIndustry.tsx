@@ -12,11 +12,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-import dashboardEducation from "@/assets/dashboard-education.jpg";
-import dashboardCities from "@/assets/dashboard-cities.jpg";
-import dashboardManufacturing from "@/assets/dashboard-manufacturing.jpg";
-import dashboardHealthcare from "@/assets/dashboard-healthcare.jpg";
+import { industryContent } from "@/config/content";
 
 const industries = [
   {
@@ -38,7 +34,7 @@ const industries = [
         text: "Adaptive learning systems that personalize curriculum in real-time.",
       },
     ],
-    image: dashboardEducation,
+    image: industryContent.education.image,
   },
   {
     id: "cities",
@@ -59,7 +55,7 @@ const industries = [
         text: "Environmental monitoring with predictive air quality analytics.",
       },
     ],
-    image: dashboardCities,
+    image: industryContent.cities.image,
   },
   {
     id: "manufacturing",
@@ -80,7 +76,7 @@ const industries = [
         text: "Visual quality inspection achieving 99.5% defect detection accuracy.",
       },
     ],
-    image: dashboardManufacturing,
+    image: industryContent.manufacturing.image,
   },
   {
     id: "healthcare",
@@ -101,7 +97,7 @@ const industries = [
         text: "Clinical trial matching accelerating patient enrollment by 3x.",
       },
     ],
-    image: dashboardHealthcare,
+    image: industryContent.healthcare.image,
   },
 ];
 
@@ -223,11 +219,11 @@ const SolutionsByIndustry = () => {
 
               {/* Right — dashboard visual */}
               <div className="relative bg-secondary/30 flex items-center justify-center p-6 lg:p-10">
-                <div className="w-full rounded-xl overflow-hidden shadow-2xl border border-border">
+                <div className="w-full aspect-video rounded-xl overflow-hidden shadow-2xl border border-border">
                   <img
                     src={active.image}
                     alt={`${active.label} dashboard`}
-                    className="w-full h-auto object-cover"
+                    className="w-full h-full object-cover"
                     loading="eager"
                     decoding="async"
                   />
