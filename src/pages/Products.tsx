@@ -129,12 +129,12 @@ const Products = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                 >
-                  <div className={i % 2 !== 0 ? "lg:order-2" : ""}>
+                  <div className={`${i % 2 !== 0 ? "lg:order-2" : ""} aspect-video overflow-hidden rounded-lg shadow-lg`}>
                     <img
                       src={feature.image}
                       alt={`${feature.title} feature`}
-                      className="aspect-video w-full object-cover rounded-lg shadow-lg"
-                      loading={i < 2 ? "eager" : "lazy"}
+                      className="w-full h-full object-cover"
+                      loading="eager"
                       decoding="async"
                     />
                   </div>
