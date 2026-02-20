@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Clock, Calendar, Handshake, Headphones, ArrowRight, X } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Calendar, Handshake, Headphones, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -13,20 +13,101 @@ import PageHero from "@/components/sections/PageHero";
 
 type QuickLinkType = "demo" | "pricing" | "support" | null;
 
+const API_URL = import.meta.env.VITE_CONTACT_API_URL || "http://localhost:3001";
+
+interface FormData {
+  fullName: string;
+  email: string;
+  phone: string;
+  company: string;
+  subject: string;
+  message: string;
+  preferredDate: string;
+  attendees: string;
+  productOfInterest: string;
+  solutionNeeded: string;
+  budgetRange: string;
+  timeline: string;
+  issueCategory: string;
+  priority: string;
+}
+
+const emptyForm: FormData = {
+  fullName: "",
+  email: "",
+  phone: "",
+  company: "",
+  subject: "",
+  message: "",
+  preferredDate: "",
+  attendees: "",
+  productOfInterest: "",
+  solutionNeeded: "",
+  budgetRange: "",
+  timeline: "",
+  issueCategory: "",
+  priority: "",
+};
+
 const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
   const [activeQuickLink, setActiveQuickLink] = useState<QuickLinkType>(null);
   const [quickLinkSubmitted, setQuickLinkSubmitted] = useState<QuickLinkType>(null);
+  const [formData, setFormData] = useState<FormData>({ ...emptyForm });
+  const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const set = (field: keyof FormData) => (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => setFormData((prev) => ({ ...prev, [field]: e.target.value }));
+
+  const setSelect = (field: keyof FormData) => (value: string) =>
+    setFormData((prev) => ({ ...prev, [field]: value }));
+
+  async function submitToBackend(formType: string) {
+    setLoading(true);
+    try {
+      const payload = { ...formData, formType };
+      console.log(`Submitting ${formType} form with data:`, payload);
+      
+      const res = await fetch(`${API_URL}/api/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Submission failed");
+      console.log(`✓ ${formType} form submitted successfully`);
+      return true;
+    } catch (err: any) {
+      toast({
+        variant: "destructive",
+        title: "Something went wrong",
+        description: err.message || "Could not submit your request. Please try again.",
+      });
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    const ok = await submitToBackend("general");
+    if (ok) {
+      setSubmitted(true);
+      setFormData({ ...emptyForm });
+    }
   };
 
-  const handleQuickLinkSubmit = (e: React.FormEvent) => {
+  const handleQuickLinkSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setQuickLinkSubmitted(activeQuickLink);
-    setActiveQuickLink(null);
+    const ok = await submitToBackend(activeQuickLink || "general");
+    if (ok) {
+      setQuickLinkSubmitted(activeQuickLink);
+      setActiveQuickLink(null);
+      setFormData({ ...emptyForm });
+    }
   };
 
   return (
@@ -43,7 +124,7 @@ const Contact = () => {
         <section className="section-padding">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-              {/* Form Area — switches between default and quick link forms */}
+              {/* Form Area */}
               <div className="lg:col-span-3">
                 <AnimatePresence mode="wait">
                   {submitted || quickLinkSubmitted ? (
@@ -89,21 +170,21 @@ const Contact = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                           <div>
                             <label className="text-sm font-medium mb-1.5 block">Full Name *</label>
-                            <Input required placeholder="Rahul Sharma" />
+                            <Input required placeholder="Rahul Sharma" value={formData.fullName} onChange={set("fullName")} />
                           </div>
                           <div>
                             <label className="text-sm font-medium mb-1.5 block">Email Address *</label>
-                            <Input type="email" required placeholder="rahul@company.com" />
+                            <Input type="email" required placeholder="rahul@company.com" value={formData.email} onChange={set("email")} />
                           </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                           <div>
                             <label className="text-sm font-medium mb-1.5 block">Phone Number</label>
-                            <Input type="tel" placeholder="+91 98765 43210" />
+                            <Input type="tel" placeholder="+91 98765 43210" value={formData.phone} onChange={set("phone")} />
                           </div>
                           <div>
                             <label className="text-sm font-medium mb-1.5 block">Company/Institution *</label>
-                            <Input required placeholder="Your organization" />
+                            <Input required placeholder="Your organization" value={formData.company} onChange={set("company")} />
                           </div>
                         </div>
 
@@ -113,22 +194,22 @@ const Contact = () => {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                               <div>
                                 <label className="text-sm font-medium mb-1.5 block">Preferred Demo Date *</label>
-                                <Input type="date" required />
+                                <Input type="date" required value={formData.preferredDate} onChange={set("preferredDate")} />
                               </div>
                               <div>
                                 <label className="text-sm font-medium mb-1.5 block">Number of Attendees</label>
-                                <Input type="number" min={1} placeholder="e.g. 5" />
+                                <Input type="number" min={1} placeholder="e.g. 5" value={formData.attendees} onChange={set("attendees")} />
                               </div>
                             </div>
                             <div>
                               <label className="text-sm font-medium mb-1.5 block">Product of Interest</label>
-                              <Select>
+                              <Select value={formData.productOfInterest} onValueChange={setSelect("productOfInterest")}>
                                 <SelectTrigger><SelectValue placeholder="Select product" /></SelectTrigger>
                                 <SelectContent>
-                                  <SelectItem value="zyloens">ZYLOENS Platform</SelectItem>
-                                  <SelectItem value="edge">XYP Edge Intelligence</SelectItem>
-                                  <SelectItem value="smart">XYP Smart Devices</SelectItem>
-                                  <SelectItem value="all">All Products</SelectItem>
+                                  <SelectItem value="ZYLOENS Platform">ZYLOENS Platform</SelectItem>
+                                  <SelectItem value="XYP Edge Intelligence">XYP Edge Intelligence</SelectItem>
+                                  <SelectItem value="XYP Smart Devices">XYP Smart Devices</SelectItem>
+                                  <SelectItem value="All Products">All Products</SelectItem>
                                 </SelectContent>
                               </Select>
                             </div>
@@ -140,38 +221,38 @@ const Contact = () => {
                           <>
                             <div>
                               <label className="text-sm font-medium mb-1.5 block">Solution Needed *</label>
-                              <Select>
+                              <Select value={formData.solutionNeeded} onValueChange={setSelect("solutionNeeded")}>
                                 <SelectTrigger><SelectValue placeholder="Select solution" /></SelectTrigger>
                                 <SelectContent>
-                                  <SelectItem value="education">Education Solutions</SelectItem>
-                                  <SelectItem value="smartcity">Smart City</SelectItem>
-                                  <SelectItem value="industrial">Industrial IoT</SelectItem>
-                                  <SelectItem value="custom">Custom Solution</SelectItem>
+                                  <SelectItem value="Education Solutions">Education Solutions</SelectItem>
+                                  <SelectItem value="Smart City">Smart City</SelectItem>
+                                  <SelectItem value="Industrial IoT">Industrial IoT</SelectItem>
+                                  <SelectItem value="Custom Solution">Custom Solution</SelectItem>
                                 </SelectContent>
                               </Select>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                               <div>
                                 <label className="text-sm font-medium mb-1.5 block">Estimated Budget Range</label>
-                                <Select>
+                                <Select value={formData.budgetRange} onValueChange={setSelect("budgetRange")}>
                                   <SelectTrigger><SelectValue placeholder="Select range" /></SelectTrigger>
                                   <SelectContent>
-                                    <SelectItem value="5l">Under ₹5,00,000</SelectItem>
-                                    <SelectItem value="25l">₹5,00,000 – ₹25,00,000</SelectItem>
-                                    <SelectItem value="50l">₹25,00,000 – ₹50,00,000</SelectItem>
-                                    <SelectItem value="50l+">₹50,00,000+</SelectItem>
+                                    <SelectItem value="Under ₹5,00,000">Under ₹5,00,000</SelectItem>
+                                    <SelectItem value="₹5,00,000 – ₹25,00,000">₹5,00,000 – ₹25,00,000</SelectItem>
+                                    <SelectItem value="₹25,00,000 – ₹50,00,000">₹25,00,000 – ₹50,00,000</SelectItem>
+                                    <SelectItem value="₹50,00,000+">₹50,00,000+</SelectItem>
                                   </SelectContent>
                                 </Select>
                               </div>
                               <div>
                                 <label className="text-sm font-medium mb-1.5 block">Timeline</label>
-                                <Select>
+                                <Select value={formData.timeline} onValueChange={setSelect("timeline")}>
                                   <SelectTrigger><SelectValue placeholder="Select timeline" /></SelectTrigger>
                                   <SelectContent>
-                                    <SelectItem value="immediate">Immediate</SelectItem>
-                                    <SelectItem value="1-3">1–3 Months</SelectItem>
-                                    <SelectItem value="3-6">3–6 Months</SelectItem>
-                                    <SelectItem value="6+">6+ Months</SelectItem>
+                                    <SelectItem value="Immediate">Immediate</SelectItem>
+                                    <SelectItem value="1–3 Months">1–3 Months</SelectItem>
+                                    <SelectItem value="3–6 Months">3–6 Months</SelectItem>
+                                    <SelectItem value="6+ Months">6+ Months</SelectItem>
                                   </SelectContent>
                                 </Select>
                               </div>
@@ -184,26 +265,26 @@ const Contact = () => {
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                             <div>
                               <label className="text-sm font-medium mb-1.5 block">Issue Category *</label>
-                              <Select>
+                              <Select value={formData.issueCategory} onValueChange={setSelect("issueCategory")}>
                                 <SelectTrigger><SelectValue placeholder="Select category" /></SelectTrigger>
                                 <SelectContent>
-                                  <SelectItem value="bug">Bug / Error</SelectItem>
-                                  <SelectItem value="setup">Setup / Installation</SelectItem>
-                                  <SelectItem value="account">Account / Billing</SelectItem>
-                                  <SelectItem value="feature">Feature Request</SelectItem>
-                                  <SelectItem value="other">Other</SelectItem>
+                                  <SelectItem value="Bug / Error">Bug / Error</SelectItem>
+                                  <SelectItem value="Setup / Installation">Setup / Installation</SelectItem>
+                                  <SelectItem value="Account / Billing">Account / Billing</SelectItem>
+                                  <SelectItem value="Feature Request">Feature Request</SelectItem>
+                                  <SelectItem value="Other">Other</SelectItem>
                                 </SelectContent>
                               </Select>
                             </div>
                             <div>
                               <label className="text-sm font-medium mb-1.5 block">Priority</label>
-                              <Select>
+                              <Select value={formData.priority} onValueChange={setSelect("priority")}>
                                 <SelectTrigger><SelectValue placeholder="Select priority" /></SelectTrigger>
                                 <SelectContent>
-                                  <SelectItem value="low">Low</SelectItem>
-                                  <SelectItem value="medium">Medium</SelectItem>
-                                  <SelectItem value="high">High</SelectItem>
-                                  <SelectItem value="critical">Critical</SelectItem>
+                                  <SelectItem value="Low">Low</SelectItem>
+                                  <SelectItem value="Medium">Medium</SelectItem>
+                                  <SelectItem value="High">High</SelectItem>
+                                  <SelectItem value="Critical">Critical</SelectItem>
                                 </SelectContent>
                               </Select>
                             </div>
@@ -212,10 +293,11 @@ const Contact = () => {
 
                         <div>
                           <label className="text-sm font-medium mb-1.5 block">Additional Details</label>
-                          <Textarea rows={4} placeholder="Tell us more about your request..." />
+                          <Textarea rows={4} placeholder="Tell us more about your request..." value={formData.message} onChange={set("message")} />
                         </div>
-                        <Button type="submit" size="lg" className="w-full">
-                          Submit Request
+                        <Button type="submit" size="lg" className="w-full" disabled={loading}>
+                          {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                          {loading ? "Submitting…" : "Submit Request"}
                         </Button>
                       </form>
                     </motion.div>
@@ -231,42 +313,43 @@ const Contact = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                           <div>
                             <label className="text-sm font-medium mb-1.5 block">Full Name *</label>
-                            <Input required placeholder="Rahul Sharma" />
+                            <Input required placeholder="Rahul Sharma" value={formData.fullName} onChange={set("fullName")} />
                           </div>
                           <div>
                             <label className="text-sm font-medium mb-1.5 block">Email Address *</label>
-                            <Input type="email" required placeholder="rahul@company.com" />
+                            <Input type="email" required placeholder="rahul@company.com" value={formData.email} onChange={set("email")} />
                           </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                           <div>
                             <label className="text-sm font-medium mb-1.5 block">Phone Number</label>
-                            <Input type="tel" placeholder="+91 98765 43210" />
+                            <Input type="tel" placeholder="+91 98765 43210" value={formData.phone} onChange={set("phone")} />
                           </div>
                           <div>
                             <label className="text-sm font-medium mb-1.5 block">Company/Institution *</label>
-                            <Input required placeholder="Your organization" />
+                            <Input required placeholder="Your organization" value={formData.company} onChange={set("company")} />
                           </div>
                         </div>
                         <div>
                           <label className="text-sm font-medium mb-1.5 block">Subject</label>
-                          <Select>
+                          <Select value={formData.subject} onValueChange={setSelect("subject")}>
                             <SelectTrigger><SelectValue placeholder="Select a topic" /></SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="general">General Inquiry</SelectItem>
-                              <SelectItem value="demo">Demo Request</SelectItem>
-                              <SelectItem value="partnership">Partnership</SelectItem>
-                              <SelectItem value="support">Support</SelectItem>
-                              <SelectItem value="media">Media Inquiry</SelectItem>
+                              <SelectItem value="General Inquiry">General Inquiry</SelectItem>
+                              <SelectItem value="Demo Request">Demo Request</SelectItem>
+                              <SelectItem value="Partnership">Partnership</SelectItem>
+                              <SelectItem value="Support">Support</SelectItem>
+                              <SelectItem value="Media Inquiry">Media Inquiry</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
                         <div>
                           <label className="text-sm font-medium mb-1.5 block">Message *</label>
-                          <Textarea required rows={6} placeholder="Tell us about your needs..." />
+                          <Textarea required rows={6} placeholder="Tell us about your needs..." value={formData.message} onChange={set("message")} />
                         </div>
-                        <Button type="submit" size="lg" className="w-full">
-                          Submit
+                        <Button type="submit" size="lg" className="w-full" disabled={loading}>
+                          {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                          {loading ? "Submitting…" : "Submit"}
                         </Button>
                       </form>
                     </motion.div>
@@ -312,6 +395,7 @@ const Contact = () => {
                           setActiveQuickLink(link.key);
                           setSubmitted(false);
                           setQuickLinkSubmitted(null);
+                          setFormData({ ...emptyForm });
                         }}
                         className={`block text-sm hover:underline text-left ${activeQuickLink === link.key ? "text-primary font-semibold" : "text-primary"}`}
                       >
