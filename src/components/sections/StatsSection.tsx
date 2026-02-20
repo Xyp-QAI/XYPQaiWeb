@@ -5,7 +5,7 @@ const stats = [
   { value: 50, suffix: "+", label: "Institutions Served" },
   { value: 1000, suffix: "+", label: "AI Models Deployed" },
   { value: 10, suffix: "+", label: "Patents Pending" },
-  { value: 5, suffix: "+", label: "Countries" },
+  { value: 8, suffix: "+", label: "Indian States" },
 ];
 
 const AnimatedNumber = ({ value, suffix }: { value: number; suffix: string }) => {

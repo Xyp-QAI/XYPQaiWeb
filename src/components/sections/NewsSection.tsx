@@ -6,19 +6,19 @@ const news = [
     category: "Product Update",
     title: "ZYLOENS Platform v2.5 Launches with Enhanced Analytics",
     date: "February 10, 2026",
-    excerpt: "New real-time analytics dashboard gives administrators unprecedented insights into institutional performance and student engagement.",
+    excerpt: "New real-time analytics dashboard gives administrators unprecedented insights into institutional performance and student engagement across Indian schools.",
   },
   {
     category: "Research",
     title: "XYP Publishes Breakthrough in Quantum Error Correction",
     date: "January 28, 2026",
-    excerpt: "Our research team demonstrates a novel approach to quantum error correction that significantly improves qubit stability.",
+    excerpt: "Our research team at our Bengaluru lab demonstrates a novel approach to quantum error correction that significantly improves qubit stability.",
   },
   {
     category: "Press Release",
-    title: "XYP Quantum AI Expands to Three New Countries",
+    title: "XYP Quantum AI Expands Across 5 Indian States",
     date: "January 15, 2026",
-    excerpt: "Strategic expansion into Southeast Asian education markets brings AI-powered learning platforms to over 200 new schools.",
+    excerpt: "Strategic expansion into Karnataka, Tamil Nadu, Maharashtra, Telangana, and Kerala brings AI-powered learning platforms to over 200 new schools.",
   },
 ];
 

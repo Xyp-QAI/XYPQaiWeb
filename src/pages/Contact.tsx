@@ -87,17 +87,17 @@ const Contact = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                           <div>
                             <label className="text-sm font-medium mb-1.5 block">Full Name *</label>
-                            <Input required placeholder="John Smith" />
+                            <Input required placeholder="Rahul Sharma" />
                           </div>
                           <div>
                             <label className="text-sm font-medium mb-1.5 block">Email Address *</label>
-                            <Input type="email" required placeholder="john@company.com" />
+                            <Input type="email" required placeholder="rahul@company.com" />
                           </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                           <div>
                             <label className="text-sm font-medium mb-1.5 block">Phone Number</label>
-                            <Input type="tel" placeholder="+1 (555) 000-0000" />
+                            <Input type="tel" placeholder="+91 98765 43210" />
                           </div>
                           <div>
                             <label className="text-sm font-medium mb-1.5 block">Company/Institution *</label>
@@ -154,10 +154,10 @@ const Contact = () => {
                                 <Select>
                                   <SelectTrigger><SelectValue placeholder="Select range" /></SelectTrigger>
                                   <SelectContent>
-                                    <SelectItem value="10k">Under $10,000</SelectItem>
-                                    <SelectItem value="50k">$10,000 – $50,000</SelectItem>
-                                    <SelectItem value="100k">$50,000 – $100,000</SelectItem>
-                                    <SelectItem value="100k+">$100,000+</SelectItem>
+                                    <SelectItem value="5l">Under ₹5,00,000</SelectItem>
+                                    <SelectItem value="25l">₹5,00,000 – ₹25,00,000</SelectItem>
+                                    <SelectItem value="50l">₹25,00,000 – ₹50,00,000</SelectItem>
+                                    <SelectItem value="50l+">₹50,00,000+</SelectItem>
                                   </SelectContent>
                                 </Select>
                               </div>
@@ -229,17 +229,17 @@ const Contact = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                           <div>
                             <label className="text-sm font-medium mb-1.5 block">Full Name *</label>
-                            <Input required placeholder="John Smith" />
+                            <Input required placeholder="Rahul Sharma" />
                           </div>
                           <div>
                             <label className="text-sm font-medium mb-1.5 block">Email Address *</label>
-                            <Input type="email" required placeholder="john@company.com" />
+                            <Input type="email" required placeholder="rahul@company.com" />
                           </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                           <div>
                             <label className="text-sm font-medium mb-1.5 block">Phone Number</label>
-                            <Input type="tel" placeholder="+1 (555) 000-0000" />
+                            <Input type="tel" placeholder="+91 98765 43210" />
                           </div>
                           <div>
                             <label className="text-sm font-medium mb-1.5 block">Company/Institution *</label>
@@ -278,10 +278,10 @@ const Contact = () => {
                   <h3 className="text-xl font-semibold mb-6">Contact Information</h3>
                   <div className="space-y-5">
                     {[
-                      { icon: Mail, label: "General Inquiries", value: "info@xypquantum.ai" },
-                      { icon: Phone, label: "Phone", value: "+1 (555) 123-4567" },
-                      { icon: MapPin, label: "Headquarters", value: "123 Innovation Drive\nSan Jose, CA 95134" },
-                      { icon: Clock, label: "Business Hours", value: "Monday–Friday: 9AM–6PM EST" },
+                      { icon: Mail, label: "General Inquiries", value: "info@xypquantum.com" },
+                      { icon: Phone, label: "Phone", value: "+91 6362 452 728" },
+                      { icon: MapPin, label: "Headquarters", value: "Bengaluru, Karnataka\nIndia" },
+                      { icon: Clock, label: "Business Hours", value: "Monday–Friday: 9AM–6PM IST" },
                     ].map((item) => (
                       <div key={item.label} className="flex items-start gap-3">
                         <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
@@ -338,7 +338,7 @@ const Contact = () => {
                   icon: Handshake,
                   title: "Partnership Opportunities",
                   description: "Explore collaboration possibilities with our team.",
-                  action: "partnerships@xypquantum.ai",
+                  action: "partnerships@xypquantum.com",
                 },
                 {
                   icon: Headphones,
