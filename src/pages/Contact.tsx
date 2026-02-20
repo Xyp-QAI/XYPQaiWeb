@@ -41,61 +41,235 @@ const Contact = () => {
         <section className="section-padding">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-              {/* Form */}
+              {/* Form Area — switches between default and quick link forms */}
               <div className="lg:col-span-3">
-                {submitted ? (
-                  <motion.div
-                    className="bg-primary/5 border border-primary/20 rounded-lg p-12 text-center"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                  >
-                    <h3 className="text-2xl font-bold mb-3">Thank You!</h3>
-                    <p className="text-muted-foreground">We've received your message and will get back to you within 1-2 business days.</p>
-                  </motion.div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                      <div>
-                        <label className="text-sm font-medium mb-1.5 block">Full Name *</label>
-                        <Input required placeholder="John Smith" />
+                <AnimatePresence mode="wait">
+                  {submitted || quickLinkSubmitted ? (
+                    <motion.div
+                      key="success"
+                      className="bg-primary/5 border border-primary/20 rounded-lg p-12 text-center"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      <h3 className="text-2xl font-bold mb-3">Thank You!</h3>
+                      <p className="text-muted-foreground">We've received your request and will get back to you within 1-2 business days.</p>
+                      <Button
+                        variant="outline"
+                        className="mt-6"
+                        onClick={() => { setSubmitted(false); setQuickLinkSubmitted(null); setActiveQuickLink(null); }}
+                      >
+                        Submit Another Request
+                      </Button>
+                    </motion.div>
+                  ) : activeQuickLink ? (
+                    <motion.div
+                      key={activeQuickLink}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <div className="flex items-center justify-between mb-6">
+                        <h3 className="text-lg font-semibold">
+                          {activeQuickLink === "demo" && "Book a Demo"}
+                          {activeQuickLink === "pricing" && "Request Pricing"}
+                          {activeQuickLink === "support" && "Technical Support"}
+                        </h3>
+                        <button
+                          onClick={() => setActiveQuickLink(null)}
+                          className="text-sm text-primary hover:underline"
+                        >
+                          ← Back to General Inquiry
+                        </button>
                       </div>
-                      <div>
-                        <label className="text-sm font-medium mb-1.5 block">Email Address *</label>
-                        <Input type="email" required placeholder="john@company.com" />
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                      <div>
-                        <label className="text-sm font-medium mb-1.5 block">Phone Number</label>
-                        <Input type="tel" placeholder="+1 (555) 000-0000" />
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium mb-1.5 block">Company/Institution *</label>
-                        <Input required placeholder="Your organization" />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium mb-1.5 block">Subject</label>
-                      <Select>
-                        <SelectTrigger><SelectValue placeholder="Select a topic" /></SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="general">General Inquiry</SelectItem>
-                          <SelectItem value="demo">Demo Request</SelectItem>
-                          <SelectItem value="partnership">Partnership</SelectItem>
-                          <SelectItem value="support">Support</SelectItem>
-                          <SelectItem value="media">Media Inquiry</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium mb-1.5 block">Message *</label>
-                      <Textarea required rows={6} placeholder="Tell us about your needs..." />
-                    </div>
-                    <Button type="submit" size="lg" className="w-full">
-                      Submit
-                    </Button>
-                  </form>
-                )}
+                      <form onSubmit={handleQuickLinkSubmit} className="space-y-5">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                          <div>
+                            <label className="text-sm font-medium mb-1.5 block">Full Name *</label>
+                            <Input required placeholder="John Smith" />
+                          </div>
+                          <div>
+                            <label className="text-sm font-medium mb-1.5 block">Email Address *</label>
+                            <Input type="email" required placeholder="john@company.com" />
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                          <div>
+                            <label className="text-sm font-medium mb-1.5 block">Phone Number</label>
+                            <Input type="tel" placeholder="+1 (555) 000-0000" />
+                          </div>
+                          <div>
+                            <label className="text-sm font-medium mb-1.5 block">Company/Institution *</label>
+                            <Input required placeholder="Your organization" />
+                          </div>
+                        </div>
+
+                        {/* Demo-specific fields */}
+                        {activeQuickLink === "demo" && (
+                          <>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                              <div>
+                                <label className="text-sm font-medium mb-1.5 block">Preferred Demo Date *</label>
+                                <Input type="date" required />
+                              </div>
+                              <div>
+                                <label className="text-sm font-medium mb-1.5 block">Number of Attendees</label>
+                                <Input type="number" min={1} placeholder="e.g. 5" />
+                              </div>
+                            </div>
+                            <div>
+                              <label className="text-sm font-medium mb-1.5 block">Product of Interest</label>
+                              <Select>
+                                <SelectTrigger><SelectValue placeholder="Select product" /></SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="zyloens">ZYLOENS Platform</SelectItem>
+                                  <SelectItem value="edge">XYP Edge Intelligence</SelectItem>
+                                  <SelectItem value="smart">XYP Smart Devices</SelectItem>
+                                  <SelectItem value="all">All Products</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </div>
+                          </>
+                        )}
+
+                        {/* Pricing-specific fields */}
+                        {activeQuickLink === "pricing" && (
+                          <>
+                            <div>
+                              <label className="text-sm font-medium mb-1.5 block">Solution Needed *</label>
+                              <Select>
+                                <SelectTrigger><SelectValue placeholder="Select solution" /></SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="education">Education Solutions</SelectItem>
+                                  <SelectItem value="smartcity">Smart City</SelectItem>
+                                  <SelectItem value="industrial">Industrial IoT</SelectItem>
+                                  <SelectItem value="custom">Custom Solution</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                              <div>
+                                <label className="text-sm font-medium mb-1.5 block">Estimated Budget Range</label>
+                                <Select>
+                                  <SelectTrigger><SelectValue placeholder="Select range" /></SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="10k">Under $10,000</SelectItem>
+                                    <SelectItem value="50k">$10,000 – $50,000</SelectItem>
+                                    <SelectItem value="100k">$50,000 – $100,000</SelectItem>
+                                    <SelectItem value="100k+">$100,000+</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                              <div>
+                                <label className="text-sm font-medium mb-1.5 block">Timeline</label>
+                                <Select>
+                                  <SelectTrigger><SelectValue placeholder="Select timeline" /></SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="immediate">Immediate</SelectItem>
+                                    <SelectItem value="1-3">1–3 Months</SelectItem>
+                                    <SelectItem value="3-6">3–6 Months</SelectItem>
+                                    <SelectItem value="6+">6+ Months</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                            </div>
+                          </>
+                        )}
+
+                        {/* Support-specific fields */}
+                        {activeQuickLink === "support" && (
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                              <label className="text-sm font-medium mb-1.5 block">Issue Category *</label>
+                              <Select>
+                                <SelectTrigger><SelectValue placeholder="Select category" /></SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="bug">Bug / Error</SelectItem>
+                                  <SelectItem value="setup">Setup / Installation</SelectItem>
+                                  <SelectItem value="account">Account / Billing</SelectItem>
+                                  <SelectItem value="feature">Feature Request</SelectItem>
+                                  <SelectItem value="other">Other</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </div>
+                            <div>
+                              <label className="text-sm font-medium mb-1.5 block">Priority</label>
+                              <Select>
+                                <SelectTrigger><SelectValue placeholder="Select priority" /></SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="low">Low</SelectItem>
+                                  <SelectItem value="medium">Medium</SelectItem>
+                                  <SelectItem value="high">High</SelectItem>
+                                  <SelectItem value="critical">Critical</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </div>
+                          </div>
+                        )}
+
+                        <div>
+                          <label className="text-sm font-medium mb-1.5 block">Additional Details</label>
+                          <Textarea rows={4} placeholder="Tell us more about your request..." />
+                        </div>
+                        <Button type="submit" size="lg" className="w-full">
+                          Submit Request
+                        </Button>
+                      </form>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="default"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <form onSubmit={handleSubmit} className="space-y-5">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                          <div>
+                            <label className="text-sm font-medium mb-1.5 block">Full Name *</label>
+                            <Input required placeholder="John Smith" />
+                          </div>
+                          <div>
+                            <label className="text-sm font-medium mb-1.5 block">Email Address *</label>
+                            <Input type="email" required placeholder="john@company.com" />
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                          <div>
+                            <label className="text-sm font-medium mb-1.5 block">Phone Number</label>
+                            <Input type="tel" placeholder="+1 (555) 000-0000" />
+                          </div>
+                          <div>
+                            <label className="text-sm font-medium mb-1.5 block">Company/Institution *</label>
+                            <Input required placeholder="Your organization" />
+                          </div>
+                        </div>
+                        <div>
+                          <label className="text-sm font-medium mb-1.5 block">Subject</label>
+                          <Select>
+                            <SelectTrigger><SelectValue placeholder="Select a topic" /></SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="general">General Inquiry</SelectItem>
+                              <SelectItem value="demo">Demo Request</SelectItem>
+                              <SelectItem value="partnership">Partnership</SelectItem>
+                              <SelectItem value="support">Support</SelectItem>
+                              <SelectItem value="media">Media Inquiry</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div>
+                          <label className="text-sm font-medium mb-1.5 block">Message *</label>
+                          <Textarea required rows={6} placeholder="Tell us about your needs..." />
+                        </div>
+                        <Button type="submit" size="lg" className="w-full">
+                          Submit
+                        </Button>
+                      </form>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               {/* Contact Info */}
@@ -133,178 +307,17 @@ const Contact = () => {
                       <button
                         key={link.label}
                         onClick={() => {
-                          setActiveQuickLink(activeQuickLink === link.key ? null : link.key);
+                          setActiveQuickLink(link.key);
+                          setSubmitted(false);
                           setQuickLinkSubmitted(null);
                         }}
-                        className="block text-sm text-primary hover:underline text-left"
+                        className={`block text-sm hover:underline text-left ${activeQuickLink === link.key ? "text-primary font-semibold" : "text-primary"}`}
                       >
                         → {link.label}
                       </button>
                     ))}
                   </div>
                 </div>
-
-                {/* Quick Link Expanded Forms */}
-                <AnimatePresence>
-                  {activeQuickLink && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="border border-border rounded-lg p-5 bg-card">
-                        <div className="flex items-center justify-between mb-4">
-                          <h4 className="font-semibold text-sm">
-                            {activeQuickLink === "demo" && "Book a Demo"}
-                            {activeQuickLink === "pricing" && "Request Pricing"}
-                            {activeQuickLink === "support" && "Technical Support"}
-                          </h4>
-                          <button onClick={() => setActiveQuickLink(null)} className="text-muted-foreground hover:text-foreground">
-                            <X size={16} />
-                          </button>
-                        </div>
-                        <form onSubmit={handleQuickLinkSubmit} className="space-y-3">
-                          <div>
-                            <label className="text-xs font-medium mb-1 block">Full Name *</label>
-                            <Input required placeholder="Your name" className="h-9 text-sm" />
-                          </div>
-                          <div>
-                            <label className="text-xs font-medium mb-1 block">Email *</label>
-                            <Input type="email" required placeholder="you@company.com" className="h-9 text-sm" />
-                          </div>
-                          <div>
-                            <label className="text-xs font-medium mb-1 block">Company / Institution *</label>
-                            <Input required placeholder="Your organization" className="h-9 text-sm" />
-                          </div>
-                          <div>
-                            <label className="text-xs font-medium mb-1 block">Phone Number</label>
-                            <Input type="tel" placeholder="+1 (555) 000-0000" className="h-9 text-sm" />
-                          </div>
-
-                          {/* Demo-specific fields */}
-                          {activeQuickLink === "demo" && (
-                            <>
-                              <div>
-                                <label className="text-xs font-medium mb-1 block">Preferred Demo Date *</label>
-                                <Input type="date" required className="h-9 text-sm" />
-                              </div>
-                              <div>
-                                <label className="text-xs font-medium mb-1 block">Product of Interest</label>
-                                <Select>
-                                  <SelectTrigger className="h-9 text-sm"><SelectValue placeholder="Select product" /></SelectTrigger>
-                                  <SelectContent>
-                                    <SelectItem value="zyloens">ZYLOENS Platform</SelectItem>
-                                    <SelectItem value="edge">XYP Edge Intelligence</SelectItem>
-                                    <SelectItem value="smart">XYP Smart Devices</SelectItem>
-                                    <SelectItem value="all">All Products</SelectItem>
-                                  </SelectContent>
-                                </Select>
-                              </div>
-                              <div>
-                                <label className="text-xs font-medium mb-1 block">Number of Attendees</label>
-                                <Input type="number" min={1} placeholder="e.g. 5" className="h-9 text-sm" />
-                              </div>
-                            </>
-                          )}
-
-                          {/* Pricing-specific fields */}
-                          {activeQuickLink === "pricing" && (
-                            <>
-                              <div>
-                                <label className="text-xs font-medium mb-1 block">Solution Needed *</label>
-                                <Select>
-                                  <SelectTrigger className="h-9 text-sm"><SelectValue placeholder="Select solution" /></SelectTrigger>
-                                  <SelectContent>
-                                    <SelectItem value="education">Education Solutions</SelectItem>
-                                    <SelectItem value="smartcity">Smart City</SelectItem>
-                                    <SelectItem value="industrial">Industrial IoT</SelectItem>
-                                    <SelectItem value="custom">Custom Solution</SelectItem>
-                                  </SelectContent>
-                                </Select>
-                              </div>
-                              <div>
-                                <label className="text-xs font-medium mb-1 block">Estimated Budget Range</label>
-                                <Select>
-                                  <SelectTrigger className="h-9 text-sm"><SelectValue placeholder="Select range" /></SelectTrigger>
-                                  <SelectContent>
-                                    <SelectItem value="10k">Under $10,000</SelectItem>
-                                    <SelectItem value="50k">$10,000 – $50,000</SelectItem>
-                                    <SelectItem value="100k">$50,000 – $100,000</SelectItem>
-                                    <SelectItem value="100k+">$100,000+</SelectItem>
-                                  </SelectContent>
-                                </Select>
-                              </div>
-                              <div>
-                                <label className="text-xs font-medium mb-1 block">Timeline</label>
-                                <Select>
-                                  <SelectTrigger className="h-9 text-sm"><SelectValue placeholder="Select timeline" /></SelectTrigger>
-                                  <SelectContent>
-                                    <SelectItem value="immediate">Immediate</SelectItem>
-                                    <SelectItem value="1-3">1–3 Months</SelectItem>
-                                    <SelectItem value="3-6">3–6 Months</SelectItem>
-                                    <SelectItem value="6+">6+ Months</SelectItem>
-                                  </SelectContent>
-                                </Select>
-                              </div>
-                            </>
-                          )}
-
-                          {/* Support-specific fields */}
-                          {activeQuickLink === "support" && (
-                            <>
-                              <div>
-                                <label className="text-xs font-medium mb-1 block">Issue Category *</label>
-                                <Select>
-                                  <SelectTrigger className="h-9 text-sm"><SelectValue placeholder="Select category" /></SelectTrigger>
-                                  <SelectContent>
-                                    <SelectItem value="bug">Bug / Error</SelectItem>
-                                    <SelectItem value="setup">Setup / Installation</SelectItem>
-                                    <SelectItem value="account">Account / Billing</SelectItem>
-                                    <SelectItem value="feature">Feature Request</SelectItem>
-                                    <SelectItem value="other">Other</SelectItem>
-                                  </SelectContent>
-                                </Select>
-                              </div>
-                              <div>
-                                <label className="text-xs font-medium mb-1 block">Priority</label>
-                                <Select>
-                                  <SelectTrigger className="h-9 text-sm"><SelectValue placeholder="Select priority" /></SelectTrigger>
-                                  <SelectContent>
-                                    <SelectItem value="low">Low</SelectItem>
-                                    <SelectItem value="medium">Medium</SelectItem>
-                                    <SelectItem value="high">High</SelectItem>
-                                    <SelectItem value="critical">Critical</SelectItem>
-                                  </SelectContent>
-                                </Select>
-                              </div>
-                            </>
-                          )}
-
-                          <div>
-                            <label className="text-xs font-medium mb-1 block">Additional Details</label>
-                            <Textarea rows={3} placeholder="Any additional information..." className="text-sm" />
-                          </div>
-
-                          <Button type="submit" size="sm" className="w-full">
-                            Submit Request
-                          </Button>
-                        </form>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* Quick Link Success */}
-                {quickLinkSubmitted && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="bg-primary/5 border border-primary/20 rounded-lg p-4 text-center"
-                  >
-                    <p className="text-sm font-medium">Request submitted! We'll be in touch soon.</p>
-                  </motion.div>
-                )}
               </div>
             </div>
           </div>
