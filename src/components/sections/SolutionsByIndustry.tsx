@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   GraduationCap,
   Building2,
@@ -171,72 +171,71 @@ const SolutionsByIndustry = () => {
           })}
         </div>
 
-        {/* Main content card */}
-        <div className="bg-card border border-border rounded-2xl shadow-lg overflow-hidden min-h-[420px]">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeId}
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -40 }}
-              transition={{ duration: 0.35, ease: "easeInOut" }}
-              className="grid grid-cols-1 lg:grid-cols-2 gap-0"
-            >
-              {/* Left — text */}
-              <div className="p-8 lg:p-12 flex flex-col justify-center">
-                <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary bg-primary/10 rounded-full px-3 py-1 w-fit mb-5">
-                  <Zap size={12} />
-                  {active.tag}
-                </span>
-
-                <h3 className="text-2xl lg:text-[32px] font-bold leading-tight mb-4">
-                  {active.title}
-                </h3>
-
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  {active.description}
-                </p>
-
-                <div className="space-y-4 mb-8">
-                  {active.features.map((feat, i) => (
-                    <div key={i} className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5">
-                        <feat.icon size={18} />
-                      </div>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        {feat.text}
-                      </p>
+        {/* Main content card — all tabs always mounted, crossfade via opacity */}
+        <div className="bg-card border border-border rounded-2xl shadow-lg overflow-hidden min-h-[420px] relative">
+          {industries.map((ind) => {
+            const isActive = ind.id === activeId;
+            return (
+              <div
+                key={ind.id}
+                className="transition-opacity duration-400 ease-in-out"
+                style={{
+                  opacity: isActive ? 1 : 0,
+                  pointerEvents: isActive ? "auto" : "none",
+                  position: isActive ? "relative" : "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                }}
+              >
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+                  {/* Left — text */}
+                  <div className="p-8 lg:p-12 flex flex-col justify-center">
+                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary bg-primary/10 rounded-full px-3 py-1 w-fit mb-5">
+                      <Zap size={12} />
+                      {ind.tag}
+                    </span>
+                    <h3 className="text-2xl lg:text-[32px] font-bold leading-tight mb-4">
+                      {ind.title}
+                    </h3>
+                    <p className="text-muted-foreground mb-6 leading-relaxed">
+                      {ind.description}
+                    </p>
+                    <div className="space-y-4 mb-8">
+                      {ind.features.map((feat, i) => (
+                        <div key={i} className="flex items-start gap-3">
+                          <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5">
+                            <feat.icon size={18} />
+                          </div>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            {feat.text}
+                          </p>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                    <Link to="/contact">
+                      <Button size="lg" className="rounded-full gap-2">
+                        Get Started <ArrowRight size={16} />
+                      </Button>
+                    </Link>
+                  </div>
 
-                <Link to="/contact">
-                  <Button size="lg" className="rounded-full gap-2">
-                    Get Started <ArrowRight size={16} />
-                  </Button>
-                </Link>
-              </div>
-
-              {/* Right — dashboard visual */}
-              <div className="relative bg-secondary/30 flex items-center justify-center p-6 lg:p-10">
-                <div className="w-full aspect-video rounded-xl overflow-hidden shadow-2xl border border-border">
-                  <img
-                    src={active.image}
-                    alt={`${active.label} dashboard`}
-                    className="w-full h-full object-cover"
-                    loading="eager"
-                    decoding="async"
-                  />
-                </div>
-                {/* Preload all industry images for instant tab switching */}
-                <div className="hidden">
-                  {industries.map((ind) => (
-                    <img key={ind.id} src={ind.image} alt="" />
-                  ))}
+                  {/* Right — dashboard visual */}
+                  <div className="relative bg-secondary/30 flex items-center justify-center p-6 lg:p-10">
+                    <div className="w-full aspect-video rounded-xl overflow-hidden shadow-2xl border border-border">
+                      <img
+                        src={ind.image}
+                        alt={`${ind.label} dashboard`}
+                        className="w-full h-full object-cover"
+                        loading="eager"
+                        decoding="async"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
-            </motion.div>
-          </AnimatePresence>
+            );
+          })}
         </div>
       </div>
     </section>

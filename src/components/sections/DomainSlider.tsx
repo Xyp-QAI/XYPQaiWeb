@@ -1,11 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { domainContent } from "@/config/content";
 
 const DomainSlider = () => {
   const [active, setActive] = useState(0);
+  const [imagesReady, setImagesReady] = useState(false);
+
+  // Preload all images on mount
+  useEffect(() => {
+    let loaded = 0;
+    const total = domainContent.length;
+    domainContent.forEach((d) => {
+      const img = new Image();
+      img.src = d.image;
+      img.onload = img.onerror = () => {
+        loaded++;
+        if (loaded >= total) setImagesReady(true);
+      };
+    });
+  }, []);
 
   return (
     <section className="bg-background py-20 lg:py-24">
@@ -22,20 +37,18 @@ const DomainSlider = () => {
         >
           <div className="absolute inset-0 opacity-[0.06] bg-[radial-gradient(circle,hsl(0_0%_100%)_0.5px,transparent_0.5px)] bg-[length:24px_24px] pointer-events-none" />
 
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={active}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="absolute inset-0"
+          {/* ALL images rendered simultaneously — crossfade via opacity */}
+          {domainContent.map((d, i) => (
+            <div
+              key={i}
+              className="absolute inset-0 transition-opacity duration-500 ease-in-out"
+              style={{ opacity: i === active ? 1 : 0, pointerEvents: i === active ? "auto" : "none" }}
             >
               {/* Image — right side */}
               <div className="absolute right-0 top-0 bottom-0 w-[55%] lg:w-[50%] hidden md:block">
                 <img
-                  src={domainContent[active].image}
-                  alt={domainContent[active].label}
+                  src={d.image}
+                  alt={d.label}
                   className="absolute inset-0 w-full h-full object-cover"
                   loading="eager"
                   decoding="async"
@@ -53,13 +66,13 @@ const DomainSlider = () => {
               <div className="absolute inset-0 flex flex-col justify-center px-8 lg:px-14 xl:px-16 z-10">
                 <div className="max-w-md lg:max-w-lg">
                   <span className="text-xs font-semibold uppercase tracking-[0.2em] text-tech-cyan mb-4 block">
-                    {domainContent[active].label}
+                    {d.label}
                   </span>
                   <h3 className="text-2xl sm:text-3xl lg:text-[2.5rem] xl:text-[3rem] font-bold leading-[1.1] text-primary-foreground mb-5">
-                    {domainContent[active].headline}
+                    {d.headline}
                   </h3>
                   <p className="text-sm lg:text-base leading-relaxed text-primary-foreground/55 mb-8">
-                    {domainContent[active].description}
+                    {d.description}
                   </p>
                   <Link
                     to="/technology"
@@ -69,15 +82,8 @@ const DomainSlider = () => {
                   </Link>
                 </div>
               </div>
-            </motion.div>
-          </AnimatePresence>
-
-          {/* Preload all domain images for instant switching */}
-          <div className="hidden" aria-hidden="true">
-            {domainContent.map((d, i) => (
-              <img key={i} src={d.image} alt="" />
-            ))}
-          </div>
+            </div>
+          ))}
 
           {/* Dash indicators */}
           <div className="absolute bottom-0 left-0 right-0 z-20 flex items-center justify-center gap-2.5 pb-7">
