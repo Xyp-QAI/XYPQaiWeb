@@ -81,9 +81,9 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-primary-foreground/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <Link to="/" className="font-bold text-lg">
-              <span className="text-primary">XYP</span>{" "}
-              <span className="text-primary-foreground">Quantum AI</span>
+            <Link to="/" className="text-lg flex items-center gap-1.5">
+              <span className="text-primary font-black tracking-wider" style={{ fontFamily: "'Orbitron', sans-serif" }}>XYP</span>{" "}
+              <span className="text-primary-foreground font-semibold" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Quantum AI</span>
             </Link>
             <span className="text-xs text-primary-foreground/50">
               © 2026 XYP Quantum AI Systems. All rights reserved.
