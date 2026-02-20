@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Clock, Calendar, Handshake, Headphones } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Calendar, Handshake, Headphones, ArrowRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,12 +10,22 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/sections/PageHero";
 
+type QuickLinkType = "demo" | "pricing" | "support" | null;
+
 const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [activeQuickLink, setActiveQuickLink] = useState<QuickLinkType>(null);
+  const [quickLinkSubmitted, setQuickLinkSubmitted] = useState<QuickLinkType>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
+  };
+
+  const handleQuickLinkSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setQuickLinkSubmitted(activeQuickLink);
+    setActiveQuickLink(null);
   };
 
   return (
@@ -115,17 +125,186 @@ const Contact = () => {
                 <div className="border-t border-border pt-6">
                   <h4 className="text-sm font-semibold mb-3">Quick Links</h4>
                   <div className="space-y-2">
-                    {[
-                      { label: "Book a Demo", href: "/contact" },
-                      { label: "Request Pricing", href: "/products" },
-                      { label: "Technical Support", href: "/contact" },
-                    ].map((link) => (
-                      <Link key={link.label} to={link.href} className="block text-sm text-primary hover:underline">
+                    {([
+                      { label: "Book a Demo", key: "demo" as QuickLinkType },
+                      { label: "Request Pricing", key: "pricing" as QuickLinkType },
+                      { label: "Technical Support", key: "support" as QuickLinkType },
+                    ]).map((link) => (
+                      <button
+                        key={link.label}
+                        onClick={() => {
+                          setActiveQuickLink(activeQuickLink === link.key ? null : link.key);
+                          setQuickLinkSubmitted(null);
+                        }}
+                        className="block text-sm text-primary hover:underline text-left"
+                      >
                         → {link.label}
-                      </Link>
+                      </button>
                     ))}
                   </div>
                 </div>
+
+                {/* Quick Link Expanded Forms */}
+                <AnimatePresence>
+                  {activeQuickLink && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="border border-border rounded-lg p-5 bg-card">
+                        <div className="flex items-center justify-between mb-4">
+                          <h4 className="font-semibold text-sm">
+                            {activeQuickLink === "demo" && "Book a Demo"}
+                            {activeQuickLink === "pricing" && "Request Pricing"}
+                            {activeQuickLink === "support" && "Technical Support"}
+                          </h4>
+                          <button onClick={() => setActiveQuickLink(null)} className="text-muted-foreground hover:text-foreground">
+                            <X size={16} />
+                          </button>
+                        </div>
+                        <form onSubmit={handleQuickLinkSubmit} className="space-y-3">
+                          <div>
+                            <label className="text-xs font-medium mb-1 block">Full Name *</label>
+                            <Input required placeholder="Your name" className="h-9 text-sm" />
+                          </div>
+                          <div>
+                            <label className="text-xs font-medium mb-1 block">Email *</label>
+                            <Input type="email" required placeholder="you@company.com" className="h-9 text-sm" />
+                          </div>
+                          <div>
+                            <label className="text-xs font-medium mb-1 block">Company / Institution *</label>
+                            <Input required placeholder="Your organization" className="h-9 text-sm" />
+                          </div>
+                          <div>
+                            <label className="text-xs font-medium mb-1 block">Phone Number</label>
+                            <Input type="tel" placeholder="+1 (555) 000-0000" className="h-9 text-sm" />
+                          </div>
+
+                          {/* Demo-specific fields */}
+                          {activeQuickLink === "demo" && (
+                            <>
+                              <div>
+                                <label className="text-xs font-medium mb-1 block">Preferred Demo Date *</label>
+                                <Input type="date" required className="h-9 text-sm" />
+                              </div>
+                              <div>
+                                <label className="text-xs font-medium mb-1 block">Product of Interest</label>
+                                <Select>
+                                  <SelectTrigger className="h-9 text-sm"><SelectValue placeholder="Select product" /></SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="zyloens">ZYLOENS Platform</SelectItem>
+                                    <SelectItem value="edge">XYP Edge Intelligence</SelectItem>
+                                    <SelectItem value="smart">XYP Smart Devices</SelectItem>
+                                    <SelectItem value="all">All Products</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                              <div>
+                                <label className="text-xs font-medium mb-1 block">Number of Attendees</label>
+                                <Input type="number" min={1} placeholder="e.g. 5" className="h-9 text-sm" />
+                              </div>
+                            </>
+                          )}
+
+                          {/* Pricing-specific fields */}
+                          {activeQuickLink === "pricing" && (
+                            <>
+                              <div>
+                                <label className="text-xs font-medium mb-1 block">Solution Needed *</label>
+                                <Select>
+                                  <SelectTrigger className="h-9 text-sm"><SelectValue placeholder="Select solution" /></SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="education">Education Solutions</SelectItem>
+                                    <SelectItem value="smartcity">Smart City</SelectItem>
+                                    <SelectItem value="industrial">Industrial IoT</SelectItem>
+                                    <SelectItem value="custom">Custom Solution</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                              <div>
+                                <label className="text-xs font-medium mb-1 block">Estimated Budget Range</label>
+                                <Select>
+                                  <SelectTrigger className="h-9 text-sm"><SelectValue placeholder="Select range" /></SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="10k">Under $10,000</SelectItem>
+                                    <SelectItem value="50k">$10,000 – $50,000</SelectItem>
+                                    <SelectItem value="100k">$50,000 – $100,000</SelectItem>
+                                    <SelectItem value="100k+">$100,000+</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                              <div>
+                                <label className="text-xs font-medium mb-1 block">Timeline</label>
+                                <Select>
+                                  <SelectTrigger className="h-9 text-sm"><SelectValue placeholder="Select timeline" /></SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="immediate">Immediate</SelectItem>
+                                    <SelectItem value="1-3">1–3 Months</SelectItem>
+                                    <SelectItem value="3-6">3–6 Months</SelectItem>
+                                    <SelectItem value="6+">6+ Months</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                            </>
+                          )}
+
+                          {/* Support-specific fields */}
+                          {activeQuickLink === "support" && (
+                            <>
+                              <div>
+                                <label className="text-xs font-medium mb-1 block">Issue Category *</label>
+                                <Select>
+                                  <SelectTrigger className="h-9 text-sm"><SelectValue placeholder="Select category" /></SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="bug">Bug / Error</SelectItem>
+                                    <SelectItem value="setup">Setup / Installation</SelectItem>
+                                    <SelectItem value="account">Account / Billing</SelectItem>
+                                    <SelectItem value="feature">Feature Request</SelectItem>
+                                    <SelectItem value="other">Other</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                              <div>
+                                <label className="text-xs font-medium mb-1 block">Priority</label>
+                                <Select>
+                                  <SelectTrigger className="h-9 text-sm"><SelectValue placeholder="Select priority" /></SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="low">Low</SelectItem>
+                                    <SelectItem value="medium">Medium</SelectItem>
+                                    <SelectItem value="high">High</SelectItem>
+                                    <SelectItem value="critical">Critical</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                            </>
+                          )}
+
+                          <div>
+                            <label className="text-xs font-medium mb-1 block">Additional Details</label>
+                            <Textarea rows={3} placeholder="Any additional information..." className="text-sm" />
+                          </div>
+
+                          <Button type="submit" size="sm" className="w-full">
+                            Submit Request
+                          </Button>
+                        </form>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* Quick Link Success */}
+                {quickLinkSubmitted && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="bg-primary/5 border border-primary/20 rounded-lg p-4 text-center"
+                  >
+                    <p className="text-sm font-medium">Request submitted! We'll be in touch soon.</p>
+                  </motion.div>
+                )}
               </div>
             </div>
           </div>
