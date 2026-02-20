@@ -13,7 +13,10 @@ import PageHero from "@/components/sections/PageHero";
 
 type QuickLinkType = "demo" | "pricing" | "support" | null;
 
-const API_URL = import.meta.env.VITE_CONTACT_API_URL || "http://localhost:3001";
+// In production (e.g. Vercel) use same-origin /api/contact; in dev use local backend
+const API_URL =
+  import.meta.env.VITE_CONTACT_API_URL ??
+  (import.meta.env.PROD ? "" : "http://localhost:3001");
 
 interface FormData {
   fullName: string;
