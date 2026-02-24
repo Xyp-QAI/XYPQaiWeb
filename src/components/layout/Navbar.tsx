@@ -18,14 +18,6 @@ const navItems = [
         ],
       },
       {
-        title: "By Industry",
-        links: [
-          { name: "Education Solutions", href: "/technology#solutions" },
-          { name: "Smart Cities", href: "/technology#solutions" },
-          { name: "Industrial IoT", href: "/technology#solutions" },
-        ],
-      },
-      {
         title: "Featured",
         links: [
           { name: "Latest Product Update", href: "/products#features" },
@@ -37,24 +29,6 @@ const navItems = [
   {
     label: "Technology",
     href: "/technology",
-    columns: [
-      {
-        title: "By Domain",
-        links: [
-          { name: "AI for Education", href: "/technology#solutions" },
-          { name: "Computer Vision Systems", href: "/technology#tech-stack" },
-          { name: "Smart City Infrastructure", href: "/technology#solutions" },
-        ],
-      },
-      {
-        title: "Core Technology",
-        links: [
-          { name: "AI & Machine Learning", href: "/technology#tech-stack" },
-          { name: "Edge Computing", href: "/technology#tech-stack" },
-          { name: "Quantum Computing", href: "/technology#tech-stack" },
-        ],
-      },
-    ],
   },
   {
     label: "Company",
@@ -139,7 +113,7 @@ const Navbar = () => {
               </Link>
 
               {/* Mega Menu */}
-              {activeMenu === item.label && (
+              {item.columns && item.columns.length > 0 && activeMenu === item.label && (
                 <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2" onMouseEnter={() => setActiveMenu(item.label)}>
                   <div className="bg-background rounded-lg shadow-xl border border-border p-6 min-w-[480px] animate-fade-in-up grid grid-cols-2 gap-8"
                     style={{ animationDuration: "0.2s" }}>
@@ -200,43 +174,55 @@ const Navbar = () => {
           <div className="container mx-auto px-4 py-4 space-y-1">
             {navItems.map((item) => (
               <div key={item.label}>
-                <button
-                  className="flex items-center justify-between w-full min-h-[44px] py-3 text-sm font-medium"
-                  onClick={() =>
-                    setMobileExpanded(mobileExpanded === item.label ? null : item.label)
-                  }
-                >
-                  {item.label}
-                  <ChevronDown
-                    size={16}
-                    className={cn(
-                      "transition-transform",
-                      mobileExpanded === item.label && "rotate-180"
-                    )}
-                  />
-                </button>
-                {mobileExpanded === item.label && (
-                  <div className="pl-4 pb-3 space-y-4">
-                    {item.columns.map((col) => (
-                      <div key={col.title}>
-                        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
-                          {col.title}
-                        </p>
-                        <ul className="space-y-2">
-                          {col.links.map((link) => (
-                            <li key={link.name}>
-                              <Link
-                                to={link.href}
-                                className="text-sm text-foreground hover:text-primary transition-colors block min-h-[44px] flex items-center"
-                              >
-                                {link.name}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
+                {item.columns && item.columns.length > 0 ? (
+                  <>
+                    <button
+                      className="flex items-center justify-between w-full min-h-[44px] py-3 text-sm font-medium"
+                      onClick={() =>
+                        setMobileExpanded(mobileExpanded === item.label ? null : item.label)
+                      }
+                    >
+                      {item.label}
+                      <ChevronDown
+                        size={16}
+                        className={cn(
+                          "transition-transform",
+                          mobileExpanded === item.label && "rotate-180"
+                        )}
+                      />
+                    </button>
+                    {mobileExpanded === item.label && (
+                      <div className="pl-4 pb-3 space-y-4">
+                        {item.columns.map((col) => (
+                          <div key={col.title}>
+                            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                              {col.title}
+                            </p>
+                            <ul className="space-y-2">
+                              {col.links.map((link) => (
+                                <li key={link.name}>
+                                  <Link
+                                    to={link.href}
+                                    className="text-sm text-foreground hover:text-primary transition-colors block min-h-[44px] flex items-center"
+                                  >
+                                    {link.name}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                    )}
+                  </>
+                ) : (
+                  <Link
+                    to={item.href}
+                    className="w-full min-h-[44px] py-3 text-sm font-medium flex items-center"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
                 )}
               </div>
             ))}
