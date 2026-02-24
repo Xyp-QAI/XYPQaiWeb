@@ -115,12 +115,33 @@ function buildNotificationHtml(body) {
 </html>`.trim();
 }
 
+/**
+ * Parse admin email(s) from env. Supports:
+ * - ADMIN_EMAIL=one@example.com
+ * - ADMIN_EMAILS=one@example.com,two@example.com
+ * - ADMIN_EMAIL=one@example.com,two@example.com (comma-separated)
+ */
+function getAdminEmails() {
+  const raw =
+    process.env.ADMIN_EMAILS ||
+    process.env.ADMIN_EMAIL;
+  if (!raw || typeof raw !== "string") return [];
+  return raw
+    .split(",")
+    .map((e) => e.trim().toLowerCase())
+    .filter((e) => e && e.includes("@"));
+}
+
 export async function sendAdminNotification(body) {
   const apiKey = process.env.RESEND_API_KEY;
-  const adminEmail = process.env.ADMIN_EMAIL;
+  const recipients = getAdminEmails();
 
-  if (!apiKey || !adminEmail) {
-    console.warn("Resend not configured (RESEND_API_KEY or ADMIN_EMAIL missing). Skipping email.");
+  if (!apiKey) {
+    console.warn("Resend not configured (RESEND_API_KEY missing). Skipping email.");
+    return { skipped: true };
+  }
+  if (recipients.length === 0) {
+    console.warn("No admin emails configured (ADMIN_EMAIL or ADMIN_EMAILS missing). Skipping email.");
     return { skipped: true };
   }
 
@@ -128,7 +149,7 @@ export async function sendAdminNotification(body) {
 
   const result = await resend.emails.send({
     from: "XYP Quantum AI <onboarding@resend.dev>",
-    to: [adminEmail],
+    to: recipients,
     replyTo: body.email,
     subject: getSubject(body),
     html: buildNotificationHtml(body),

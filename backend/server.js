@@ -193,18 +193,28 @@ function buildNotificationHtml(body) {
 </body></html>`;
 }
 
+function getAdminEmails() {
+  const raw = process.env.ADMIN_EMAILS || process.env.ADMIN_EMAIL;
+  if (!raw || typeof raw !== "string") return [];
+  return raw.split(",").map((e) => e.trim().toLowerCase()).filter((e) => e && e.includes("@"));
+}
+
 async function sendAdminNotification(body) {
   const apiKey = process.env.RESEND_API_KEY;
-  const adminEmail = process.env.ADMIN_EMAIL;
-  if (!apiKey || !adminEmail) {
-    console.warn("Resend not configured (RESEND_API_KEY or ADMIN_EMAIL missing). Skipping email.");
+  const recipients = getAdminEmails();
+  if (!apiKey) {
+    console.warn("Resend not configured (RESEND_API_KEY missing). Skipping email.");
+    return { skipped: true };
+  }
+  if (recipients.length === 0) {
+    console.warn("No admin emails configured (ADMIN_EMAIL or ADMIN_EMAILS missing). Skipping email.");
     return { skipped: true };
   }
   const resend = new Resend(apiKey);
   const prefix = FORM_TYPE_LABELS[body.formType] || FORM_TYPE_LABELS.general;
   return resend.emails.send({
     from: "XYP Quantum AI <onboarding@resend.dev>",
-    to: [adminEmail],
+    to: recipients,
     replyTo: body.email,
     subject: `${prefix}: ${body.fullName} - XYP Quantum AI`,
     html: buildNotificationHtml(body),

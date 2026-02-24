@@ -1,6 +1,6 @@
 /**
  * Vercel serverless API: POST /api/contact → append to Google Sheet + send admin email via Resend.
- * Required env vars: GOOGLE_SHEET_ID, GOOGLE_SERVICE_ACCOUNT_KEY_JSON, RESEND_API_KEY, ADMIN_EMAIL.
+ * Required env vars: GOOGLE_SHEET_ID, GOOGLE_SERVICE_ACCOUNT_KEY_JSON, RESEND_API_KEY, ADMIN_EMAIL or ADMIN_EMAILS.
  */
 import { google } from "googleapis";
 import { sendAdminNotification } from "./_email.js";
@@ -26,14 +26,25 @@ const SHEET_COLUMNS = [
 
 function getAuth() {
   const keyJson = process.env.GOOGLE_SERVICE_ACCOUNT_KEY_JSON;
-  if (!keyJson) {
+  if (!keyJson || typeof keyJson !== "string") {
     throw new Error("GOOGLE_SERVICE_ACCOUNT_KEY_JSON is not set");
   }
-  const creds = JSON.parse(keyJson);
+  let creds;
+  try {
+    creds = JSON.parse(keyJson);
+  } catch (e) {
+    throw new Error("Invalid GOOGLE_SERVICE_ACCOUNT_KEY_JSON: JSON parse failed");
+  }
+  const privateKey = creds.private_key
+    ? String(creds.private_key).replace(/\\n/g, "\n")
+    : "";
+  if (!creds.client_email || !privateKey) {
+    throw new Error("GOOGLE_SERVICE_ACCOUNT_KEY_JSON missing client_email or private_key");
+  }
   return new google.auth.GoogleAuth({
     credentials: {
       client_email: creds.client_email,
-      private_key: creds.private_key,
+      private_key: privateKey,
     },
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
   });
@@ -116,7 +127,8 @@ export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
 
   try {
-    const { fullName, email, formType } = req.body || {};
+    const body = req.body && typeof req.body === "object" ? req.body : {};
+    const { fullName, email, formType } = body;
     if (!fullName || !email) {
       return res.status(400).json({ error: "Full name and email are required." });
     }
@@ -143,7 +155,7 @@ export default async function handler(req, res) {
     const sheetName = await getSheetName(sheets, SPREADSHEET_ID);
     await ensureHeaderRow(sheets, SPREADSHEET_ID, sheetName);
 
-    const rowData = buildRow(req.body);
+    const rowData = buildRow(body);
 
     const [sheetsResult, emailResult] = await Promise.allSettled([
       sheets.spreadsheets.values.append({
@@ -153,7 +165,7 @@ export default async function handler(req, res) {
         insertDataOption: "INSERT_ROWS",
         requestBody: { values: [rowData] },
       }),
-      sendAdminNotification(req.body),
+      sendAdminNotification(body),
     ]);
 
     if (sheetsResult.status === "rejected") {
