@@ -1,5 +1,6 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Target, Eye, Heart, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ProfileCarousel } from "@/components/ui/profile-card-testimonial-carousel";
@@ -28,6 +29,19 @@ const timeline = [
 ];
 
 const About = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!location.hash) return;
+    const id = location.hash.replace("#", "");
+    const el = document.getElementById(id);
+    if (el) {
+      // Offset for fixed navbar
+      const y = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  }, [location]);
+
   return (
     <div className="min-h-screen bg-background">
       <SEO title="About Us" description="Deep-tech company building intelligent systems across education, infrastructure, and quantum research. Founded in Bengaluru." path="/about" />
@@ -39,7 +53,7 @@ const About = () => {
         />
 
         {/* Overview */}
-        <section className="section-padding">
+        <section id="about" className="section-padding">
           <div className="container mx-auto px-4 lg:px-8 max-w-4xl text-center">
             <motion.h2
               className="text-section-sm lg:text-section mb-8"
@@ -112,7 +126,7 @@ const About = () => {
         </section>
 
         {/* Leadership */}
-        <section className="section-padding">
+        <section id="team" className="section-padding">
           <div className="container mx-auto px-4 lg:px-8">
             <h2 className="text-section-sm lg:text-section mb-10 text-center">Leadership Team</h2>
             <ProfileCarousel profiles={leaders} />
@@ -146,7 +160,7 @@ const About = () => {
         </section>
 
         {/* Careers */}
-        <section className="section-padding">
+        <section id="careers" className="section-padding">
           <div className="container mx-auto px-4 lg:px-8 text-center max-w-3xl">
             <h2 className="text-section-sm lg:text-section mb-4">Join Our Team</h2>
             <p className="text-muted-foreground mb-8">

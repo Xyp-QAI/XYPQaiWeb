@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -72,6 +73,18 @@ const plans = [
 ];
 
 const Products = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!location.hash) return;
+    const id = location.hash.replace("#", "");
+    const el = document.getElementById(id);
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  }, [location]);
+
   return (
     <div className="min-h-screen bg-background">
       <SEO title="Products & Platforms" description="ZYLOENS AI platform for education — student portfolios, teacher tools, admin dashboards. Built in Bengaluru." path="/products" />
@@ -83,7 +96,7 @@ const Products = () => {
         />
 
         {/* ZYLOENS Overview */}
-        <section className="section-padding">
+        <section id="zyloens" className="section-padding">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
               <motion.div className="aspect-video overflow-hidden rounded-lg shadow-xl"
@@ -115,7 +128,7 @@ const Products = () => {
             </div>
 
             {/* Features - Alternating */}
-            <div className="space-y-24">
+            <div id="features" className="space-y-24">
               {features.map((feature, i) => (
                 <motion.div
                   key={feature.title}
@@ -173,6 +186,7 @@ const Products = () => {
               ].map((product) => (
                 <motion.div
                   key={product.name}
+                  id={product.name === "XYP Edge Intelligence" ? "edge-intelligence" : "smart-devices"}
                   className="card-hover border border-border rounded-lg overflow-hidden"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}

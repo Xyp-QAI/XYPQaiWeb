@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { GraduationCap, Landmark, Factory, Cpu, FlaskConical, Rocket } from "lucide-react";
 import SEO from "@/components/SEO";
@@ -16,6 +17,18 @@ const partnerships = [
 ];
 
 const Technology = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!location.hash) return;
+    const id = location.hash.replace("#", "");
+    const el = document.getElementById(id);
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  }, [location]);
+
   return (
     <div className="min-h-screen bg-background">
       <SEO title="Technology & Solutions" description="AI, Computer Vision, Edge Computing, IoT & Quantum Research — advanced technology solutions from XYP Quantum AI." path="/technology" />
@@ -27,10 +40,14 @@ const Technology = () => {
         />
 
         {/* Solutions by Industry */}
-        <SolutionsByIndustry />
+        <section id="solutions">
+          <SolutionsByIndustry />
+        </section>
 
         {/* Technology Notepad */}
-        <TechNotepad />
+        <section id="tech-stack">
+          <TechNotepad />
+        </section>
 
         {/* Partnerships */}
         <section className="section-padding" style={{ background: 'hsl(216 100% 37%)' }}>

@@ -12,24 +12,24 @@ const navItems = [
       {
         title: "Product Categories",
         links: [
-          { name: "ZYLOENS Platform", href: "/products", badge: "" },
-          { name: "XYP Edge Intelligence", href: "/products", badge: "Coming Soon" },
-          { name: "XYP Smart Devices", href: "/products", badge: "Coming Soon" },
+          { name: "ZYLOENS Platform", href: "/products#zyloens", badge: "" },
+          { name: "XYP Edge Intelligence", href: "/products#edge-intelligence", badge: "Coming Soon" },
+          { name: "XYP Smart Devices", href: "/products#smart-devices", badge: "Coming Soon" },
         ],
       },
       {
         title: "By Industry",
         links: [
-          { name: "Education Solutions", href: "/technology" },
-          { name: "Smart Cities", href: "/technology" },
-          { name: "Industrial IoT", href: "/technology" },
+          { name: "Education Solutions", href: "/technology#solutions" },
+          { name: "Smart Cities", href: "/technology#solutions" },
+          { name: "Industrial IoT", href: "/technology#solutions" },
         ],
       },
       {
         title: "Featured",
         links: [
-          { name: "Latest Product Update", href: "/products" },
-          { name: "View All Products →", href: "/products" },
+          { name: "Latest Product Update", href: "/products#features" },
+          { name: "View All Products →", href: "/products#features" },
         ],
       },
     ],
@@ -41,17 +41,17 @@ const navItems = [
       {
         title: "By Domain",
         links: [
-          { name: "AI for Education", href: "/technology" },
-          { name: "Computer Vision Systems", href: "/technology" },
-          { name: "Smart City Infrastructure", href: "/technology" },
+          { name: "AI for Education", href: "/technology#solutions" },
+          { name: "Computer Vision Systems", href: "/technology#tech-stack" },
+          { name: "Smart City Infrastructure", href: "/technology#solutions" },
         ],
       },
       {
         title: "Core Technology",
         links: [
-          { name: "AI & Machine Learning", href: "/technology" },
-          { name: "Edge Computing", href: "/technology" },
-          { name: "Quantum Computing", href: "/technology" },
+          { name: "AI & Machine Learning", href: "/technology#tech-stack" },
+          { name: "Edge Computing", href: "/technology#tech-stack" },
+          { name: "Quantum Computing", href: "/technology#tech-stack" },
         ],
       },
     ],
@@ -63,15 +63,14 @@ const navItems = [
       {
         title: "About",
         links: [
-          { name: "About Us", href: "/about" },
-          { name: "Leadership Team", href: "/about" },
-          { name: "Careers", href: "/about" },
+          { name: "About Us", href: "/about#about" },
+          { name: "Our Team", href: "/about#team" },
+          { name: "Careers", href: "/about#careers" },
         ],
       },
       {
         title: "Resources",
         links: [
-          { name: "News & Blog", href: "/about" },
           { name: "Contact Us", href: "/contact" },
         ],
       },
