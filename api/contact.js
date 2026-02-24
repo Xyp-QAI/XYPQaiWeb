@@ -127,7 +127,14 @@ export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
 
   try {
-    const body = req.body && typeof req.body === "object" ? req.body : {};
+    let body = req.body;
+    if (!body || typeof body !== "object") {
+      try {
+        body = typeof req.body === "string" ? JSON.parse(req.body) : {};
+      } catch {
+        body = {};
+      }
+    }
     const { fullName, email, formType } = body;
     if (!fullName || !email) {
       return res.status(400).json({ error: "Full name and email are required." });
