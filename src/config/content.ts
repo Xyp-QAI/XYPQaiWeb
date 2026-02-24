@@ -149,7 +149,6 @@ export const industryContent = {
 import featureStudentPortfolios from "@/assets/feature-student-portfolios.jpg";
 import featureTeacherTools from "@/assets/feature-teacher-tools.jpg";
 import featureAdminControl from "@/assets/feature-admin-control.jpg";
-import featurePrivacySecurity from "@/assets/feature-privacy-security.jpg";
 import featureGrowthAnalytics from "@/assets/feature-growth-analytics.jpg";
 import featureVerifiedOnboarding from "@/assets/feature-verified-onboarding.jpg";
 
@@ -157,7 +156,6 @@ export const productFeatureImages = {
   studentPortfolios: featureStudentPortfolios,
   teacherTools: featureTeacherTools,
   adminControl: featureAdminControl,
-  privacySecurity: featurePrivacySecurity,
   growthAnalytics: featureGrowthAnalytics,
   verifiedOnboarding: featureVerifiedOnboarding,
 };
