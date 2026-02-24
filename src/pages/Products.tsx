@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Check, Bell, ArrowRight } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/layout/Navbar";
@@ -29,13 +29,6 @@ const features = [
     description: "Comprehensive dashboards for institutional leadership with real-time insights and control.",
     bullets: ["Institution-wide analytics", "User management", "Compliance tools", "Reporting systems", "Security controls"],
     image: productFeatureImages.adminControl,
-  },
-  {
-    title: "Privacy & Security",
-    subtitle: "Privacy-First Architecture",
-    description: "Complete institutional ownership with no social media risks or data exploitation.",
-    bullets: ["School-owned data", "FERPA compliant", "Encrypted storage", "Role-based access", "Audit trails"],
-    image: productFeatureImages.privacySecurity,
   },
   {
     title: "Growth Analytics",
@@ -201,10 +194,6 @@ const Products = () => {
                         </li>
                       ))}
                     </ul>
-                    <div className="flex gap-3">
-                      <Button size="sm" variant="outline"><Bell size={14} /> Notify Me</Button>
-                      <Button size="sm" variant="ghost" asChild><Link to="/technology">Learn More</Link></Button>
-                    </div>
                   </div>
                 </motion.div>
               ))}
