@@ -1,8 +1,9 @@
 /**
- * Vercel serverless API: POST /api/contact → append to Google Sheet.
- * Required env vars (in Vercel project settings): GOOGLE_SHEET_ID, GOOGLE_SERVICE_ACCOUNT_KEY_JSON (full JSON string).
+ * Vercel serverless API: POST /api/contact → append to Google Sheet + send admin email via Resend.
+ * Required env vars: GOOGLE_SHEET_ID, GOOGLE_SERVICE_ACCOUNT_KEY_JSON, RESEND_API_KEY, ADMIN_EMAIL.
  */
 import { google } from "googleapis";
+import { sendAdminNotification } from "./_email.js";
 
 const SHEET_COLUMNS = [
   "Timestamp",
@@ -143,13 +144,28 @@ export default async function handler(req, res) {
     await ensureHeaderRow(sheets, SPREADSHEET_ID, sheetName);
 
     const rowData = buildRow(req.body);
-    await sheets.spreadsheets.values.append({
-      spreadsheetId: SPREADSHEET_ID,
-      range: `${sheetName}!A:P`,
-      valueInputOption: "USER_ENTERED",
-      insertDataOption: "INSERT_ROWS",
-      requestBody: { values: [rowData] },
-    });
+
+    const [sheetsResult, emailResult] = await Promise.allSettled([
+      sheets.spreadsheets.values.append({
+        spreadsheetId: SPREADSHEET_ID,
+        range: `${sheetName}!A:P`,
+        valueInputOption: "USER_ENTERED",
+        insertDataOption: "INSERT_ROWS",
+        requestBody: { values: [rowData] },
+      }),
+      sendAdminNotification(req.body),
+    ]);
+
+    if (sheetsResult.status === "rejected") {
+      console.error("Google Sheets write failed:", sheetsResult.reason);
+      throw sheetsResult.reason;
+    }
+
+    if (emailResult.status === "rejected") {
+      console.error("Admin email failed (non-blocking):", emailResult.reason);
+    } else {
+      console.log("Admin email sent:", emailResult.value);
+    }
 
     return res.status(200).json({
       success: true,
