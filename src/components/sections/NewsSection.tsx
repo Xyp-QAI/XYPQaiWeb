@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import dashboardEducation from "@/assets/dashboard-education.jpg";
+import dashboardHealthcare from "@/assets/dashboard-healthcare.jpg";
+import dashboardCities from "@/assets/dashboard-cities.jpg";
 
 const news = [
   {
@@ -7,18 +10,27 @@ const news = [
     title: "ZYLOENS Platform v2.5 Launches with Enhanced Analytics",
     date: "February 10, 2026",
     excerpt: "New real-time analytics dashboard gives administrators unprecedented insights into institutional performance and student engagement across Indian schools.",
+    image: dashboardEducation,
+    imageAlt: "Education dashboard",
+    link: "/products",
   },
   {
     category: "Research",
     title: "XYP Publishes Breakthrough in Quantum Error Correction",
     date: "January 28, 2026",
     excerpt: "Our research team at our Bengaluru lab demonstrates a novel approach to quantum error correction that significantly improves qubit stability.",
+    image: dashboardHealthcare,
+    imageAlt: "Research and healthcare",
+    link: "/technology",
   },
   {
     category: "Press Release",
     title: "XYP Quantum AI Expands Across 5 Indian States",
     date: "January 15, 2026",
     excerpt: "Strategic expansion into Karnataka, Tamil Nadu, Maharashtra, Telangana, and Kerala brings AI-powered learning platforms to over 200 new schools.",
+    image: dashboardCities,
+    imageAlt: "Smart cities expansion",
+    link: "/about",
   },
 ];
 
@@ -47,7 +59,7 @@ const NewsSection = () => {
             </p>
           </div>
           <Link
-            to="/about"
+            to="/about#about"
             className="hidden md:inline-flex text-sm text-primary font-medium hover:underline"
           >
             View All News →
@@ -64,7 +76,19 @@ const NewsSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
             >
-              <div className="h-48 bg-gradient-to-br from-primary/5 to-accent/5" />
+              <Link to={item.link} className="block">
+                <div className="h-48 overflow-hidden bg-muted">
+                  <img
+                    src={item.image}
+                    alt={item.imageAlt}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                    width={400}
+                    height={192}
+                  />
+                </div>
+              </Link>
               <div className="p-6">
                 <span
                   className={`inline-block text-xs font-medium px-2.5 py-1 rounded mb-3 ${categoryColors[item.category] || "bg-muted text-muted-foreground"}`}
@@ -79,8 +103,8 @@ const NewsSection = () => {
                   {item.excerpt}
                 </p>
                 <Link
-                  to="/about"
-                  className="inline-block text-sm text-primary font-medium mt-4"
+                  to={item.link}
+                  className="inline-block text-sm text-primary font-medium mt-4 hover:underline"
                 >
                   Read more →
                 </Link>

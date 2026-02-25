@@ -6,19 +6,9 @@ const footerLinks = [
     title: "Products",
     links: [
       { name: "ZYLOENS Platform", href: "/products" },
-      { name: "Edge Intelligence", href: "/products" },
-      { name: "Smart Devices", href: "/products" },
+      { name: "Edge Intelligence", href: "/products#edge-intelligence" },
+      { name: "Smart Devices", href: "/products#smart-devices" },
       { name: "View All Products", href: "/products" },
-    ],
-  },
-  {
-    title: "Solutions",
-    links: [
-      { name: "Education", href: "/technology" },
-      { name: "Smart Cities", href: "/technology" },
-      { name: "Manufacturing", href: "/technology" },
-      { name: "Healthcare", href: "/technology" },
-      { name: "View All Solutions", href: "/technology" },
     ],
   },
   {
@@ -55,7 +45,7 @@ const Footer = () => {
     <footer className="section-tech-dark">
       <div className="container mx-auto px-4 lg:px-8 py-16 lg:py-20">
         {/* Main Footer Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-12 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
           {footerLinks.map((section) => (
             <div key={section.title}>
               <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-primary-foreground/80">

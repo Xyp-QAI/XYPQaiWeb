@@ -27,7 +27,7 @@ export const heroContent = {
 import domainAiMl from "@/assets/domain-ai-ml.jpg";
 import domainCv from "@/assets/domain-cv.jpg";
 import domainIot from "@/assets/domain-iot.jpg";
-import domainSmartcity from "@/assets/domain-smartcity.jpg";
+import domainSmartcity from "@/assets/XYP-smartcities.jpg";
 import domainIndustrial from "@/assets/domain-industrial.jpg";
 import domainQuantum from "@/assets/domain-quantum.jpg";
 

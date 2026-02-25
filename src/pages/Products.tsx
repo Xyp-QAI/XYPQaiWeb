@@ -8,6 +8,8 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/sections/PageHero";
 import { productShowcaseContent, productFeatureImages } from "@/config/content";
+import xypEdgeImg from "@/assets/XYP-edge.jpg";
+import xypSmartCitiesImg from "@/assets/XYP-smartcities.jpg";
 
 const features = [
   {
@@ -175,12 +177,16 @@ const Products = () => {
                   name: "XYP Edge Intelligence",
                   tagline: "Real-Time AI Inference on Edge Devices",
                   date: "Coming Q3 2026",
+                  image: xypEdgeImg,
+                  imageAlt: "XYP Edge Intelligence",
                   capabilities: ["Real-time inference", "Sensor data pipelines", "Embedded deployments", "Hardware optimization"],
                 },
                 {
                   name: "XYP Smart Devices",
                   tagline: "Intelligent Physical Automation",
                   date: "Coming Q4 2026",
+                  image: xypSmartCitiesImg,
+                  imageAlt: "XYP Smart Cities & Devices",
                   capabilities: ["Gesture recognition", "Voice control", "Sensor automation", "IoT integration"],
                 },
               ].map((product) => (
@@ -192,8 +198,16 @@ const Products = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                 >
-                  <div className="h-48 bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
-                    <span className="text-3xl font-bold text-primary/20">{product.name}</span>
+                  <div className="h-48 overflow-hidden bg-muted">
+                    <img
+                      src={product.image}
+                      alt={product.imageAlt}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                      width={480}
+                      height={192}
+                    />
                   </div>
                   <div className="p-6">
                     <span className="text-xs font-medium text-accent bg-accent/10 px-2 py-1 rounded">
