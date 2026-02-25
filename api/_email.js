@@ -118,8 +118,8 @@ function buildNotificationHtml(body) {
 /**
  * Parse admin email(s) from env. Supports:
  * - ADMIN_EMAIL=one@example.com
- * - ADMIN_EMAILS=one@example.com,two@example.com
- * - ADMIN_EMAIL=one@example.com,two@example.com (comma-separated)
+ * - ADMIN_EMAILS=one@example.com,two@example.com (comma-separated)
+ * - ADMIN_EMAILS with newlines (e.g. one per line in Vercel env var)
  */
 function getAdminEmails() {
   const raw =
@@ -127,9 +127,9 @@ function getAdminEmails() {
     process.env.ADMIN_EMAIL;
   if (!raw || typeof raw !== "string") return [];
   return raw
-    .split(",")
+    .split(/[\s,]+/)
     .map((e) => e.trim().toLowerCase())
-    .filter((e) => e && e.includes("@"));
+    .filter((e) => e && e.includes("@") && e.length < 256 && !/[\s\n\r]/.test(e));
 }
 
 export async function sendAdminNotification(body) {
@@ -147,13 +147,19 @@ export async function sendAdminNotification(body) {
 
   const resend = new Resend(apiKey);
 
+  // Resend accepts an array for multiple recipients; ensure we pass a clean array
+  const toList = Array.isArray(recipients) ? recipients : [recipients];
+
   const result = await resend.emails.send({
     from: "XYP Quantum AI <onboarding@resend.dev>",
-    to: recipients,
+    to: toList,
     replyTo: body.email,
     subject: getSubject(body),
     html: buildNotificationHtml(body),
   });
 
+  if (result.error) {
+    throw new Error(result.error.message || JSON.stringify(result.error));
+  }
   return result;
 }

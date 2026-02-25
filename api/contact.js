@@ -181,9 +181,13 @@ export default async function handler(req, res) {
     }
 
     if (emailResult.status === "rejected") {
-      console.error("Admin email failed (non-blocking):", emailResult.reason);
+      const err = emailResult.reason;
+      console.error("Admin email failed (non-blocking):", err?.message ?? err);
+      if (err?.stack) console.error(err.stack);
+    } else if (emailResult.value?.error) {
+      console.error("Admin email API error:", emailResult.value.error);
     } else {
-      console.log("Admin email sent:", emailResult.value);
+      console.log("Admin email sent to", process.env.ADMIN_EMAILS || process.env.ADMIN_EMAIL ? "configured recipients" : "n/a");
     }
 
     return res.status(200).json({
