@@ -45,8 +45,8 @@ const AnimatedNumber = ({ value, suffix }: { value: number; suffix: string }) =>
 const StatsSection = () => {
   return (
     <section className="section-dark section-padding">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+      <div className="container mx-auto px-4 lg:px-8 flex justify-center">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 lg:gap-12 w-full max-w-4xl">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
