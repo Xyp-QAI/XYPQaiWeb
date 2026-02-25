@@ -137,11 +137,11 @@ export async function sendAdminNotification(body) {
   const recipients = getAdminEmails();
 
   if (!apiKey) {
-    console.warn("Resend not configured (RESEND_API_KEY missing). Skipping email.");
+    console.error("[Email] RESEND_API_KEY is not set in environment. Add it in Vercel → Settings → Environment Variables.");
     return { skipped: true };
   }
   if (recipients.length === 0) {
-    console.warn("No admin emails configured (ADMIN_EMAIL or ADMIN_EMAILS missing). Skipping email.");
+    console.error("[Email] No admin recipients. Set ADMIN_EMAIL or ADMIN_EMAILS in Vercel → Settings → Environment Variables (e.g. ADMIN_EMAIL=you@example.com).");
     return { skipped: true };
   }
 
@@ -151,7 +151,7 @@ export async function sendAdminNotification(body) {
   const toList = Array.isArray(recipients) ? recipients : [recipients];
 
   const result = await resend.emails.send({
-    from: "XYP Quantum AI <onboarding@resend.dev>",
+    from: process.env.RESEND_FROM || "XYP Quantum AI <onboarding@resend.dev>",
     to: toList,
     replyTo: body.email,
     subject: getSubject(body),

@@ -182,12 +182,14 @@ export default async function handler(req, res) {
 
     if (emailResult.status === "rejected") {
       const err = emailResult.reason;
-      console.error("Admin email failed (non-blocking):", err?.message ?? err);
+      console.error("[Contact] Admin email failed:", err?.message ?? err);
       if (err?.stack) console.error(err.stack);
+    } else if (emailResult.value?.skipped) {
+      console.warn("[Contact] Admin email was skipped (check logs above for RESEND_API_KEY or ADMIN_EMAIL).");
     } else if (emailResult.value?.error) {
-      console.error("Admin email API error:", emailResult.value.error);
+      console.error("[Contact] Resend API error:", emailResult.value.error);
     } else {
-      console.log("Admin email sent to", process.env.ADMIN_EMAILS || process.env.ADMIN_EMAIL ? "configured recipients" : "n/a");
+      console.log("[Contact] Admin notification email sent successfully.");
     }
 
     return res.status(200).json({
