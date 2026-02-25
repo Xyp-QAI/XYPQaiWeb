@@ -11,10 +11,10 @@ const BASE_URL = "https://xypquantum.com";
 
 const SEO = ({
   title,
-  description = "Building the future of intelligent systems — AI, IoT, Computer Vision & Quantum Computing from Bengaluru, India.",
+  description = "XYP Quantum AI – Intelligent Systems from India",
   path = "/",
 }: SEOProps) => {
-  const fullTitle = title ? `${title} | ${SITE}` : `${SITE} — Intelligent Systems from India`;
+  const fullTitle = title ? `${title} | ${SITE}` : SITE;
   const url = `${BASE_URL}${path}`;
 
   return (
