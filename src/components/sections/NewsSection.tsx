@@ -1,36 +1,27 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import dashboardEducation from "@/assets/dashboard-education.jpg";
-import dashboardHealthcare from "@/assets/dashboard-healthcare.jpg";
-import dashboardCities from "@/assets/dashboard-cities.jpg";
+import productShowcaseImg from "@/assets/product-showcase.jpg";
+import xypEdgeImg from "@/assets/XYP-edge.jpg";
+import xypSmartCitiesImg from "@/assets/XYP-smartcities.jpg";
 
 const news = [
   {
     category: "Product Update",
     title: "ZYLOENS Platform v2.5 Launches with Enhanced Analytics",
-    date: "February 10, 2026",
-    excerpt: "New real-time analytics dashboard gives administrators unprecedented insights into institutional performance and student engagement across Indian schools.",
-    image: dashboardEducation,
-    imageAlt: "Education dashboard",
-    link: "/products",
+    image: productShowcaseImg,
+    imageAlt: "ZYLOENS Platform",
   },
   {
     category: "Research",
-    title: "XYP Publishes Breakthrough in Quantum Error Correction",
-    date: "January 28, 2026",
-    excerpt: "Our research team at our Bengaluru lab demonstrates a novel approach to quantum error correction that significantly improves qubit stability.",
-    image: dashboardHealthcare,
-    imageAlt: "Research and healthcare",
-    link: "/technology",
+    title: "XYP Edge Intelligence",
+    image: xypEdgeImg,
+    imageAlt: "XYP Edge Intelligence",
   },
   {
     category: "Press Release",
-    title: "XYP Quantum AI Expands Across 5 Indian States",
-    date: "January 15, 2026",
-    excerpt: "Strategic expansion into Karnataka, Tamil Nadu, Maharashtra, Telangana, and Kerala brings AI-powered learning platforms to over 200 new schools.",
-    image: dashboardCities,
-    imageAlt: "Smart cities expansion",
-    link: "/about",
+    title: "XYP Smart Cities & Devices",
+    image: xypSmartCitiesImg,
+    imageAlt: "XYP Smart Cities",
   },
 ];
 
@@ -59,7 +50,7 @@ const NewsSection = () => {
             </p>
           </div>
           <Link
-            to="/about#about"
+            to="/about"
             className="hidden md:inline-flex text-sm text-primary font-medium hover:underline"
           >
             View All News →
@@ -76,19 +67,17 @@ const NewsSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
             >
-              <Link to={item.link} className="block">
-                <div className="h-48 overflow-hidden bg-muted">
-                  <img
-                    src={item.image}
-                    alt={item.imageAlt}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    loading="lazy"
-                    decoding="async"
-                    width={400}
-                    height={192}
-                  />
-                </div>
-              </Link>
+              <div className="h-48 overflow-hidden bg-muted">
+                <img
+                  src={item.image}
+                  alt={item.imageAlt}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                  width={400}
+                  height={192}
+                />
+              </div>
               <div className="p-6">
                 <span
                   className={`inline-block text-xs font-medium px-2.5 py-1 rounded mb-3 ${categoryColors[item.category] || "bg-muted text-muted-foreground"}`}
@@ -98,13 +87,9 @@ const NewsSection = () => {
                 <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors line-clamp-2">
                   {item.title}
                 </h3>
-                <p className="text-xs text-muted-foreground mb-3">{item.date}</p>
-                <p className="text-sm text-muted-foreground line-clamp-3">
-                  {item.excerpt}
-                </p>
                 <Link
-                  to={item.link}
-                  className="inline-block text-sm text-primary font-medium mt-4 hover:underline"
+                  to="/about"
+                  className="inline-block text-sm text-primary font-medium mt-4"
                 >
                   Read more →
                 </Link>

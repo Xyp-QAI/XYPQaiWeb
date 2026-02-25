@@ -172,7 +172,7 @@ const SolutionsByIndustry = () => {
         </div>
 
         {/* Main content card — all tabs always mounted, crossfade via opacity */}
-        <div className="bg-card border border-border rounded-2xl shadow-lg overflow-hidden min-h-[420px] relative">
+        <div className="bg-card border border-border rounded-2xl shadow-lg overflow-hidden min-h-[480px] relative">
           {industries.map((ind) => {
             const isActive = ind.id === activeId;
             return (
@@ -220,15 +220,17 @@ const SolutionsByIndustry = () => {
                     </Link>
                   </div>
 
-                  {/* Right — dashboard visual */}
+                  {/* Right — dashboard visual: taller container + contain so full image is visible */}
                   <div className="relative bg-secondary/30 flex items-center justify-center p-6 lg:p-10">
-                    <div className="w-full aspect-video rounded-xl overflow-hidden shadow-2xl border border-border">
+                    <div className="w-full min-h-[280px] aspect-[4/3] rounded-xl overflow-hidden shadow-2xl border border-border bg-muted/50 flex items-center justify-center">
                       <img
                         src={ind.image}
                         alt={`${ind.label} dashboard`}
-                        className="w-full h-full object-cover"
-                        loading="eager"
+                        className="w-full h-full object-contain"
+                        loading="lazy"
                         decoding="async"
+                        width={640}
+                        height={480}
                       />
                     </div>
                   </div>

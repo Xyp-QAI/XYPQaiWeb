@@ -113,6 +113,8 @@ const Products = () => {
                   loading="eager"
                   decoding="async"
                   fetchPriority="high"
+                  width={800}
+                  height={450}
                 />
               </motion.div>
               <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
@@ -137,16 +139,18 @@ const Products = () => {
                   className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${i % 2 !== 0 ? "lg:direction-rtl" : ""}`}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: true, margin: "80px" }}
                 >
-                  <div className={`${i % 2 !== 0 ? "lg:order-2" : ""} aspect-video overflow-hidden rounded-lg shadow-lg`}>
+                  <div className={`${i % 2 !== 0 ? "lg:order-2" : ""} aspect-video overflow-hidden rounded-lg shadow-lg bg-muted/30`}>
                     <img
                       src={feature.image}
                       alt={`${feature.title} feature`}
                       className="w-full h-full object-cover"
                       loading={i === 0 ? "eager" : "lazy"}
                       decoding="async"
-                      {...(i === 0 ? { fetchPriority: "high" as const } : {})}
+                      width={800}
+                      height={450}
+                      {...(i === 0 ? { fetchPriority: "high" as const } : { fetchPriority: "low" as const })}
                     />
                   </div>
                   <div className={i % 2 !== 0 ? "lg:order-1" : ""}>
@@ -196,9 +200,9 @@ const Products = () => {
                   className="card-hover border border-border rounded-lg overflow-hidden"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: true, margin: "100px" }}
                 >
-                  <div className="h-48 overflow-hidden bg-muted">
+                  <div className="h-48 overflow-hidden bg-muted [contain:layout]">
                     <img
                       src={product.image}
                       alt={product.imageAlt}
@@ -207,6 +211,7 @@ const Products = () => {
                       decoding="async"
                       width={480}
                       height={192}
+                      fetchPriority="low"
                     />
                   </div>
                   <div className="p-6">
