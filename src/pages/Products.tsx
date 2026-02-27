@@ -7,72 +7,9 @@ import SEO from "@/components/SEO";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/sections/PageHero";
-import { productShowcaseContent, productFeatureImages } from "@/config/content";
+import { productShowcaseContent } from "@/config/content";
 import xypEdgeImg from "@/assets/XYP-edge.jpg";
 import xypSmartCitiesImg from "@/assets/XYP-smartcities.jpg";
-
-const features = [
-  {
-    title: "Student Portfolios",
-    subtitle: "Digital Portfolios & Lifelong Achievement Tracking",
-    description: "Students build comprehensive portfolios showcasing their work, achievements, and growth over time.",
-    bullets: ["Project showcases", "Achievement badges", "Skill tracking", "Multimedia support", "Export capabilities"],
-    image: productFeatureImages.studentPortfolios,
-  },
-  {
-    title: "Teacher Tools",
-    subtitle: "Teacher-Managed Learning Workflows",
-    description: "Empower educators with intuitive tools for class management, assignments, and student engagement.",
-    bullets: ["Class management", "Assignment creation", "Grade tracking", "Parent communication", "Analytics dashboard"],
-    image: productFeatureImages.teacherTools,
-  },
-  {
-    title: "Admin Control",
-    subtitle: "Principal & Administrative Oversight",
-    description: "Comprehensive dashboards for institutional leadership with real-time insights and control.",
-    bullets: ["Institution-wide analytics", "User management", "Compliance tools", "Reporting systems", "Security controls"],
-    image: productFeatureImages.adminControl,
-  },
-  {
-    title: "Growth Analytics",
-    subtitle: "Engagement and Performance Insights",
-    description: "Track student engagement, measure learning outcomes, and gain actionable insights to drive continuous improvement across your institution.",
-    bullets: ["Student engagement metrics", "Performance dashboards", "Progress tracking", "Trend analysis", "Custom reports"],
-    image: productFeatureImages.growthAnalytics,
-  },
-  {
-    title: "Verified Onboarding",
-    subtitle: "Institution Verification and Secure Setup",
-    description: "Streamlined onboarding with built-in institution verification, ensuring only authorized schools and educators access the platform securely.",
-    bullets: ["Institution verification", "Secure registration", "Role assignment", "Guided setup wizard", "Compliance checks"],
-    image: productFeatureImages.verifiedOnboarding,
-  },
-];
-
-const plans = [
-  {
-    name: "Starter",
-    description: "Small schools",
-    price: "₹24,999",
-    period: "/month",
-    features: ["Up to 500 students", "5 admin accounts", "Basic analytics", "Email support", "Core features"],
-  },
-  {
-    name: "Professional",
-    description: "Medium institutions",
-    price: "₹64,999",
-    period: "/month",
-    features: ["Up to 2,000 students", "25 admin accounts", "Advanced analytics", "Priority support", "All features", "API access"],
-    popular: true,
-  },
-  {
-    name: "Enterprise",
-    description: "Large districts",
-    price: "Custom",
-    period: "",
-    features: ["Unlimited students", "Unlimited admins", "Custom analytics", "Dedicated support", "All features", "Full API", "Custom integrations"],
-  },
-];
 
 const Products = () => {
   const location = useLocation();
@@ -99,75 +36,64 @@ const Products = () => {
 
         {/* ZYLOENS Overview */}
         <section id="zyloens" className="section-padding">
-          <div className="container mx-auto px-4 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
-              <motion.div className="aspect-video overflow-hidden rounded-lg shadow-xl"
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-              >
-                <img
-                  src={productShowcaseContent.image}
-                  alt="ZYLOENS Platform"
-                  className="w-full h-full object-cover"
-                  loading="eager"
-                  decoding="async"
-                  fetchPriority="high"
-                  width={800}
-                  height={450}
-                />
-              </motion.div>
-              <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-                <p className="text-sm font-semibold uppercase tracking-wider text-primary mb-2">Flagship Product</p>
-                <h2 className="text-section-sm lg:text-section mb-4">ZYLOENS Platform</h2>
-                <p className="text-body-lg text-muted-foreground mb-6">
-                  A comprehensive school-owned AI platform designed to nurture student creativity,
-                  track achievements, and modernize institutional operations.
-                </p>
-                <div className="flex gap-4">
-                  <Button size="lg" asChild><Link to="/contact">Request Demo</Link></Button>
-                  <Button variant="outline" size="lg">Download Brochure</Button>
-                </div>
-              </motion.div>
-            </div>
+          <div className="container mx-auto px-4 lg:px-8 max-w-5xl">
+            {/* Hero image */}
+            <motion.div
+              className="overflow-hidden rounded-xl shadow-2xl mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <img
+                src={productShowcaseContent.image}
+                alt="ZYLOENS Platform"
+                className="w-full h-auto object-cover"
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
+                width={1200}
+                height={675}
+              />
+            </motion.div>
 
-            {/* Features - Alternating */}
-            <div id="features" className="space-y-24">
-              {features.map((feature, i) => (
-                <motion.div
-                  key={feature.title}
-                  className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${i % 2 !== 0 ? "lg:direction-rtl" : ""}`}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "80px" }}
-                >
-                  <div className={`${i % 2 !== 0 ? "lg:order-2" : ""} aspect-video overflow-hidden rounded-lg shadow-lg bg-muted/30`}>
-                    <img
-                      src={feature.image}
-                      alt={`${feature.title} feature`}
-                      className="w-full h-full object-cover"
-                      loading={i === 0 ? "eager" : "lazy"}
-                      decoding="async"
-                      width={800}
-                      height={450}
-                      {...(i === 0 ? { fetchPriority: "high" as const } : { fetchPriority: "low" as const })}
-                    />
+            {/* Brief */}
+            <motion.div
+              className="text-center max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <p className="text-sm font-semibold uppercase tracking-wider text-primary mb-3">Flagship Product</p>
+              <h2 className="text-section-sm lg:text-section mb-4">ZYLOENS Platform</h2>
+              <p className="text-body-lg text-muted-foreground mb-6">
+                A school-owned AI platform that empowers institutions with student portfolios,
+                teacher-managed workflows, administrative dashboards, and real-time analytics —
+                all built with a privacy-first architecture.
+              </p>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+                {[
+                  "Student Portfolios",
+                  "Teacher Tools",
+                  "Admin Dashboards",
+                  "Real-Time Analytics",
+                ].map((item) => (
+                  <div key={item} className="bg-secondary rounded-lg py-3 px-4">
+                    <p className="text-sm font-medium">{item}</p>
                   </div>
-                  <div className={i % 2 !== 0 ? "lg:order-1" : ""}>
-                    <h3 className="text-2xl font-bold mb-2">{feature.subtitle}</h3>
-                    <p className="text-muted-foreground mb-6">{feature.description}</p>
-                    <ul className="space-y-2">
-                      {feature.bullets.map((b) => (
-                        <li key={b} className="flex items-center gap-2 text-sm">
-                          <Check size={16} className="text-primary shrink-0" />
-                          {b}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+                ))}
+              </div>
+
+              <div className="flex items-center justify-center gap-4">
+                <Button size="lg" asChild>
+                  <Link to="/contact">Request Demo</Link>
+                </Button>
+                <Button variant="outline" size="lg" asChild>
+                  <Link to="/contact">Contact Sales</Link>
+                </Button>
+              </div>
+            </motion.div>
           </div>
         </section>
 

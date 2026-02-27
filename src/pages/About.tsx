@@ -101,7 +101,8 @@ const About = () => {
           </div>
         </section>
 
-        {/* Timeline */}
+        {/* Timeline (temporarily hidden; keep for future use) */}
+        {/*
         <section className="section-alt section-padding">
           <div className="container mx-auto px-4 lg:px-8 max-w-3xl">
             <h2 className="text-section-sm lg:text-section mb-10 text-center">Our Journey</h2>
@@ -126,24 +127,37 @@ const About = () => {
             </div>
           </div>
         </section>
+        */}
 
-        {/* Careers */}
-        <section id="careers" className="section-padding">
-          <div className="container mx-auto px-4 lg:px-8 text-center max-w-3xl">
-            <h2 className="text-section-sm lg:text-section mb-4">Join Our Team</h2>
-            <p className="text-muted-foreground mb-8">
-              We're building the future of AI systems and looking for talented individuals to join our mission.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-              {["Cutting-edge technology", "Research opportunities", "Competitive benefits"].map((b) => (
-                <div key={b} className="bg-secondary rounded-lg p-4">
-                  <p className="text-sm font-medium">{b}</p>
-                </div>
-              ))}
-            </div>
-            <Button size="lg" asChild>
-              <Link to="/contact">View Open Positions <ArrowRight size={16} /></Link>
-            </Button>
+        {/* Build With Us - Production Learning Track */}
+        <section id="build-with-us" className="section-dark section-padding">
+          <div className="container mx-auto px-4 lg:px-8 max-w-3xl text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground/80 mb-3">
+                Production Learning Track
+              </p>
+              <h2 className="text-2xl md:text-3xl lg:text-[32px] font-bold mb-4 text-primary-foreground">
+                Build With Us
+              </h2>
+              <p className="text-body-lg text-primary-foreground/85 mb-4">
+                XYP Quantum AI opens its doors to ambitious freshers who want real startup exposure.
+              </p>
+              <p className="text-sm text-primary-foreground/80 mb-4">
+                Work alongside our team, contribute to live AI systems, and see how products are designed, tested,
+                and deployed into production environments that serve real institutions.
+              </p>
+              <p className="text-sm text-primary-foreground/80 mb-8">
+                We value curiosity, ownership, and an execution mindset over resumes. If you are ready to build — not
+                just study — we would like to hear from you.
+              </p>
+              <Button size="lg" asChild>
+                <Link to="/contact#work-with-us">Apply to Work With Us</Link>
+              </Button>
+            </motion.div>
           </div>
         </section>
       </main>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Phone, MapPin, Clock, Calendar, Handshake, Headphones, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,8 +10,9 @@ import SEO from "@/components/SEO";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/sections/PageHero";
+import { useLocation } from "react-router-dom";
 
-type QuickLinkType = "demo" | "pricing" | "support" | null;
+type QuickLinkType = "demo" | "pricing" | "support" | "work" | null;
 
 // In production (e.g. Vercel) use same-origin /api/contact; in dev use local backend
 const API_URL =
@@ -59,6 +60,7 @@ const Contact = () => {
   const [formData, setFormData] = useState<FormData>({ ...emptyForm });
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const location = useLocation();
 
   const set = (field: keyof FormData) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -66,6 +68,16 @@ const Contact = () => {
 
   const setSelect = (field: keyof FormData) => (value: string) =>
     setFormData((prev) => ({ ...prev, [field]: value }));
+
+  // Auto-open the \"Apply to Work With Us\" track when navigated with #work-with-us
+  useEffect(() => {
+    if (location.hash === "#work-with-us") {
+      setActiveQuickLink("work");
+      setSubmitted(false);
+      setQuickLinkSubmitted(null);
+      setFormData({ ...emptyForm });
+    }
+  }, [location]);
 
   async function submitToBackend(formType: string) {
     setLoading(true);
@@ -124,7 +136,7 @@ const Contact = () => {
         />
 
         {/* Contact Form + Info */}
-        <section className="section-padding">
+        <section id="work-with-us" className="section-padding">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
               {/* Form Area */}
@@ -161,6 +173,7 @@ const Contact = () => {
                           {activeQuickLink === "demo" && "Book a Demo"}
                           {activeQuickLink === "pricing" && "Request Pricing"}
                           {activeQuickLink === "support" && "Technical Support"}
+                          {activeQuickLink === "work" && "Apply to Work With Us"}
                         </h3>
                         <button
                           onClick={() => setActiveQuickLink(null)}
@@ -391,6 +404,7 @@ const Contact = () => {
                       { label: "Book a Demo", key: "demo" as QuickLinkType },
                       { label: "Request Pricing", key: "pricing" as QuickLinkType },
                       { label: "Technical Support", key: "support" as QuickLinkType },
+                      { label: "Apply to Work With Us", key: "work" as QuickLinkType },
                     ]).map((link) => (
                       <button
                         key={link.label}

@@ -7,7 +7,7 @@ import xypSmartCitiesImg from "@/assets/XYP-smartcities.jpg";
 const news = [
   {
     category: "Product Update",
-    title: "ZYLOENS Platform v2.5 Launches with Enhanced Analytics",
+    title: "ZYLOENS Platform – Analytics Overview",
     image: productShowcaseImg,
     imageAlt: "ZYLOENS Platform",
   },
