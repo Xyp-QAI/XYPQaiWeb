@@ -26,6 +26,10 @@ interface FormData {
   company: string;
   subject: string;
   message: string;
+  domainInterest: string;
+  experienceLevel: string;
+  currentRole: string;
+  availability: string;
   preferredDate: string;
   attendees: string;
   productOfInterest: string;
@@ -43,6 +47,10 @@ const emptyForm: FormData = {
   company: "",
   subject: "",
   message: "",
+  domainInterest: "",
+  experienceLevel: "",
+  currentRole: "",
+  availability: "",
   preferredDate: "",
   attendees: "",
   productOfInterest: "",
@@ -272,6 +280,48 @@ const Contact = () => {
                                   </SelectContent>
                                 </Select>
                               </div>
+                            </div>
+                          </>
+                        )}
+
+                        {/* Work-with-us specific fields */}
+                        {activeQuickLink === "work" && (
+                          <>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                              <div>
+                                <label className="text-sm font-medium mb-1.5 block">Primary Domain of Interest *</label>
+                                <Input
+                                  required
+                                  placeholder="e.g. AI & ML, Computer Vision, Edge / IoT, Platform, Research"
+                                  value={formData.domainInterest}
+                                  onChange={set("domainInterest")}
+                                />
+                              </div>
+                              <div>
+                                <label className="text-sm font-medium mb-1.5 block">Experience Level *</label>
+                                <Input
+                                  required
+                                  placeholder="e.g. Student / Fresher, 1–3 years, 6+ years"
+                                  value={formData.experienceLevel}
+                                  onChange={set("experienceLevel")}
+                                />
+                              </div>
+                            </div>
+                            <div>
+                              <label className="text-sm font-medium mb-1.5 block">Current Role / Status</label>
+                              <Input
+                                placeholder="e.g. Final-year student, Software Engineer"
+                                value={formData.currentRole}
+                                onChange={set("currentRole")}
+                              />
+                            </div>
+                            <div>
+                              <label className="text-sm font-medium mb-1.5 block">Availability</label>
+                              <Input
+                                placeholder="e.g. Full-time from June, 20 hours/week, internship only"
+                                value={formData.availability}
+                                onChange={set("availability")}
+                              />
                             </div>
                           </>
                         )}
