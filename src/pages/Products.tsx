@@ -38,22 +38,22 @@ const Products = () => {
         {/* ZYLOENS Overview */}
         <section id="zyloens" className="section-padding">
           <div className="container mx-auto px-4 lg:px-8 max-w-5xl">
-            {/* Hero image */}
+            {/* Hero image — lazy + async decode so it doesn't block initial render */}
             <motion.div
-              className="overflow-hidden rounded-xl shadow-2xl mb-12"
+              className="overflow-hidden rounded-xl shadow-2xl mb-12 aspect-video bg-muted/30"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "100px" }}
             >
               <img
                 src={productDisplayImg}
                 alt="ZYLOENS Platform"
-                className="w-full h-auto object-cover"
-                loading="eager"
+                className="w-full h-full object-cover"
+                loading="lazy"
                 decoding="async"
-                fetchPriority="high"
                 width={1200}
                 height={675}
+                sizes="(max-width: 1024px) 100vw, 1024px"
               />
             </motion.div>
 
