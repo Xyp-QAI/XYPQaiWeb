@@ -8,6 +8,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/sections/PageHero";
 import { productShowcaseContent } from "@/config/content";
+import productDisplayImg from "@/assets/productdisplay.jpg";
 import xypEdgeImg from "@/assets/XYP-edge.jpg";
 import xypSmartCitiesImg from "@/assets/XYP-smartcities.jpg";
 
@@ -45,7 +46,7 @@ const Products = () => {
               viewport={{ once: true }}
             >
               <img
-                src={productShowcaseContent.image}
+                src={productDisplayImg}
                 alt="ZYLOENS Platform"
                 className="w-full h-auto object-cover"
                 loading="eager"
