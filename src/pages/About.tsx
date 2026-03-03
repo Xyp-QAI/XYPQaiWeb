@@ -34,7 +34,7 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO title="About Us" description="Deep-tech company building intelligent systems across education, infrastructure, and quantum research. Founded in Bengaluru." path="/about" />
+      <SEO fullTitle="About XYP Quantum AI" description="Deep-tech company building intelligent systems across education, infrastructure, and quantum research. Founded in Bengaluru." path="/about" />
       <Navbar />
       <main>
         <PageHero

@@ -15,7 +15,7 @@ import CTASection from "@/components/sections/CTASection";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
-      <SEO path="/" />
+      <SEO fullTitle="XYP Quantum AI | AI Products & Advanced Technology" description="XYP Quantum AI builds intelligent AI products, advanced technology systems, and scalable startup solutions for real-world innovation." path="/" />
       <Navbar />
       <main>
         <HeroSection />

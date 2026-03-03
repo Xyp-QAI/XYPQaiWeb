@@ -31,7 +31,7 @@ const Technology = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO title="Technology & Solutions" description="AI, Computer Vision, Edge Computing, IoT & Quantum Research — advanced technology solutions from XYP Quantum AI." path="/technology" />
+      <SEO title="Technology & Innovation" description="AI, Computer Vision, Edge Computing, IoT and quantum research — advanced technology and innovation from XYP Quantum AI." path="/technology" />
       <Navbar />
       <main>
         <PageHero

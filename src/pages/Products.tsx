@@ -27,7 +27,7 @@ const Products = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO title="Products & Platforms" description="ZYLOENS AI platform for education — student portfolios, teacher tools, admin dashboards. Built in Bengaluru." path="/products" />
+      <SEO title="AI Products" description="Explore ZYLOENS and AI products from XYP Quantum AI — education platforms, intelligent systems, and scalable solutions." path="/products" />
       <Navbar />
       <main>
         <PageHero

@@ -51,6 +51,8 @@ export function ProfileCarousel({ profiles, className }: ProfileCarouselProps) {
                 src={current.imageUrl}
                 alt={current.name}
                 className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
             </motion.div>
           </AnimatePresence>
@@ -104,6 +106,8 @@ export function ProfileCarousel({ profiles, className }: ProfileCarouselProps) {
                 src={current.imageUrl}
                 alt={current.name}
                 className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="bg-card border border-border rounded-lg p-6 text-center w-full">

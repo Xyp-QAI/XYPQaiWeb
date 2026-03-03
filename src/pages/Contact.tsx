@@ -91,8 +91,7 @@ const Contact = () => {
     setLoading(true);
     try {
       const payload = { ...formData, formType };
-      console.log(`Submitting ${formType} form with data:`, payload);
-      
+
       const res = await fetch(`${API_URL}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -100,7 +99,6 @@ const Contact = () => {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Submission failed");
-      console.log(`✓ ${formType} form submitted successfully`);
       return true;
     } catch (err: any) {
       toast({
