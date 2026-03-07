@@ -1,9 +1,6 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "redirects": [
-    { "source": "/favicon.ico", "destination": "/favicon.png", "permanent": false }
-  ],
   "rewrites": [
     { "source": "/((?!api).*)", "destination": "/index.html" }
   ],
