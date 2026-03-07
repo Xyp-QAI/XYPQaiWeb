@@ -61,6 +61,12 @@ const HeroSection = () => {
               {heroContent.cta.label}
               <ChevronRight size={18} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>
+            <nav className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-1 text-sm text-muted-foreground" aria-label="Main pages">
+              <Link to="/products" className="hover:text-primary transition-colors">Products</Link>
+              <Link to="/technology" className="hover:text-primary transition-colors">Technology</Link>
+              <Link to="/about" className="hover:text-primary transition-colors">Company</Link>
+              <Link to="/contact" className="hover:text-primary transition-colors">Contact</Link>
+            </nav>
           </motion.div>
         </div>
       </div>
