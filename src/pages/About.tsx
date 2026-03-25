@@ -54,7 +54,7 @@ const About = () => {
               We are a deep-tech company building intelligent systems across education, infrastructure, perception AI, and future quantum research.
             </motion.h2>
             <p className="text-body-lg text-muted-foreground">
-              Founded in 2020 in Bengaluru, XYP Quantum AI is dedicated to creating responsible, scalable AI solutions
+              Founded in 2026 in Bengaluru, XYP Quantum AI is dedicated to creating responsible, scalable AI solutions
               that transform institutions and advance cutting-edge research. Our multidisciplinary team
               combines expertise in machine learning, computer vision, IoT, and quantum computing.
             </p>
